@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="841.89px" height="595.281px" viewBox="0 0 841.89 595.281" enable-background="new 0 0 841.89 595.281"
+	 xml:space="preserve">
+<g>
+	<g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<polygon id="SVGID_1_" points="22.428,81.093 858.837,81.093 858.837,529.977 59.428,529.977 						"/>
+					</defs>
+					<clipPath id="SVGID_2_">
+						<use xlink:href="#SVGID_1_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_2_)" fill="none" stroke="#435463" stroke-width="30" d="M131.699,153.484
+						c0,0-60.854,0-60.854,60.866v243.365c0,0,0,60.895,60.854,60.895h585.607c0,0,60.842,0,60.842-60.895V214.35
+						c0,0,0-60.866-60.842-60.866H131.699z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<polygon id="SVGID_3_" points="22.428,81.093 858.837,81.093 854.445,549.141 17.445,543.141 						"/>
+					</defs>
+					<clipPath id="SVGID_4_">
+						<use xlink:href="#SVGID_3_"  overflow="visible"/>
+					</clipPath>
+					<polyline clip-path="url(#SVGID_4_)" fill="none" stroke="#435463" stroke-width="30" points="103.53,163.347 422.947,482.789 
+						751.992,157.747 					"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+<g>
+	<defs>
+		<polygon id="SVGID_5_" points="633.445,243.141 825.445,249.141 825.445,65.141 640.445,70.141 		"/>
+	</defs>
+	<clipPath id="SVGID_6_">
+		<use xlink:href="#SVGID_5_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_6_)" fill="#FF0000" d="M733.532,231.612c43.349,0,78.45-35.119,78.45-78.439
+		c0-43.339-35.102-78.459-78.45-78.459c-43.33,0-78.439,35.12-78.439,78.459C655.092,196.493,690.202,231.612,733.532,231.612"/>
+	<path clip-path="url(#SVGID_6_)" fill="none" stroke="#FFFFFF" stroke-width="12" d="M733.532,231.612
+		c43.349,0,78.45-35.119,78.45-78.439c0-43.339-35.102-78.459-78.45-78.459c-43.33,0-78.439,35.12-78.439,78.459
+		C655.092,196.493,690.202,231.612,733.532,231.612z"/>
+</g>
+</svg>

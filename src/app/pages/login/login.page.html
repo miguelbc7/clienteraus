@@ -1,0 +1,61 @@
+<ion-content class="vh100">
+  <div class="ion-text-center boxLogo">
+    <img class="logoImg" src="assets/img/logo-raus.png" alt="logotipo">
+    <p class="blue-dark">..The way you like</p>
+  </div>
+  <form [formGroup]="login_form"  (ngSubmit)="onSubmit(login_form.value)">
+      <div class="ion-margin-horizontal boxForm">
+          <ion-item class="ion-no-padding">
+            <ion-label class="font14" position="floating">Correo / Teléfono</ion-label>
+            <ion-input formControlName="username" clearInput="true" type="text" [(ngModel)]="username2"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.username">
+                <div class="error-message" *ngIf="login_form.get('username').hasError(validation.type) && (login_form.get('username').dirty || login_form.get('username').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+          <ion-item class="ion-no-padding">
+            <ion-label class="font14" position="floating">Contraseña</ion-label>
+            <ion-input formControlName="password"  [type]="passwordType"></ion-input>
+            <ion-icon [name]="passwordShown === true ? 'eye-off' : 'eye'" [color]="passwordShown === true ? 'bluelight' : 'bluedark' " slot="end" align-self-end (click)="togglePassword()"></ion-icon>
+          </ion-item>
+          <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.password">
+                <div class="error-message" *ngIf="login_form.get('password').hasError(validation.type) && (login_form.get('password').dirty || login_form.get('password').touched)">
+                  <!-- <ion-icon name="information-circle-outline"></ion-icon>  -->
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+          <div class="ion-text-right">
+            <ion-button class="font14 blue-dark" fill="clear" (click)="newPassword()">Nueva contraseña</ion-button>
+          </div>
+      </div>
+  
+  <ion-row class="marginButtonTop">
+    <ion-col size="12" class="ion-text-center">
+        <ion-button type="submit" [disabled]="!login_form.valid" class="font15" color="bluelight" >Entrar</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row class="btnNuevo">
+      <ion-col size="12" class="ion-text-center">
+          <ion-button class="font15" color="bluedark"   routerLink="/welcome">Primera Vez</ion-button>
+      </ion-col>
+   </ion-row>
+   <!-- [disabled]="!login_form.get('username').valid" -->
+</form>
+ <ion-toolbar class="footerBottom">
+    <ion-grid class="ion-no-padding">
+      <ion-row  style="margin:0px 2px">
+          <ion-col size="6">
+              <p class="font11 blue-dark  ion-text-wrap mb-0" fill="cler" (click)="presentPoliticas()">Políticas <br> de privacidad</p>
+          </ion-col>
+          <ion-col size="6">
+              <p class="font11 blue-dark  ion-text-wrap mb-0" fill="cler" (click)="presentTerminos()">Terminos y condiciones<br class="displayLg"> del servicio</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-toolbar>
+</ion-content>

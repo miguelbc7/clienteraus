@@ -1,0 +1,859 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+.input-cover {
+  position: static;
+}
+
+.error-message
+{
+  color:#c70000;
+  font-size: 14px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.titleHeader {
+    font-size: 18pt;
+    color:#4e5d6a;
+}
+
+.iconHeader {
+    font-size: 50pt;
+    color:#4e5d6a;
+}
+
+.iconHeader2 {
+   font-size: 70pt;
+    color:#4e5d6a; 
+}
+
+.backHeader{
+    position: absolute;
+    top: 2%;
+    font-size: 45px;
+    left: 5%;
+    z-index: 2;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+// padding
+
+.pt-2 {
+    padding-top: .5rem;
+}
+
+
+// no-padding
+
+.px-0 {
+    padding-left:0px;
+    padding-right:0px;
+}
+
+.py-0 {
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
+// no-margin
+
+
+.my-0 {
+    margin-top:0px;
+    margin-bottom: 0px;
+}
+
+.mr-2 {
+    margin-right: .3rem;
+}
+
+.mx-2 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+// Colores
+
+
+.blue-light2 {
+    color: #a0a9c0;
+}
+
+.blue-light {
+    color: #89acdb;
+}
+
+.blue-dark {
+    color:#657b9f;
+}
+.text-historial {
+    color:#494947;
+}
+
+.text-dorado {
+    color:#958659 !important;
+}
+
+.blue-dark2{
+    color: #4e5d6a !important;
+}
+.promo-color{
+    color: #e6a430;
+}
+.bgHorarios {
+    background-color: #fafaf0;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+// Fuentes
+
+.font7 {
+    font-size: 7pt !important;
+}
+
+.font8 {
+    font-size: 8pt !important;
+}
+.font12-8{
+    font-size: 12.8px !important;
+}
+.font13{
+    font-size: 13pt !important;
+}
+.font9{
+    font-size: 9pt !important;
+}
+
+.font10 {
+    font-size: 10pt !important;
+}
+
+.font11 {
+    font-size: 11pt !important;
+}
+
+.font12 {
+    font-size: 12pt !important;
+}
+
+.font14{
+    font-size: 14pt !important;
+}
+
+.font15{
+    font-size: 15pt !important;
+}
+
+.font16{
+    font-size: 16pt !important;
+}
+
+.font18{
+    font-size: 18pt !important;
+}
+
+.font20{
+    font-size: 20pt !important;
+}
+
+.font24 {
+    font-size: 24pt !important;
+}
+.font25{
+    font-size: 25pt !important
+}
+
+.font27 {
+    font-size: 27pt !important;
+}
+
+.font30 {
+    font-size: 30pt !important;
+}
+
+.font36 {
+    font-size: 36pt !important;
+}
+
+.font40 {
+    font-size: 40pt !important;
+}
+
+.font60 {
+    font-size: 60pt !important;
+}
+
+// CARTAS
+
+.customCard {
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    border: 1px solid #ccc;
+}
+.customCard2 {
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    border-top:0px;
+    border-left:0px;
+    border-right: 0px;
+    max-height: 170px;
+    overflow-y: auto;
+    border-bottom:1px solid #ccc;
+}
+
+.card-content-md {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 3px;
+}
+
+.imgCarta {
+    width: 100%;
+    height: 130px;
+}
+
+.imgCarta2 {
+    width: 100%;
+    height: 120px;
+}
+
+// Modals
+
+.imgPreviuw {
+    width: auto;
+    max-height:450px;
+    max-width: 100%;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.boxImg {
+    display: flex;
+    justify-content: center;
+}
+
+.btnNuevoGuardar {
+    position: absolute;
+    top: 88%;
+    left: 37%;
+}
+
+.btnNuevo {
+    margin-top: 5%;
+}
+
+// Menu Restaurante
+
+.imgBanner {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 230px !important;
+}
+
+.divWhite {
+    width: 100%;
+    height: 100%;
+    min-height: 230px;
+    max-height: 230px;
+    position: relative;
+    // background-color: #fff;
+    z-index: 2;
+}
+
+.addPhoto {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    // width: 60px;
+    // height: 60px;
+    border:3px solid #fff;
+    padding: 2px;
+    border-radius: 30px;
+    z-index: 2;
+}
+
+.addIcon {
+    position: relative;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    margin:auto;
+    font-size: 110pt;
+    z-index: 2;
+}
+
+.boxBanner {
+    position: relative;
+}
+
+.divEdit {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    top: 70%;
+    border:3px solid #fff;
+    padding: 2px;
+    background-color: #657b97;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+.iconEditBanner {
+    position: relative;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    margin:auto;
+    font-size: 22pt;
+}
+
+.divEditCard {
+    position: absolute;
+    // width: 30px;
+    // height: 30px;
+    right: -7px;
+    top: 55%;
+    // border:3px solid #fff;
+    padding: 2px;
+    // background-color: #657b97;
+    border-radius: 15px;
+    z-index: 2;
+}
+
+.iconEditCard {
+    position: relative;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    margin:auto;
+    font-size: 4rem;
+}
+
+.imgMap {
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    object-fit: cover;
+}
+
+
+
+.hgPCarta {
+    line-height: 1 !important;
+}
+
+.decimalCarta {
+    position: relative;
+    top: 5px;
+}
+
+// ITEM TAGS
+
+tag-input .ng2-tag-input.minimal-theme {
+    // color:red !important;
+    width: 100% !important;
+    text-align: center;
+}
+
+
+// IPAD
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    h3  {
+        font-size: 2rem;
+    }
+  
+    .font15{
+        font-size: 23pt !important;
+    }
+    
+    .font14{
+        font-size: 21pt !important;
+    }
+    
+    .font12 {
+        font-size: 20pt !important;
+    }
+
+    .font24 {
+        font-size: 34pt !important;
+    }
+
+    .ios ion-button {
+        --border-radius: 0px !important;
+        --box-shadow: none;
+        text-transform:none;
+        --padding-start: 15px !important;
+        --padding-end: 15px !important;
+        --padding-top: 15px !important;
+        --padding-bottom: 15px !important;
+        height: auto;
+      }
+    
+  }
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+  
+    .font15{
+        font-size: 20pt !important;
+    }
+    
+    .font14{
+        font-size: 19pt !important;
+    }
+    
+    .font12 {
+        font-size: 17pt !important;
+    }
+
+    .font24 {
+        font-size: 28pt !important;
+    }
+    
+  }
+
+  
+  @media (min-width: 481px) and (max-width: 767px) and (min-height: 700px) and (max-height: 991px) {
+  
+    .font15{
+        font-size: 20pt !important;
+    }
+    
+    .font14{
+        font-size: 19pt !important;
+    }
+    
+    .font12 {
+        font-size: 17pt !important;
+    }
+
+    .font24 {
+        font-size: 29pt !important;
+    }
+    
+  }
+
+@media only screen and (min-width: 320px) and (max-width: 400px) and (max-height: 599px) {
+    .font15{
+        font-size: 13pt !important;
+    }
+    
+    .font14{
+        font-size: 12pt !important;
+    }
+    
+    .font12 {
+        font-size: 10pt !important;
+    }
+
+    .font24 {
+        font-size: 21pt !important;
+    }
+
+    .font30 {
+        font-size: 20pt !important;
+    }
+    
+    
+}
+
+// Generales
+
+body {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.vh100 {
+    height: 100vh;
+}
+ion-icon.iconGigant {
+    font-size: 12.5em;
+}
+
+ion-icon.iconGigant2 {
+    font-size: 15em;
+}
+
+ion-label{
+    color: #d4d8c3 !important;
+    font-size: 14pt !important;
+}
+
+ion-datetime {
+    color: #d4d8c3 !important;
+    font-size: 14pt !important;
+}
+
+
+.label-floating.sc-ion-label-md-h,
+.label-stacked.sc-ion-label-md-h {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0px;
+    margin-bottom: -5px;
+    padding-bottom: 7px;
+}
+
+.itemSeparado {
+    padding-bottom: 0px !important;
+}
+
+.input-clear-icon.sc-ion-input-md {
+    background-image: url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><polygon%20fill='var(--ion-color-step-600,%20%23666666)'%20points='405,136.798%20375.202,107%20256,226.202%20136.798,107%20107,136.798%20226.202,256%20107,375.202%20136.798,405%20256,285.798%20375.202,405%20405,375.202%20285.798,256'/></svg>");
+    width: 25px;
+    height: 25px;
+    background-size: 22px;
+}
+
+.sc-ion-input-md-h {
+    --padding-top: 0px;
+    --padding-end: 0;
+    --padding-bottom: 0px;
+    --padding-start: 0px;
+    font-size: inherit;
+}
+
+.item-label-floating .sc-ion-input-md-h,
+.item-label-floating .sc-ion-input-md-h,
+.item-label-stacked.sc-ion-input-md-h,
+.item-label-stacked.sc-ion-input-md-h {
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --padding-start: 0;
+}
+
+.input-clear-icon.sc-ion-input-ios {
+    background-image: url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><polygon%20fill='var(--ion-color-step-600,%20%23666666)'%20points='405,136.798%20375.202,107%20256,226.202%20136.798,107%20107,136.798%20226.202,256%20107,375.202%20136.798,405%20256,285.798%20375.202,405%20405,375.202%20285.798,256'/></svg>");
+    width: 25px;
+    height: 25px;
+    background-size: 22px;
+}
+
+.sc-ion-input-ios-h {
+    --padding-top: 3px;
+    --padding-end: 0;
+    --padding-bottom: 3px;
+    --padding-start: 3px;
+    font-size: inherit;
+}
+
+.item-label-floating.sc-ion-input-ios-h,
+.item-label-floating .sc-ion-input-ios-h,
+.item-label-stacked.sc-ion-input-ios-h,
+.item-label-stacked .sc-ion-input-ios-h {
+    --padding-top: 3px;
+    --padding-bottom: 3px;
+    --padding-start: 0;
+}
+
+.item-has-focus.label-floating.sc-ion-label-md-h,
+.item-has-focus .label-floating.sc-ion-label-md-h,
+.item-has-placeholder.label-floating.sc-ion-label-md-h,
+.item-has-placeholder .label-floating.sc-ion-label-md-h,
+.item-has-value.label-floating.sc-ion-label-md-h,
+.item-has-value .label-floating.sc-ion-label-md-h {
+    -webkit-transform: translate3d(0,20%,0) scale(.75);
+    transform: translate3d(0,20%,0) scale(.75);
+}
+.native-input.sc-ion-input-ios {
+    padding-left: unset;
+    padding-right: unset;
+    -webkit-padding-start: var(--padding-start);
+    padding-inline-start: var(--padding-start);
+    -webkit-padding-end: var(--padding-end);
+    padding-inline-end: var(--padding-end);
+    padding-bottom: 5px;
+}
+.ion-no-padding3px{
+    --padding-start: 4px;
+    --padding-end: 4px;
+    --padding-top: 4px;
+    --padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.boxBottom {
+    position: absolute; bottom: 20px;
+}
+
+.sc-ion-action-sheet-md-h {
+    --color: initial;
+    --min-width: auto;
+    --width: 100%;
+    --max-width: 500px;
+    --min-height: auto;
+    --height: 100%;
+    --max-height: 50%;
+}
+
+
+
+ion-textarea.textareaCustom{
+    --padding-start: 0px !important;
+}
+
+
+// Tamaño de modales Variados
+
+.modalBack {
+    font-size: 25pt;
+    position: absolute;
+    // margin-top: 30px;
+    z-index: 2;
+}
+
+.sizeCodigo .modal-wrapper {
+    height: 200px;
+    width: 90%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+.sizeModal .modal-wrapper {
+    height: 270px;
+    width: 65%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+ .sizeModalPlanes .modal-wrapper {
+    height: auto;
+    max-height: 570px;
+    width: 95%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+ .sizeModalPromocion .modal-wrapper {
+    height: auto;
+    max-height: 75%;
+    width: 90%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+ .sizeModalAvatar .modal-wrapper {
+    height: 300px;
+    width: 300px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+ .sizeModalDireccion .modal-wrapper {
+    height: auto;
+    max-height: 250px;
+    width: 300px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+ .sizeModalPromo1 .modal-wrapper {
+    height: auto;
+    max-height: 70%;
+    width: 300px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+ .sizeModalAgregarProducto .modal-wrapper {
+    height: auto;
+    max-height: 56%;
+    width: 310px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+ .sizeModalAgregarTajerta .modal-wrapper {
+    height: 350px;
+    max-height: 350px;
+    width: 90%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+ .sizeModalAgregarListo .modal-wrapper {
+    height: auto;
+    max-height: 55%;
+    width: 310px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+ .sizeModalConfirmacion .modal-wrapper {
+    height: auto;
+    max-height: 35%;
+    width: 310px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+ .sizeModalDineroModal .modal-wrapper {
+    height: auto;
+    max-height: 30%;
+    width: 310px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+ .sizeModalCierreModal .modal-wrapper {
+    height: auto;
+    max-height: 90%;
+    width: 90%;
+    min-width: 310px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow-y: auto;
+ }
+
+ .sizeModalProductoCreado .modal-wrapper {
+    height: auto;
+    max-height: 30%;
+    width: 310px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+ .sizeModalHorario .modal-wrapper {
+    height: auto;
+    max-height:340px;
+    width: 310px;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+ }
+
+
+
+ .xModal {
+    position: absolute; right: 10px; top: 10px;
+ }
