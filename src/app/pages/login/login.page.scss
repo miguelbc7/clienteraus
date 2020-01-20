@@ -50,6 +50,21 @@
     right: 0;
 }
 
+.bodyLogin{
+    &__label{
+        padding-bottom: 10px;
+        font-size: 18px !important;
+    }
+    &__input{
+        font-size: 16px;
+    }
+
+    .error-message{
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+}
+
 // IPAD
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -78,32 +93,6 @@
     }
     
   }
-
-// @media only screen and (min-width: 400px) and (min-height: 600px) and (min-height: 700px) {
-//     .logoImg {
-//         width: 45%;
-//         height: auto;
-//         text-align: center;
-//         margin-top: 5%;
-//     }
-
-//     .boxLogo p {
-//         font-size: 1.3em;
-//     }
-
-//     .boxForm {
-//         margin-top: 3%;
-//     }
-    
-//     .marginButtonTop {
-//         margin-top: 3% !important;
-//     }
-    
-//     .btnNuevo {
-//         margin-top: 3%;
-//     }
-    
-// }
 
 @media (min-width: 481px) and (max-width: 767px) {
   

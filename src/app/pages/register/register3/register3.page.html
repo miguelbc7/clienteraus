@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content>
+<ion-content class="bodyRegister">
     <div class="ion-text-center boxLogo">
         <img class="logoImg" src="assets/img/logo-raus.png" alt="logotipo">
         <p class="blue-dark">..The way you like</p>
@@ -48,9 +48,18 @@
               </ion-row>
             </ion-grid>
           </div>
+          <div class="boxInputs">
+            <div class="dFlex">
+              <input type="number" placeholder="*">
+              <input type="number" placeholder="*">
+              <input type="number" placeholder="*">
+              <input type="number" placeholder="*">
+            </div>
+            <p>te llegará via sms y e-mail</p>
+          </div>
       <div class="ion-text-center">
           <ion-button type="submit"  class="font15" color="bluedark" (click)='modalCodigo()'>
-            Confirmar
+            Confirmar e ir a Raus
           </ion-button>
       </div>
     </form> 

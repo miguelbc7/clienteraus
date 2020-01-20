@@ -13,6 +13,17 @@
     margin-top: 2.5rem;
 }
 
+.bodyRegister{
+    .ion-margin-vertical{
+        margin: 10px auto 5px;
+        ion-label{
+            font-size: 16px !important;
+        }
+    }
+}
+
+
+
 // IPAD
 
 @media (min-width: 768px) and (max-width: 1024px) {

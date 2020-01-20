@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ModalPoliticasPage } from '../modals/modal-politicas/modal-politicas.page';
 import { ModalTerminosPage } from '../modals/modal-terminos/modal-terminos.page';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginPage implements OnInit {
 
