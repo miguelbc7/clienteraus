@@ -2,14 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { ModalPoliticasPage } from '../../modals/modal-politicas/modal-politicas.page';
+/* import { ModalPoliticasPage } from '../../modals/modal-politicas/modal-politicas.page';
 import { ModalTerminosPage } from '../../modals/modal-terminos/modal-terminos.page';
-import { ModalCodigoPage } from '../../modals/modal-codigo/modal-codigo.page';
+import { ModalCodigoPage } from '../../modals/modal-codigo/modal-codigo.page'; */
 
 import { SharedModule } from '../../sharedmodals/shared.module';
-
 import { IonicModule } from '@ionic/angular';
-
 import { Register3Page } from './register3.page';
 
 const routes: Routes = [
@@ -30,15 +28,15 @@ const routes: Routes = [
   ],
   declarations: [
     Register3Page,
-    ModalPoliticasPage,
+   /*  ModalPoliticasPage,
     ModalTerminosPage,
-    ModalCodigoPage
+    ModalCodigoPage */
 
   ],
   entryComponents: [
-    ModalPoliticasPage,
+    /* ModalPoliticasPage,
     ModalTerminosPage,
-    ModalCodigoPage
+    ModalCodigoPage */
   ]
 })
 export class Register3PageModule {}

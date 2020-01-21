@@ -9,64 +9,64 @@
         <img class="logoImg" src="assets/img/logo-raus.png" alt="logotipo">
         <p class="blue-dark">..The way you like</p>
     </div>
-      <form [formGroup]="register1"  (ngSubmit)="onSubmit(register1.value)" class="ion-margin-horizontal">
-          <div class="ion-margin-vertical">
-              <ion-item class="ion-no-padding">
-                <ion-label class="font14" position="floating">Nombre</ion-label>
-                <ion-input formControlName="name" clearInput="true" type="text"></ion-input>
-              </ion-item>
-          </div>
-          <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.name">
-                <div class="error-message" *ngIf="register1.get('name').hasError(validation.type) && (register1.get('name').dirty || register1.get('name').touched)">
-                  {{ validation.message }}
-                </div>
-              </ng-container>
-            </div>
-          <div class="ion-margin-vertical">
-              <ion-item class="ion-no-padding">
-                <ion-label class="font14" position="floating">Apellidos</ion-label>
-                <ion-input formControlName="lastname" clearInput="true" type="text"></ion-input>
-              </ion-item>
-          </div>
-          <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.name">
-                <div class="error-message" *ngIf="register1.get('lastname').hasError(validation.type) && (register1.get('lastname').dirty || register1.get('lastname').touched)">
-                  {{ validation.message }}
-                </div>
-              </ng-container>
-            </div>
-          <div class="ion-margin-vertical">
-              <ion-item class="ion-no-padding">
-                <ion-label class="font14" position="floating">Dni</ion-label>
-                <ion-input formControlName="dni" clearInput="true" type="text"></ion-input>
-              </ion-item>
-          </div>
-          <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.name">
-                <div class="error-message" *ngIf="register1.get('dni').hasError(validation.type) && (register1.get('dni').dirty || register1.get('dni').touched)">
-                  {{ validation.message }}
-                </div>
-              </ng-container>
-            </div>
-          <div class="ion-margin-vertical">
-              <ion-item class="ion-no-padding">
-                  <ion-label class="font14" position="floating">Fecha de nacimiento día / mes / año</ion-label>
-                  <ion-datetime formControlName="birthdate" class="ion-no-padding3px" displayFormat="D / MM / YYYY" value=""></ion-datetime>
-                </ion-item>
-          </div>
-          <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.name">
-                <div class="error-message" *ngIf="register1.get('birthdate').hasError(validation.type) && (register1.get('birthdate').dirty || register1.get('birthdate').touched)">
-                  {{ validation.message }}
-                </div>
-              </ng-container>
-            </div>
-          <br>
-          <div class="ion-text-center">
-            <ion-button type="submit" class="font15" [disabled]="!register1.valid"  color="bluedark">
-              Siguiente
-            </ion-button>
-          </div>
-        </form>
+	<form [formGroup]="register1" (ngSubmit)="onSubmit(register1.value)" class="ion-margin-horizontal">
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">Nombre</ion-label>
+				<ion-input formControlName="name" clearInput="true" type="text"></ion-input>
+			</ion-item>
+		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.name">
+				<div class="error-message" *ngIf="register1.get('name').hasError(validation.type) && (register1.get('name').dirty || register1.get('name').touched)">
+				{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">Apellidos</ion-label>
+				<ion-input formControlName="lastname" clearInput="true" type="text"></ion-input>
+			</ion-item>
+		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.name">
+				<div class="error-message" *ngIf="register1.get('lastname').hasError(validation.type) && (register1.get('lastname').dirty || register1.get('lastname').touched)">
+				{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">Dni</ion-label>
+				<ion-input formControlName="dni" clearInput="true" type="text"></ion-input>
+			</ion-item>
+		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.name">
+				<div class="error-message" *ngIf="register1.get('dni').hasError(validation.type) && (register1.get('dni').dirty || register1.get('dni').touched)">
+				{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">Fecha de nacimiento día / mes / año</ion-label>
+				<ion-datetime formControlName="birthdate" class="ion-no-padding3px" displayFormat="D / MM / YYYY" value=""></ion-datetime>
+				</ion-item>
+		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.name">
+				<div class="error-message" *ngIf="register1.get('birthdate').hasError(validation.type) && (register1.get('birthdate').dirty || register1.get('birthdate').touched)">
+				{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
+		<br>
+		<div class="ion-text-center">
+			<ion-button type="submit" class="font15" [disabled]="!register1.valid" color="bluedark">
+				Siguiente
+			</ion-button>
+		</div>
+	</form>
 </ion-content>

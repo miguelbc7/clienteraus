@@ -56,15 +56,64 @@ ion-slide.changeStyle img {
     font-size: 2.5rem;
 }
 
-// #cart-btn {
-//     position: relative;
-//  }
- 
-//  #cart-badge {
-//     position: absolute;
-//     top: 0px;
-//     right: 0px;
-//  }
+.bodyHome{
+    &__title{
+        margin: 10px auto -5px;
+        font-size: 20px;
+        color: #657b9f;
+    }
+
+    .customCard{
+        .bodyCard{
+            padding: 10px;
+            .title{
+                text-align: left;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .subtitle{
+                text-align: left ;
+                margin-top: 5px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .price{
+                display: flex;
+                justify-content: flex-end;
+                .a{
+                    font-size: 26px !important;
+                }
+                .b{
+                    
+                }
+            }
+        }
+    }
+
+    .customCard.horizontal{
+        .p-0{
+            padding: 0;
+            .title{
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .imgCarta2{
+                height: 100%;
+            }
+        }
+        .text-align-left{
+            text-align: left;
+        }
+        .boxStatus{
+            .font-edit{
+                font-size: 10px;
+            }
+        }
+    }
+}
  
  .IconNav {
      font-size: 16pt;

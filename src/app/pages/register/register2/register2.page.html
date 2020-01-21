@@ -9,37 +9,37 @@
         <img class="logoImg" src="assets/img/logo-raus.png" alt="logotipo">
         <p class="blue-dark">..The way you like</p>
     </div>
-      <form action="" class="ion-margin-horizontal">
-          <div class="ion-margin-vertical">
-              <ion-item class="ion-no-padding">
-                <ion-label class="font14" position="floating">País</ion-label>
-                <ion-input clearInput="true" type="text" required></ion-input>
-              </ion-item>
-          </div>
-          <div class="ion-margin-vertical">
-              <ion-item class="ion-no-padding">
-                <ion-label class="font14" position="floating">Ciudad</ion-label>
-                <ion-input clearInput="true" type="text" required></ion-input>
-              </ion-item>
-          </div>
-          <div class="ion-margin-vertical">
-              <ion-item class="ion-no-padding">
-                  <ion-label class="font14" position="floating">Dirección</ion-label>
-                  <ion-input type="text" required></ion-input>
-                  <ion-icon name="pin" color="bluedark" slot="end" align-self-end></ion-icon>
-                </ion-item>
-          </div>
-          <div class="ion-margin-vertical">
-            <ion-item class="ion-no-padding">
-              <ion-label class="font14" position="floating">Código postal</ion-label>
-              <ion-input clearInput="true" type="number" required></ion-input>
-            </ion-item>
-          </div>
-      </form>
-      <br>
-      <div class="ion-text-center">
-          <ion-button class="font15" color="bluedark" routerLink="/register3">
-            Siguiente
-          </ion-button>
-      </div>
+	<form [formGroup]="register2" (ngSubmit)="onSubmit(register2.value)" class="ion-margin-horizontal">
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">País</ion-label>
+				<ion-input formControlName="country" clearInput="true" type="text" required></ion-input>
+			</ion-item>
+		</div>
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">Ciudad</ion-label>
+				<ion-input formControlName="city" clearInput="true" type="text" required></ion-input>
+			</ion-item>
+		</div>
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">Dirección</ion-label>
+				<ion-input formControlName="address" type="text" required></ion-input>
+				<ion-icon name="pin" color="bluedark" slot="end" align-self-end></ion-icon>
+			</ion-item>
+		</div>
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">Código postal</ion-label>
+				<ion-input formControlName="zipcode" clearInput="true" type="number" required></ion-input>
+			</ion-item>
+		</div>
+   		<br>
+		<div class="ion-text-center">
+			<ion-button type="submit" class="font15" color="bluedark">
+				Siguiente
+			</ion-button>
+		</div>
+	</form>
 </ion-content>

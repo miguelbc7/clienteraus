@@ -1,68 +1,58 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>register3</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content class="bodyRegister">
     <div class="ion-text-center boxLogo">
         <img class="logoImg" src="assets/img/logo-raus.png" alt="logotipo">
         <p class="blue-dark">..The way you like</p>
     </div>
-      <form [formGroup]="register3" (ngSubmit)="onSubmit(register3.value)"  class="ion-margin-horizontal">
-          <div class="ion-margin-vertical">
-              <ion-item class="ion-no-padding">
-                <ion-label class="font14" position="floating">Email</ion-label>
-                <ion-input formControlName="email" clearInput="true" type="email" required></ion-input>
-              </ion-item>
-          </div>
-          <div class="ion-margin-vertical">
-              <ion-item class="ion-no-padding">
-                <ion-label class="font14" position="floating">Teléfono</ion-label>
-                <ion-input formControlName="phone" clearInput="true" type="tel"></ion-input>
-              </ion-item>
-          </div>
-          <!-- <div formGroupName="matching_passwords"> -->
-            <ion-item class="ion-no-padding">
-              <ion-label class="font14" position="floating">Contraseña</ion-label>
-              <ion-input  [type]="passwordType"></ion-input>
-              <ion-icon [name]="passwordShown === true ? 'eye-off' : 'eye'" [color]="passwordShown === true ? 'bluelight' : 'bluedark' " slot="end" align-self-end (click)="togglePassword()"></ion-icon>
-            </ion-item>
-            <ion-item class="ion-margin-bottom ion-no-padding">
-              <ion-label class="font14" position="floating">Confirmar contraseña</ion-label>
-              <ion-input  [type]="passwordType2"></ion-input>
-              <ion-icon [name]="passwordShown2 === true ? 'eye-off' : 'eye'" [color]="passwordShown2 === true ? 'bluelight' : 'bluedark' " slot="end" align-self-end (click)="revelarConfirmacion()"></ion-icon>
-            </ion-item>
-          <!-- </div> -->
-          <div class="footerLogin">
-            <ion-grid no-padding>
-              <ion-row class="" style="margin:0px 2px">
-                <ion-col size="6" >
-                    <ion-checkbox checked="false" formControlName="polit" color="bluedark"></ion-checkbox>
-                    <p class="font10 noMarginTop blue-dark  ion-text-wrap" fill="cler" (click)="acceptPoliticas()">Leer y aceptar políticas de  privacidad</p>
-                </ion-col>
-                <ion-col size="6" >
-                    <ion-checkbox checked="false" formControlName="terms" color="bluedark"></ion-checkbox>
-                    <p class="font10 noMarginTop blue-dark  ion-text-wrap" fill="cler" (click)="acceptTerminos()">leer y aceptar terminos y condiciones del servicio</p>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </div>
-          <div class="boxInputs">
+    <form [formGroup]="register3" (ngSubmit)="onSubmit(register3.value)"  class="ion-margin-horizontal">
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">Email</ion-label>
+				<ion-input formControlName="email" clearInput="true" type="email" required></ion-input>
+			</ion-item>
+		</div>
+		<div class="ion-margin-vertical">
+			<ion-item class="ion-no-padding">
+				<ion-label class="font14" position="floating">Teléfono</ion-label>
+				<ion-input formControlName="phone" clearInput="true" type="tel"></ion-input>
+			</ion-item>
+		</div>
+		<ion-item class="ion-no-padding">
+			<ion-label class="font14" position="floating">Contraseña</ion-label>
+			<ion-input formControlName="password" [type]="passwordType"></ion-input>
+			<ion-icon [name]="passwordShown === true ? 'eye-off' : 'eye'" [color]="passwordShown === true ? 'bluelight' : 'bluedark' " slot="end" align-self-end (click)="togglePassword()"></ion-icon>
+		</ion-item>
+		<ion-item class="ion-margin-bottom ion-no-padding">
+			<ion-label class="font14" position="floating">Confirmar contraseña</ion-label>
+			<ion-input formControlName="cpassword" [type]="passwordType2"></ion-input>
+			<ion-icon [name]="passwordShown2 === true ? 'eye-off' : 'eye'" [color]="passwordShown2 === true ? 'bluelight' : 'bluedark' " slot="end" align-self-end (click)="revelarConfirmacion()"></ion-icon>
+		</ion-item>
+		<div class="footerLogin">
+			<ion-grid no-padding>
+				<ion-row class="" style="margin:0px 2px">
+				<ion-col size="6" >
+					<ion-checkbox checked="false" formControlName="polit" color="bluedark"></ion-checkbox>
+					<p class="font10 noMarginTop blue-dark  ion-text-wrap" fill="cler" (click)="acceptPoliticas()">Leer y aceptar políticas de  privacidad</p>
+				</ion-col>
+				<ion-col size="6" >
+					<ion-checkbox checked="false" formControlName="terms" color="bluedark"></ion-checkbox>
+					<p class="font10 noMarginTop blue-dark  ion-text-wrap" fill="cler" (click)="acceptTerminos()">leer y aceptar terminos y condiciones del servicio</p>
+				</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+        <div class="boxInputs">
             <div class="dFlex">
-              <input type="number" placeholder="*">
-              <input type="number" placeholder="*">
-              <input type="number" placeholder="*">
-              <input type="number" placeholder="*">
+				<input type="number" placeholder="*">
+				<input type="number" placeholder="*">
+				<input type="number" placeholder="*">
+				<input type="number" placeholder="*">
             </div>
             <p>te llegará via sms y e-mail</p>
-          </div>
-      <div class="ion-text-center">
-          <ion-button type="submit"  class="font15" color="bluedark" (click)='modalCodigo()'>
-            Confirmar e ir a Raus
-          </ion-button>
-      </div>
+        </div>
+		<div class="ion-text-center">
+			<ion-button type="submit"  class="font15" color="bluedark" (click)='modalCodigo()'>
+				Confirmar e ir a Raus
+			</ion-button>
+		</div>
     </form> 
 </ion-content>
-
-<!-- [disabled]="!register3.valid" -->
