@@ -1,0 +1,22 @@
+
+<ion-content>
+  <div class="tipoPago">
+    <h5 class="title">Selecciona tipo de pago</h5>
+    <div class="dflex">
+      <button [ngClass]="activation==1 ? 'active' : ''" (click)="setActive(1)">Beneficios</button>
+      <button [ngClass]="activation==2 ? 'active' : ''" (click)="setActive(2)">Propio</button>
+     <!--  <button [ngClass]="activation==3 ? 'active' : ''" (click)="setActive(3)">Mix</button>
+      <button [ngClass]="activation==4 ? 'active' : ''" (click)="setActive(4)">Puntos</button> -->
+    </div>
+    <div class="content">
+      <p>{{ restotal1 }}<span>,{{ restotal2 }}€</span></p>
+      <h3>{{ data }}</h3>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="footer">
+  <div class="dflexCenter">
+    <button class="confirm" (click)="send()">Confirmar</button>
+    <button class="cancel" (click)="closeModal()">Cancelar</button>
+  </div>
+</ion-footer>

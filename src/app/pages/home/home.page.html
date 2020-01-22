@@ -1,113 +1,108 @@
 <app-navbar></app-navbar>
 <ion-content class="bodyHome">
-  <ion-grid class="ion-no-padding bg-head">
-    <ion-row >
-      <ion-col class="" size="3" class="hgLine">
-        <ion-avatar class="avatar">
-          <img class="imgAvatar" src="assets/img/avatar.jpg" alt="avatar perfil">
-        </ion-avatar>
-        <ion-icon class="font16" name="menu"></ion-icon>
-      </ion-col>
-      <ion-col size="6" class="hgLine ion-text-center px-0">
-        <p class="font16 my-0 ">Balance</p>
-        <p class="my-0 "> <span class="font60">81</span> <span class="font18 decimal">,00€</span></p>
-      </ion-col>
-      <ion-col class="ion-justify-content-center ion-align-self-center ion-text-center" size="3">
-        <ion-icon class="iconPlay" name="play"></ion-icon> <br>
-        <span>Enviar</span>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-text color="bluelight" class="font16">
-    <p class="ion-text-center bodyHome__title">Tus promociones</p>
-  </ion-text>
-  <ion-slides pager="true" [options]="slideOpts">
-    <ion-slide>
-      <ion-card class="customCard">
-        <div class="boxBanner">
-          <ion-slides >
-           <ion-slide class="changeStyle">
-            <img class="imgCarta3" src="assets/img/pasta1.jpg" alt="avatar perfil"> 
-          </ion-slide> 
-          <ion-slide class="changeStyle">
-            <img class="imgCarta3" src="assets/img/pasta2.jpg" alt="avatar perfil"> 
-          </ion-slide> 
-        </ion-slides>
-        </div>  
-        <ion-card-content class="bodyCard">
-          <ion-row>
-            <ion-col class="ion-no-padding ion-align-self-center " size="7">
-            <p class="hgPCarta my-0 customDarkText font12 title">
-              Rao Rest...
-            </p> 
-          </ion-col>
-          <ion-col class="ion-no-padding" size="5">
-            <div  style="position: relative;" >
-              <p class="my-0 hgPCarta ion-text-center customDarkText price">
-                <span class="font12 a">10</span>
-                <span class="font8 b">,50€</span>
-              </p>
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col class="ion-no-padding ion-align-self-center ">
-            <p class="hgPCarta my-0 customDarkText font12 subtitle">
-              Menú Pasta con..
-            </p> 
-          </ion-col>
-        </ion-row>
-       </ion-card-content>
-      </ion-card>
-    </ion-slide>
-  </ion-slides>
-<div class="ion-text-center">
-  <ion-icon class="font24" color="bluelight" name="pin"></ion-icon>
-</div>
+	<ion-grid class="ion-no-padding bg-head">
+		<ion-row >
+			<ion-col class="" size="3" class="hgLine">
+				<ion-avatar class="avatar">
+					<img class="imgAvatar" src="assets/img/avatar.png" alt="avatar perfil">
+				</ion-avatar>
+				<ion-icon class="font16" name="menu"></ion-icon>
+			</ion-col>
+			<ion-col size="6" class="hgLine ion-text-center px-0">
+				<p class="font16 my-0 ">Balance</p>
+				<p class="my-0 "> <span class="font60">{{ count }}</span> <span class="font18 decimal">,{{ count2 }}€</span></p>
+			</ion-col>
+			<ion-col class="ion-justify-content-center ion-align-self-center ion-text-center" size="3" (click)="calculate()">
+				<ion-icon class="iconPlay" name="play"></ion-icon> <br>
+				<span>Enviar</span>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<ion-text color="bluelight" class="font16">
+		<p class="ion-text-center bodyHome__title">Tus promociones</p>
+	</ion-text>
+	<ion-slides pager="true" [options]="slideOpts">
+		<ion-slide *ngFor="let promotion of promotions">
+			<ion-card class="customCard">
+				<div class="boxBanner">
+					<ion-slides>
+						<ion-slide class="changeStyle" *ngFor="let img of promotion.images">
+							<img class="imgCarta3" src="{{ img.img }}" alt="avatar perfil"> 
+						</ion-slide>
+					</ion-slides>
+				</div>  
+				<ion-card-content class="bodyCard">
+					<ion-row>
+						<ion-col class="ion-no-padding ion-align-self-center " size="7">
+							<p class="hgPCarta my-0 customDarkText font12 title">
+								{{ promotion.name }}
+							</p> 
+						</ion-col>
+						<ion-col class="ion-no-padding" size="5">
+							<div  style="position: relative;" >
+							<p class="my-0 hgPCarta ion-text-center customDarkText price">
+								<span class="font12 a">{{ promotion.price1 }}</span>
+								<span class="font8 b">,{{ promotion.price2 }}€</span>
+							</p>
+							</div>
+						</ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col class="ion-no-padding ion-align-self-center ">
+							<p class="hgPCarta my-0 customDarkText font12 subtitle">
+								{{ promotion.description }}
+							</p> 
+						</ion-col>
+					</ion-row>
+				</ion-card-content>
+			</ion-card>
+		</ion-slide>
+	</ion-slides>
+	<div class="ion-text-center">
+		<ion-icon class="font24" color="bluelight" name="pin"></ion-icon>
+	</div>
 
-<ion-grid class="px-0">
-  <ion-card class="customCard horizontal">
-    <ion-row>
-      <ion-col class="px-0 p-0">
-        <img class="imgCarta2" src="assets/img/rest1.jpg" alt="avatar perfil"> 
-      </ion-col>
-      <ion-col class="px-0">
-        <ion-row class="pt-2">
-          <ion-col size="7">
-            <p class="my-0 ion-text-center font10">
-              Vegetalia Restaurant
-            </p>
-          </ion-col>
-          <ion-col class="ion-align-self-center ion-justify-content-center text-align-left" size="5">
-            Ir <ion-icon class="" name="play"></ion-icon>
-          </ion-col>
-        </ion-row>
-        <ion-row class="boxStatus">
-          <ion-col class="px-0 ion-text-center" >
-            <ion-icon color="bluelight" name="star"></ion-icon>
-            <p class="my-0 font10">4/5</p>
-            <p class="my-0 font8 font-edit">Sabor</p>
-          </ion-col>
-          <ion-col class="px-0 ion-text-center">
-            <ion-icon color="bluelight" name="star"></ion-icon>
-            <p class="my-0 font10">4/5</p>
-            <p class="my-0 font8 font-edit">Atención</p>
-          </ion-col>
-          <ion-col class="px-0 ion-text-center">
-            <ion-icon color="bluelight" name="star"></ion-icon>
-            <p class="my-0 font10">4/5</p>
-            <p class="my-0 font8 font-edit">Lugar</p>
-          </ion-col>
-          <ion-col class="px-0 ion-text-center">
-            <ion-icon color="bluelight" name="star"></ion-icon>
-            <p class="my-0 font10">4/5</p>
-            <p class="my-0 font8 font-edit">Tiempo</p>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-</ion-grid>
-
-
+	<ion-grid class="px-0">
+		<ion-card class="customCard horizontal" *ngFor="let restaurant of restaurants">
+			<ion-row>
+				<ion-col class="px-0 p-0">
+					<img class="imgCarta2" src="{{ restaurant.slider }}" alt="avatar perfil"> 
+				</ion-col>
+				<ion-col class="px-0">
+					<ion-row class="pt-2">
+						<ion-col size="7">
+							<p class="my-0 ion-text-center font10">
+								{{ restaurant.name }}
+							</p>
+						</ion-col>
+						<ion-col class="ion-align-self-center ion-justify-content-center text-align-left" size="5">
+							Ir <ion-icon class="" name="play"></ion-icon>
+						</ion-col>
+					</ion-row>
+					<ion-row class="boxStatus">
+						<ion-col class="px-0 ion-text-center" >
+							<ion-icon color="bluelight" name="star"></ion-icon>
+							<p class="my-0 font10">4/5</p>
+							<p class="my-0 font8 font-edit">Sabor</p>
+						</ion-col>
+						<ion-col class="px-0 ion-text-center">
+							<ion-icon color="bluelight" name="star"></ion-icon>
+							<p class="my-0 font10">4/5</p>
+							<p class="my-0 font8 font-edit">Atención</p>
+						</ion-col>
+						<ion-col class="px-0 ion-text-center">
+							<ion-icon color="bluelight" name="star"></ion-icon>
+							<p class="my-0 font10">4/5</p>
+							<p class="my-0 font8 font-edit">Lugar</p>
+						</ion-col>
+						<ion-col class="px-0 ion-text-center">
+							<ion-icon color="bluelight" name="star"></ion-icon>
+							<p class="my-0 font10">4/5</p>
+							<p class="my-0 font8 font-edit">Tiempo</p>
+						</ion-col>
+					</ion-row>
+				</ion-col>
+			</ion-row>
+		</ion-card>
+	</ion-grid>
 </ion-content>

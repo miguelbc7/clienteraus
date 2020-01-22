@@ -1,0 +1,22 @@
+.bodySuccess{
+    overflow-y: hidden !important;
+    .body{
+        padding: 15px;
+        text-align: center;
+        ion-icon{
+            font-size: 108px;
+        }
+        h5{
+            margin: 5px auto 20px;
+            font-weight: bold;
+            color: #657b9f;
+            font-size: 26px;
+        }
+        p{
+            font-size: 14px;
+            color: #657b9f;
+            margin: 5px auto;
+            line-height: 1.2;
+        }
+    }
+}

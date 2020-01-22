@@ -824,7 +824,7 @@ ion-textarea.textareaCustom{
     overflow-y: auto;
  }
 
- .sizeModalProductoCreado .modal-wrapper {
+.sizeModalProductoCreado .modal-wrapper {
     height: auto;
     max-height: 30%;
     width: 310px;
@@ -836,9 +836,9 @@ ion-textarea.textareaCustom{
     position: absolute; 
     display: block;  
     overflow: hidden;
- }
+}
 
- .sizeModalHorario .modal-wrapper {
+.sizeModalHorario .modal-wrapper {
     height: auto;
     max-height:340px;
     width: 310px;
@@ -850,10 +850,53 @@ ion-textarea.textareaCustom{
     position: absolute; 
     display: block;  
     overflow: hidden;
- }
+}
 
-
-
- .xModal {
+.xModal {
     position: absolute; right: 10px; top: 10px;
- }
+}
+
+.calculate .modal-wrapper {
+    height: auto;
+    max-height:370px;
+    width: 80%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+    background-color: #77afde;
+}
+
+.tipoPago .modal-wrapper {
+    height: auto;
+    max-height:305px;
+    width: 80%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+    background-color: #77afde;
+}
+
+.successModal .modal-wrapper {
+    height: auto;
+    max-height:275px;
+    width: 80%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+    background-color: #77afde;
+}

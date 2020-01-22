@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { HomeserviceService } from '../../services/homeservice.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { CalculatePage } from '../modals/calculate/calculate.page';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-home',
@@ -7,17 +13,117 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  	slideOpts = {
+    	initialSlide: 1,
+    	speed: 400,
+    	pagination: false,
+    	slidesPerView: 2,
+	};
+	promotions;
+	restaurants;
+	token;
+	count: any;
+	count2: any;
 
-  ngOnInit() {
-  }
+  	constructor(
+		private homeService: HomeserviceService,
+		private db: AngularFireDatabase,
+		private firebaseAuth: AngularFireAuth,
+		private modalController: ModalController
+	) {}
 
+	ngOnInit() {
+		this.getBalance();
+		this.getPromotions();
+		this.getRestaurants();
+	}
+	  
+	async getPromotions() {
 
-  slideOpts = {
-    initialSlide: 1,
-    speed: 400,
-    pagination: false,
-    slidesPerView: 2,
-  };
+		this.homeService.getPromotions().then( response => {
+			response.subscribe( data => {
+				console.log('data', data.product);
+				var array = [];
+				data.product.forEach( row => {
+					var price = row.price_with_iva + "";
+					if(price.indexOf('.') > -1) {
+						var price1: any = price.split('.')[0];
+						var price2: any = price.split('.')[1];
+					} else {
+						var price1: any = row.price_with_iva;
+						var price2: any = '00';
+					}
 
+					var a = { ingredients: row.ingredients, no_ingredients: row.no_ingredients, images: row.images, _id: row._id, name: row.name, description: row.description, nutritional_values: row.nutritional_values, fat: row.fat, carbohydrates: row.carbohydrates, protein: row.protein, total_calories: row.total_calories, iva: row.iva, eat_in_restaurant: row.eat_in_restaurant, wear: row.wear, delivery: row.delivery, status: row.status, stock: row.stock, id_restaurant: row.id_restaurant, id_promotion: row.id_promotion, __v: row.__v, price1: price1, price2: price2 }
+					array.push(a);
+				});
+
+				console.log('array', array)
+				this.promotions = array;
+			});
+		});
+	}
+
+	async getRestaurants() {
+		this.homeService.getRestaurants().then( response => {
+			response.subscribe( data => {
+				var res = [];
+
+				for(let i of Object.keys(data)) {
+					var slider;
+
+					if(data[i].slider) {
+						slider = data[i].slider[0].photo
+					} else {
+						slider = "";
+					}
+
+					var a = { name: data[i].name, slider: slider};
+					res.push(a);
+				}
+				
+				this.restaurants = res;
+			});
+		});
+	}
+
+	async getBalance() {
+		this.firebaseAuth.auth.onAuthStateChanged(user => {
+			if (user) {
+			  	// logged in or user exists
+				let uid = user.uid;
+				console.log('uid', uid);
+
+				this.db.list('clientes/' + uid + '/accounts').valueChanges().subscribe( success => {
+					let c: any = 0;
+					success.forEach( (row: any) => {
+						c += parseFloat(row);
+					});
+
+					if((c.toString()).indexOf('.') > -1) {
+						this.count = (c.toString()).split('.')[0];
+						this.count2 = (c.toString()).split('.')[1];
+					} else {
+						this.count = c;
+						this.count2 = '00';
+					}
+				}, error => {
+					console.log('error', error);
+				});
+			}
+			else {
+			  	// not logged in
+			  	console.log('no user')
+			}
+	  	})
+	}
+
+	async calculate() {
+		const modal = await this.modalController.create({
+		  component: CalculatePage,
+		  cssClass: 'calculate'
+		});
+
+		return await modal.present();
+	} 
 }

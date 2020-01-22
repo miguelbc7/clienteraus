@@ -114,7 +114,14 @@ export class Register3Page implements OnInit {
 		this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(value => {
 			var uid = value.user.uid;
 
+			var b = {
+				beneficios: 0,
+				intensivos: 0,
+				propia: 0
+			}
+
 			var a = { 
+				accounts: b,
 				name: name,
 				email: email,
 				lastname: lastname,

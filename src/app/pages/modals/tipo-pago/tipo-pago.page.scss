@@ -1,0 +1,83 @@
+.tipoPago{
+    padding: 10px 10px 0;
+    *{
+        outline: none;
+    }
+    .title{
+        text-align: center;
+        color: #657b9f;
+        margin: 0;
+    }
+    .dflex{
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        button{
+            padding: 10px 10px !important;
+            font-size: 16px;
+            background-color: transparent;
+            color: #657b9f;
+            @media (max-width: 350px){
+                padding: 6px 6px !important;
+                font-size: 13px;
+            }
+        }
+        button.active{
+            background-color: #a0a9c0;
+            color: #fff;
+        }
+    }
+    .content{
+        text-align: center;
+        padding: 0 15px 5px;
+        p{
+            font-size: 48pt;
+            margin: 0;
+            font-weight: bold;
+            color: #958659;
+            span{
+                font-size: 36px !important;
+            }
+        }
+        h3{
+            margin: 0;
+            font-size: 24pt;
+            color: #657b9f;
+            line-height: 1.0;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    }
+
+    
+}
+
+.footer{
+    background: #fff;
+    padding: 5px 20px;
+    --background-colorr: transparent;
+    border: none;
+    box-shadow: none;
+    &:after, &:before{
+        background-image: none;
+    }
+    .dflexCenter{
+        display: flex;
+        justify-content: space-between;
+        button{
+            width: 45%;
+            padding: 12px 10px;
+            font-size: 12pt;
+        }
+        button.confirm{
+            background-color: #4e5d6a;
+            color: #fff;
+            font-weight: bold;
+        }
+        button.cancel{
+            background-color: #a0a9c0;
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+}

@@ -14,6 +14,13 @@ import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+
+import { CalculatePageModule } from './pages/modals/calculate/calculate.module';
+import { TipoPagoPageModule } from './pages/modals/tipo-pago/tipo-pago.module';
+import { SuccessPageModule } from './pages/modals/success/success.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +33,12 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    HttpClientModule,
+    IonicStorageModule.forRoot(),
+    CalculatePageModule,
+    TipoPagoPageModule,
+    SuccessPageModule
   ],
   providers: [
     StatusBar,

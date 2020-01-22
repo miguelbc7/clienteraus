@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-/* import { ModalPoliticasPage } from '../modals/modal-politicas/modal-politicas.page';
-import { ModalTerminosPage } from '../modals/modal-terminos/modal-terminos.page'; */
 import { NewPasswordPage } from '../modals/new-password/new-password.page';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
