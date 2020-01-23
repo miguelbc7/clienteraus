@@ -37,14 +37,14 @@ export class HomeserviceService {
 	};
 
   async getPromotions(): Promise<any> {
-		await this.storage.get('_token').then(res=>{
+		/* await this.storage.get('_token').then(res=>{
 			this.token = res.token;
-		});
+		}); */
 
 		return this.http.get(this.base_path + 'products/activepromotions', {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				'Authorization': this.token,
+				/* 'Authorization': this.token, */
 			})
 		}).pipe(
 			retry(2),
@@ -53,14 +53,14 @@ export class HomeserviceService {
 	}
 
 	async getRestaurants(): Promise<any> {
-		await this.storage.get('_token').then(res=>{
+		/* await this.storage.get('_token').then(res=>{
 			this.token = res.token;
-		});
+		}); */
 
 		return this.http.get(this.base_path + 'restaurants', {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				'Authorization': this.token,
+				/* 'Authorization': this.token, */
 			})
 		}).pipe(
 			retry(2),

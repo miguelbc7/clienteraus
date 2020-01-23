@@ -5,6 +5,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,8 @@ export class LoginPage implements OnInit {
 		public formBuilder: FormBuilder,
 		private router: Router,
 		private firebaseAuth: AngularFireAuth,
-		private db: AngularFireDatabase
+		private db: AngularFireDatabase,
+		public toastController: ToastController
 	) {
         this.login_form = formBuilder.group({
           	username: ['', Validators.compose([
@@ -89,11 +91,21 @@ export class LoginPage implements OnInit {
 				this.router.navigate(["/home"]);
 			}, error => {
 				console.log('error', error);
+				this.presentToast('El usuario no es un cliente');
 			});
 			/* this.router.navigate(["/home"]); */
 		}).catch(err => {
 			console.log('Something went wrong:',err.message);
+			this.presentToast(err.message);
 		});
+	}
+
+	async presentToast(message) {
+		const toast = await this.toastController.create({
+		  message: message,
+		  duration: 2000
+		});
+		toast.present();
 	}
 
 }

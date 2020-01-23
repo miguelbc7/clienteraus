@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
-import { ToastController } from '@ionic/angular';      
+import { ToastController } from '@ionic/angular';
 import { SuccessPage } from '../success/success.page';
 
 @Component({

@@ -10,7 +10,7 @@
 			</ion-col>
 			<ion-col size="6" class="hgLine ion-text-center px-0">
 				<p class="font16 my-0 ">Balance</p>
-				<p class="my-0 "> <span class="font60">{{ count }}</span> <span class="font18 decimal">,{{ count2 }}€</span></p>
+				<p class="my-0  alignPrice"> <span class="font60">{{ count }}</span> <span class="font18 decimal">,{{ count2 }}€</span></p>
 			</ion-col>
 			<ion-col class="ion-justify-content-center ion-align-self-center ion-text-center" size="3" (click)="calculate()">
 				<ion-icon class="iconPlay" name="play"></ion-icon> <br>
@@ -66,7 +66,8 @@
 		<ion-card class="customCard horizontal" *ngFor="let restaurant of restaurants">
 			<ion-row>
 				<ion-col class="px-0 p-0">
-					<img class="imgCarta2" src="{{ restaurant.slider }}" alt="avatar perfil"> 
+					<img *ngIf="restaurant.slider" class="imgCarta2" src="{{ restaurant.slider }}" alt="avatar perfil"> 
+					<img *ngIf="!restaurant.slider" class="imgCarta2" src="./assets/img/restaurantdefault.jpeg" alt="avatar perfil"> 
 				</ion-col>
 				<ion-col class="px-0">
 					<ion-row class="pt-2">

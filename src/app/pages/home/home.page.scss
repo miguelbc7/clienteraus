@@ -11,6 +11,14 @@
     min-height: 100%;
 }
 
+.alignPrice{
+    display: flex;
+    justify-content: center;
+    .decimal{
+        margin-top: 5px;
+    }
+}
+
 .avatar{
     margin: auto;
  }
@@ -25,10 +33,10 @@ ion-slide.changeStyle img {
     object-fit: cover !important;
 }
 .decimal {
-    position: absolute;
+    /* position: absolute;
     top: 30%;
-    // right: 10px;
-    margin-left: -6px;
+    right: 10px;
+    margin-left: -6px; */
 }
 
 .decimalPCarta {

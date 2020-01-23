@@ -42,7 +42,6 @@ export class HomePage implements OnInit {
 
 		this.homeService.getPromotions().then( response => {
 			response.subscribe( data => {
-				console.log('data', data.product);
 				var array = [];
 				data.product.forEach( row => {
 					var price = row.price_with_iva + "";
@@ -58,7 +57,6 @@ export class HomePage implements OnInit {
 					array.push(a);
 				});
 
-				console.log('array', array)
 				this.promotions = array;
 			});
 		});
@@ -82,6 +80,7 @@ export class HomePage implements OnInit {
 					res.push(a);
 				}
 				
+				console.log('array', res)
 				this.restaurants = res;
 			});
 		});

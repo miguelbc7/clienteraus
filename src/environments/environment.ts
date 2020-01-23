@@ -5,11 +5,11 @@
 export const environment = {
   production: false,
 
-  /* url: 'https://rausdev.tk:8282/api/', */
+  url: 'https://rausdev.tk:8282/api/',
   
-  url: 'https://myraus.com:8282/api/',
+  /* url: 'https://myraus.com:8282/api/', */
 
-  /* firebase:
+  firebase:
   {
     apiKey: "AIzaSyCg_0bvL3l8ngTWtHq7XKMYWGcVDN0-Br0",
     authDomain: "raus-dev.firebaseapp.com",
@@ -19,9 +19,9 @@ export const environment = {
     messagingSenderId: "940849416430",
     appId: "1:940849416430:web:050d89da32d27a139dcbff",
     measurementId: "G-FR58CRN1SF"
-  } */
+  }
 
-  firebase: 
+  /* firebase: 
   {
     apiKey: "AIzaSyDMMmvx93kGW0ZiHpkbqFTopre63FHogzE",
     authDomain: "raus-4de7b.firebaseapp.com",
@@ -31,7 +31,7 @@ export const environment = {
     messagingSenderId: "474517791609",
     appId: "1:474517791609:web:81aff774436ec0c00d45a8",
     measurementId: "G-8NV2FVKNJY"
-  }
+  } */
 };
 
 /*
