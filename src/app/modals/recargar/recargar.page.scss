@@ -1,0 +1,106 @@
+.addCard{
+	--background: #a0a9c0;
+	ion-item{
+		background-color: transparent;
+		--background: transparent;
+	}
+    .list-tarjetas{
+        max-height: 150px;
+        max-width: 80%;
+        margin: auto;
+        overflow: auto;
+        @media (max-width: 340px){
+            max-width: 100%;
+        }
+        ion-label{
+            font-size: 16px !important;
+        }
+       
+	}
+	.msgError{
+		text-align: center;
+		margin: 5px auto;
+	}
+
+	.titleSection{
+		text-align: center;
+		color: #fff;
+	}
+
+
+    .colorBlue{
+        color:  #fff;
+    }
+
+    .saldoModal {
+        font-size: 50pt;
+        color: #fff;
+    }
+    
+   
+    
+    .noBorderItem {
+        --border-color: transparent;
+    }
+    
+    .itemSaldo {
+        --border-color: #c1c1c1;
+        --color-focused: #c1c1c1;
+        --highlight-color-valid: #c1c1c1;
+        --highlight-color-invalid: #c1c1c1;
+        .euro{
+            position: absolute;
+            left: 10px;
+            font-size: 26px;
+            color: #fff;
+            top: 20px;
+		}
+		ion-input{
+			max-width: 80%;
+			--placeholder-opacity: 1;
+			margin: auto;
+		}
+    }
+    
+    ion-item.itemSaldo {
+        --highlight-color-focused:#4e5d6a;
+        --detail-icon-opacity: 1 !important;
+    }
+    
+    .focusLabel:target {
+        background-color: #222;
+    }
+    .iconclose{
+        transform: scale(1.2);
+        margin-top: 5px;
+	}
+	
+	.list-tarjetas{
+		background-color: transparent;
+	}
+}
+
+.footerEdit{
+    padding: 5px 20px 10px;
+    background-color: #a0a9c0;
+    border: none;
+    box-shadow: none;
+    &:after, &:before{
+        background-image: none;
+    }
+    .btnAdd{
+        font-size: 14px !important;
+		letter-spacing: 0 !important;
+		--background-focused: #fff;
+		--color-activated: #fff;
+        --color-focused: #fff;
+        height: 34px;
+        .sizeicard{
+            font-size: 50px;
+            margin:0;
+        }
+    }
+}
+.iconWhite {
+    color: #fff !important;
+}

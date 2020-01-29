@@ -1,0 +1,146 @@
+<ion-content class="bodyNotification">
+	<ion-icon class="backHeader ion-text-center" src="assets/img/icon/back.svg" routerLink="/options"></ion-icon>
+	<!-- <ion-icon class="backHeader ion-text-center" src="assets/img/icon/heartgray.svg" routerLink="/opciones"></ion-icon> -->
+	<ion-row>
+		<ion-col class="ion-text-center" size="12">
+			<p class="my-0">
+				<ion-icon class="iconHeader" *ngIf="imgStatus == 1" src="assets/img/icon/campa33.svg"></ion-icon>
+				<ion-icon class="iconHeader" *ngIf="imgStatus == 2" src="assets/img/icon/heartred.svg"></ion-icon>
+			</p>
+			<p class="titleHeader blue-dark2 my-0">{{ title }}</p>
+			<!-- <p *ngIf="status == 1" class="titleHeader blue-dark2 my-0">Favoritos</p> -->
+		</ion-col>
+	</ion-row>
+	<ion-toolbar class="editToolbar">
+		<ion-segment scrollable mode="md">
+		  <ion-segment-button  mode="md" value="0" checked (click)="changeTitle('Notificaciones')">
+			<ion-icon class="iconHeader a" src="assets/img/icon/campa33.svg"></ion-icon>
+		  </ion-segment-button>
+		  <ion-segment-button mode="md" value="1" (click)="changeTitle('Favoritos')">
+				<ion-icon class="iconHeader b" *ngIf="imgStatus == 1" src="assets/img/icon/heartgray.svg"></ion-icon>
+				<ion-icon class="iconHeader b" *ngIf="imgStatus == 2" src="assets/img/icon/heartred.svg"></ion-icon>
+		  </ion-segment-button>
+		</ion-segment>
+	  </ion-toolbar>
+	  <ion-slides class="notification">
+		<ion-slide class="slide-1">
+			<div class="body">
+				<ion-item class="item-edit" mode="md" lines="none" *ngFor="let notification of notifications">
+					<ion-thumbnail slot="start" (click)="read(notification.id_showcase)">
+					  <img src="{{ notification.img }}">
+					</ion-thumbnail>
+					<div class="text" (click)="read(notification.id_showcase)">
+						<ion-label>{{ notification.content }}</ion-label>
+						<p *ngIf="!notification.read">Nueva Notificación</p>
+					</div>
+					<div slot="end" class="option">
+						<button>
+							<ion-icon *ngIf="!notification.like" src="assets/img/icon/heartgray.svg" (click)="like(notification.key, true, 1)"></ion-icon>
+							<ion-icon *ngIf="notification.like" src="assets/img/icon/heartred.svg" (click)="like(notification.key, false, 1)"></ion-icon>
+						</button>
+						<button><ion-icon mode="ios" name="more"></ion-icon></button>
+					</div>
+				</ion-item>
+				<!-- <ion-item class="item-edit" lines="none" mode="md" routerLink="/details-notification">
+					<ion-thumbnail slot="start">
+					  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS7epYsPh9QHnSBmgIpVBl90fU_tM-fPLM0Neo1QBk2aBrQQRgd">
+					</ion-thumbnail>
+					<div class="text">
+						<ion-label>El restaurant Raus web ha realizado una nueva publicación</ion-label>
+						<p>Nueva Notificación</p>
+					</div>
+					<div slot="end" class="option">
+						<button><ion-icon src="assets/img/icon/heartgray.svg"></ion-icon></button>
+						<button><ion-icon mode="ios" name="more"></ion-icon></button>
+					</div>
+				</ion-item>
+				<ion-item class="item-edit" lines="none" mode="md" routerLink="/details-notification">
+					<ion-thumbnail slot="start">
+					  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS7epYsPh9QHnSBmgIpVBl90fU_tM-fPLM0Neo1QBk2aBrQQRgd">
+					</ion-thumbnail>
+					<div class="text">
+						<ion-label>El restaurant Raus web ha realizado una nueva publicación</ion-label>
+						<p>Nueva Notificación</p>
+					</div>
+					<div slot="end" class="option">
+						<button><ion-icon src="assets/img/icon/heartgray.svg"></ion-icon></button>
+						<button><ion-icon mode="ios" name="more"></ion-icon></button>
+					</div>
+				</ion-item> -->
+			</div>
+		</ion-slide>
+		<ion-slide class="slide-2">
+			<div class="body">
+				<ion-item class="item-edit" lines="none" *ngFor="let favorite of favorites">
+					<ion-thumbnail slot="start" (click)="read(favorite.id_showcase)">
+					  <img src="{{ favorite.img}}">
+					</ion-thumbnail>
+					<div class="text" (click)="read(favorite.id_showcase)">
+						<ion-label>{{ favorite.content }}</ion-label>
+						<p *ngIf="!favorite.read">Nueva Notificación</p>
+					</div>
+					<div slot="end" class="option">
+						<button>
+							<ion-icon *ngIf="!favorite.like" src="assets/img/icon/heartgray.svg" (click)="like(favorite.key, true, 2)"></ion-icon>
+							<ion-icon *ngIf="favorite.like" src="assets/img/icon/heartred.svg" (click)="like(favorite.key, false, 2)"></ion-icon>
+						</button>
+						<button><ion-icon mode="ios" name="more"></ion-icon></button>
+					</div>
+				</ion-item>
+				<!-- <ion-item class="item-edit" lines="none" mode="md" routerLink="/details-notification">
+					<ion-thumbnail slot="start">
+					  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS7epYsPh9QHnSBmgIpVBl90fU_tM-fPLM0Neo1QBk2aBrQQRgd">
+					</ion-thumbnail>
+					<div class="text">
+						<ion-label>El restaurant Raus web ha realizado una nueva publicación</ion-label>
+						<p>Nueva Notificación</p>
+					</div>
+					<div slot="end" class="option">
+						<button><ion-icon src="assets/img/icon/heartgray.svg"></ion-icon></button>
+						<button><ion-icon mode="ios" name="more"></ion-icon></button>
+					</div>
+				</ion-item>
+				<ion-item class="item-edit" lines="none" mode="md" routerLink="/details-notification">
+					<ion-thumbnail slot="start">
+					  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS7epYsPh9QHnSBmgIpVBl90fU_tM-fPLM0Neo1QBk2aBrQQRgd">
+					</ion-thumbnail>
+					<div class="text">
+						<ion-label>El restaurant Raus web ha realizado una nueva publicación</ion-label>
+						<p>Nueva Notificación</p>
+					</div>
+					<div slot="end" class="option">
+						<button><ion-icon src="assets/img/icon/heartgray.svg"></ion-icon></button>
+						<button><ion-icon mode="ios" name="more"></ion-icon></button>
+					</div>
+				</ion-item>
+				<ion-item class="item-edit" lines="none" mode="md" routerLink="/details-notification">
+					<ion-thumbnail slot="start">
+					  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS7epYsPh9QHnSBmgIpVBl90fU_tM-fPLM0Neo1QBk2aBrQQRgd">
+					</ion-thumbnail>
+					<div class="text">
+						<ion-label>El restaurant Raus web ha realizado una nueva publicación</ion-label>
+						<p>Nueva Notificación</p>
+					</div>
+					<div slot="end" class="option">
+						<button><ion-icon src="assets/img/icon/heartgray.svg"></ion-icon></button>
+						<button><ion-icon mode="ios" name="more"></ion-icon></button>
+					</div>
+				</ion-item>
+
+				<ion-item class="item-edit" lines="none">
+					<ion-thumbnail slot="start">
+					  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS7epYsPh9QHnSBmgIpVBl90fU_tM-fPLM0Neo1QBk2aBrQQRgd">
+					</ion-thumbnail>
+					<div class="text">
+						<ion-label>El restaurant Raus web ha realizado una nueva publicación</ion-label>
+						<p>Nueva Notificación</p>
+					</div>
+					<div slot="end" class="option">
+						<button><ion-icon src="assets/img/icon/heartgray.svg"></ion-icon></button>
+						<button><ion-icon mode="ios" name="more"></ion-icon></button>
+					</div>
+				</ion-item> -->
+			</div>
+		</ion-slide>
+	  </ion-slides>
+</ion-content>

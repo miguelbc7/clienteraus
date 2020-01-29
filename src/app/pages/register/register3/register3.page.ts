@@ -4,10 +4,8 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-/* import { ModalPoliticasPage } from '../../modals/modal-politicas/modal-politicas.page';
-import { ModalTerminosPage } from '../../modals/modal-terminos/modal-terminos.page';
-import { ModalCodigoPage } from '../../modals/modal-codigo/modal-codigo.page'; */
 import { AngularFireDatabase } from '@angular/fire/database';
+import { ToastController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-register3',
@@ -21,7 +19,42 @@ export class Register3Page implements OnInit {
   	passwordType: string = "password";
   	passwordShown: boolean = false;
   	passwordType2: string = "password";
-  	passwordShown2: boolean = false;
+	passwordShown2: boolean = false;
+	politval = false;
+	politval2 = false;
+	termsval = false;
+	termsval2 = false;
+	validation_messages = {
+    	'email': [
+			{ type: 'required', message: 'Correo requerido' },
+			{ type: 'minlength', message: 'Debe ser mayor de 5 caracteres' },
+			{ type: 'maxlength', message: 'Debe ser menor de 30 caracteres.' },
+			{ type: 'pattern', message: 'Debe ingresar un correo.' }
+		],
+		'phone': [
+			{ type: 'required', message: 'Telefono requerido' },
+			{ type: 'minlength', message: 'Debe ser mayor de 5 caracteres' },
+			{ type: 'maxlength', message: 'Debe ser menor de 30 caracteres.' }
+      	],
+      	'password': [
+            { type: 'required', message: 'Contraseña Rederida' },
+            { type: 'minlength', message: 'Debe ser mayor de 8 caracteres' },
+            { type: 'maxlength', message: 'Debe ser menor de 15 caracteres.' },
+            { type: 'pattern', message: 'Su contraseña debe contener al menos una mayúscula, una minúscula y un número.' }
+		],
+		'cpassword': [
+            { type: 'required', message: 'Contraseña Rederida' },
+            { type: 'minlength', message: 'Debe ser mayor de 8 caracteres' },
+            { type: 'maxlength', message: 'Debe ser menor de 15 caracteres.' },
+            { type: 'pattern', message: 'Su contraseña debe contener al menos una mayúscula, una minúscula y un número.' }
+		],
+		'polit': [
+            { type: 'pattern', message: 'Debe aceptar las politicas de privacidad' }
+		],
+		'terms': [
+			{ type: 'pattern', message: 'Debe aceptar los terminos y condiciones' }
+		]
+	}
 
   	constructor(
     	private modalCtrl: ModalController,
@@ -29,54 +62,44 @@ export class Register3Page implements OnInit {
     	private router: Router,
 		private firebaseAuth: AngularFireAuth,
 		private db: AngularFireDatabase,
+		public toastController: ToastController
 	) {
 		console.log(localStorage.getItem('city'));
 
     	this.register3 = formBuilder.group({
       		email: ['', Validators.compose([
-        		Validators.required,
+				Validators.required,
+				Validators.minLength(8),
+            	Validators.maxLength(30),
         		Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       		])],
       		phone: ['', Validators.compose([
-        		Validators.required,
+				Validators.required,
+				Validators.minLength(8),
+            	Validators.maxLength(10)
 			])],
 			password: ['', Validators.compose([
 				Validators.required,
+				Validators.minLength(8),
+            	Validators.maxLength(15),
+				Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
 			])],
 			cpassword: ['', Validators.compose([
 				Validators.required,
+				Validators.minLength(8),
+            	Validators.maxLength(15),
+				Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
 			])],
-      		polit: new FormControl(true, Validators.pattern('true')),
-      		terms: new FormControl(true, Validators.pattern('true'))
+			polit: [false, Validators.compose([
+				Validators.pattern('true')
+			])],
+			terms: [false, Validators.compose([
+				Validators.pattern('true')
+			])]
     	});
   	}
 
   	ngOnInit() {}
-
-  	/* async acceptPoliticas() {
-    	const modal = await this.modalCtrl.create({
-      	component: ModalPoliticasPage,
-    	});
-
-    	await modal.present();
-  	}
-
-  	async modalCodigo() {
-    	const modal = await this.modalCtrl.create({
-      		component: ModalCodigoPage,
-      		cssClass: 'sizeCodigo'
-    	});
-
-    	await modal.present();
-  	}
-
-  	async acceptTerminos() {
-    	const modal = await this.modalCtrl.create({
-      		component: ModalTerminosPage,
-    	});
-
-    	await modal.present();
-  	} */
 
   	public togglePassword() {
     	if(this.passwordShown) {
@@ -110,14 +133,26 @@ export class Register3Page implements OnInit {
 		var city = localStorage.getItem('city');
 		var address = localStorage.getItem('address');
 		var zipcode = localStorage.getItem('zipcode');
-		
+		var d = new Date();
+		var year = d.getFullYear();
+		var month = d.getMonth() + 1;
+		var day = d.getDate();
+		var date = year + '-' + month + '-' + day;
+
+		this.politval2 = false;
+		this.termsval2 = false;
+
 		this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(value => {
 			var uid = value.user.uid;
 
 			var b = {
-				beneficios: 0,
-				intensivos: 0,
-				propia: 0
+				eats: 0,
+				books: 0,
+				gyms: 0,
+				fuel: 0,
+				kids: 0,
+				propia: 0,
+				trips: 0
 			}
 
 			var a = { 
@@ -131,7 +166,8 @@ export class Register3Page implements OnInit {
 				country: country,
 				city: city,
 				address: address,
-				zipcode: zipcode
+				zipcode: zipcode,
+				createt_ad: date
 			}
 
 			const itemRef = this.db.object('clientes/' + uid);
@@ -141,9 +177,8 @@ export class Register3Page implements OnInit {
 			}).catch( error => {
 				console.log('error');
 			});
-		})
-		.catch(err => {
+		}).catch(err => {
 			console.log('Something went wrong:',err.message);
-		});    
+		});
 	}
 }

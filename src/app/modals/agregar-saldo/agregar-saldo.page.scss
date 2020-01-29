@@ -1,0 +1,60 @@
+.bodyAgregarSaldo{
+    .body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px;
+        h5{
+            margin: 0 auto;
+            font-size: 18pt;
+            color:#4e5d6a;
+            text-align: center;
+            font-weight: bold;
+        }
+        span{
+            font-size: 30pt;
+            color: #958659;
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+}
+
+.footer{
+    background: #fff;
+    padding: 5px 20px 10px;
+    --background-colorr: transparent;
+    border: none;
+    box-shadow: none;
+    &:after, &:before{
+        background-image: none;
+    }
+    .dflexCenter{
+        display: flex;
+        justify-content: space-between;
+        ion-button{
+            width: 45%;
+            font-size: 12pt;
+            --padding-start: 10px !important;
+            --padding-end: 10px !important;
+            --padding-top: 10px !important;
+            --padding-bottom: 10px !important;
+            
+        }
+        ion-button.confirm{
+            --background: #4e5d6a;
+            --background-focused: #4e5d6a;
+            --background-hover: #4e5d6a;
+            color: #fff;
+            font-weight: bold;
+        }
+        ion-button.cancel{
+            --background: #a0a9c0;
+            --background-focused: #a0a9c0;
+            --background-hover: #a0a9c0;
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+}

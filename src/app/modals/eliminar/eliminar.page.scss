@@ -1,0 +1,74 @@
+.bodyEliminar{
+    .body{
+        padding: 20px 5px 0;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        max-width: 100%;
+        margin: auto;
+        ion-button{
+            --background: transparent;
+            --background-focused: transparent;
+            --background-hover: transparent;
+            --color: #4e5d6a;
+            --color-activated: transparent;
+            --color-focused: transparent;
+            --background-activated: #4e5d6a;
+            margin-right: 5px;
+            ion-icon{
+                color: #4e5d6a;
+                transform: scale(1.7);
+            }
+        }
+        .text{
+            text-align: left;
+            color: #4e5d6a;
+            h5{
+                font-size: 4.7vw;
+                font-weight: bold;
+                margin: 0;
+            }
+            span{
+                font-size: 4.7vw;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.footer{
+    background: #fff;
+    padding: 0px 20px 20px;
+    --background-colorr: transparent;
+    border: none;
+    box-shadow: none;
+    &:after, &:before{
+        background-image: none;
+    }
+    .dflexCenter{
+        display: flex;
+        justify-content: space-between;
+        ion-button{
+            width: 45%;
+            font-size: 11pt;
+            --padding-start: 10px !important;
+            --padding-end: 10px !important;
+            --padding-top: 10px !important;
+            --padding-bottom: 10px !important;
+        }
+        ion-button.confirm{
+            --background: #4e5d6a;
+            --background-focused: #4e5d6a;
+            --background-hover: #4e5d6a;
+            color: #fff;
+            font-weight: bold;
+        }
+        ion-button.cancel{
+            --background: #a0a9c0;
+            --background-focused: #a0a9c0;
+            --background-hover: #a0a9c0;
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+}

@@ -30,7 +30,7 @@
 			</ion-item>
 		</div>
 		<div class="validation-errors">
-			<ng-container *ngFor="let validation of validation_messages.name">
+			<ng-container *ngFor="let validation of validation_messages.lastname">
 				<div class="error-message" *ngIf="register1.get('lastname').hasError(validation.type) && (register1.get('lastname').dirty || register1.get('lastname').touched)">
 				{{ validation.message }}
 				</div>
@@ -43,7 +43,7 @@
 			</ion-item>
 		</div>
 		<div class="validation-errors">
-			<ng-container *ngFor="let validation of validation_messages.name">
+			<ng-container *ngFor="let validation of validation_messages.dni">
 				<div class="error-message" *ngIf="register1.get('dni').hasError(validation.type) && (register1.get('dni').dirty || register1.get('dni').touched)">
 				{{ validation.message }}
 				</div>
@@ -56,7 +56,7 @@
 				</ion-item>
 		</div>
 		<div class="validation-errors">
-			<ng-container *ngFor="let validation of validation_messages.name">
+			<ng-container *ngFor="let validation of validation_messages.birthdate">
 				<div class="error-message" *ngIf="register1.get('birthdate').hasError(validation.type) && (register1.get('birthdate').dirty || register1.get('birthdate').touched)">
 				{{ validation.message }}
 				</div>

@@ -1,0 +1,71 @@
+<ion-content>
+	<ion-icon class="backHeader ion-text-center" src="assets/img/icon/back.svg" routerLink="/opciones"></ion-icon>
+	<ion-row>
+		<ion-col class="ion-text-center" size="12">
+			<p class="my-0">
+				<ion-icon class="iconHeader" src="assets/img/icon/campa33.svg"></ion-icon>
+			</p>
+			<p class="titleHeader blue-dark2 my-0">Notificaciones</p>
+		</ion-col>
+	</ion-row>
+	<ion-row class="my-0 mg-top">
+		<ion-col class="ion-no-padding">
+			<div class="boxBanner">
+        		<h5 class="titleNotification">{{ detail?.title }}</h5>
+				<ion-slides>
+					<ion-slide class="changeStyle">
+						<div class="boxImagen">
+							<img src="{{ image.img }}" alt="">
+						</div>
+					</ion-slide>
+				</ion-slides>          
+			</div>
+		</ion-col>
+	</ion-row>
+	<ion-card class="customCard2 edit">
+		<ion-card-content class="cardContent">
+			<ion-row>
+				<ion-col size="8">
+					<p class="mg-bottom">Descripción del producto</p>
+					<p>{{ item.subtitle }}</p><br>
+					<p class="mg-bottom">Ingredientes</p>
+					<p>{{ item.ingredients }}</p>
+				</ion-col>
+				<ion-col class="px-0" size="4">
+					<img class="imgnotificaciones" src="{{ item.img }}"/>
+					<!-- <div class="time">
+						<h5>Detalles: </h5>
+						<ul>
+							<li><span>180 g</span></li>
+							<li><span>2 Personas </span><ion-icon name="people"></ion-icon></li>
+							<li><span>5 minutos </span><ion-icon name="time"></ion-icon></li>
+						</ul>
+          			</div> -->
+				</ion-col>
+			</ion-row>
+		</ion-card-content>
+  	</ion-card>
+	<!-- <ion-card class="customCard2 edit">
+			<ion-card-content class="cardContent">
+				<ion-row>
+					<ion-col size="8">
+						<p class="mg-bottom">Descripción del producto</p>
+						<p>No te dejes engañar por su tamaño, son muy sabrosos y versátiles. Añádelos a tus ensaladas o como complemento</p><br>
+						<p class="mg-bottom">Ingredientes</p>
+						<p>No te dejes engañar por su tamaño, son muy sabrosos y versátiles. Añádelos a tus ensaladas o como complemento</p>
+					</ion-col>
+					<ion-col class="px-0" size="4">
+			<img class="imgnotificaciones" src="assets/img/pasta1.jpg"/>
+			<div class="time">
+				<h5>Detalles: </h5>
+				<ul>
+				<li><span>180 g</span></li>
+				<li><span>2 Personas </span><ion-icon name="people"></ion-icon></li>
+				<li><span>5 minutos </span><ion-icon name="time"></ion-icon></li>
+				</ul>
+			</div>
+					</ion-col>
+				</ion-row>
+			</ion-card-content>
+		</ion-card> -->
+</ion-content>

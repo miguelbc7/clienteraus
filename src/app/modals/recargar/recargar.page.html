@@ -1,0 +1,60 @@
+<ion-content class="addCard">
+    <div class="">
+        <ion-item class="itemSaldo ">
+		   <ion-input class="saldoModal ion-text-center" [(ngModel)]="value" name="value" (keypress)="decimal($event)" type="text" placeholder="0,00" required></ion-input>  
+		   <span class="euro">€</span>
+        </ion-item>
+	</div>
+	<div class="validation-errors">
+		<ng-container>
+			<div class="error-message" *ngIf="erroMessage">
+				Debe ingresar un saldo
+			</div>
+		</ng-container>
+	</div>
+ 	<p class="ion-text-center titleSection" *ngIf="cardslength > 0">Seleccionar tarjeta o cuenta </p>
+  	<ion-list class="ion-padding font14 list-tarjetas">
+		<ion-row *ngFor="let card of cards">
+			<ion-col class="ion-text-start" (click)="agregarSaldo(card.id)">
+				<ion-label class="iconWhite">{{ card.nombre }}</ion-label>
+			</ion-col>
+			<ion-col class="ion-text-end" (click)="agregarSaldo(card.id)">
+				<ion-label class="iconWhite">{{ card.numero }}</ion-label>
+			</ion-col>
+			<ion-col class="ion-text-center" (click)="eliminar(card.id)" size="2">
+				<ion-icon class="mx-0 iconWhite iconclose" name="close"></ion-icon>
+			</ion-col>
+		</ion-row>
+		<!-- <ion-row>
+			<ion-col class="ion-text-start" (click)="openConfirmarAgregar(d.payload.doc.id)">
+				<ion-label class="iconWhite">Caixa</ion-label>
+			</ion-col>
+			<ion-col class="ion-text-end" (click)="openConfirmarAgregar(d.payload.doc.id)">
+				<ion-label class="iconWhite">*******4324 </ion-label>
+			</ion-col>
+			<ion-col class="ion-text-center" (click)="eliminar()" size="2">
+				<ion-icon class="mx-0 iconWhite iconclose" name="close" color=""></ion-icon>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col class="ion-text-start" (click)="openConfirmarAgregar(d.payload.doc.id)">
+				<ion-label class="iconWhite">Master</ion-label>
+			</ion-col>
+			<ion-col class="ion-text-end" (click)="openConfirmarAgregar(d.payload.doc.id)">
+				<ion-label class="iconWhite">*******4324 </ion-label>
+			</ion-col>
+			<ion-col class="ion-text-center" (click)="eliminar()" size="2">
+				<ion-icon class="mx-0 iconWhite iconclose" name="close" color=""></ion-icon>
+			</ion-col>
+		</ion-row> -->
+    </ion-list>
+</ion-content>
+
+<ion-footer class="footerEdit">
+	<div class="ion-text-center">
+		<ion-button class="font14 iconWhite btnAdd" fill="clear" (click)="agregarTarjeta()">
+		  <ion-icon slot="start" class="sizeicard" src="assets/img/icon/iconotarjetab.svg"></ion-icon>
+		  Agregar tarjeta o cuenta
+		</ion-button>
+	</div>
+</ion-footer>

@@ -93,7 +93,6 @@ export class LoginPage implements OnInit {
 				console.log('error', error);
 				this.presentToast('El usuario no es un cliente');
 			});
-			/* this.router.navigate(["/home"]); */
 		}).catch(err => {
 			console.log('Something went wrong:',err.message);
 			this.presentToast(err.message);

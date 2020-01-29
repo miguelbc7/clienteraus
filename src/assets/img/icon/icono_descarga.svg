@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="841.89px" height="595.28px" viewBox="0 0 841.89 595.28" enable-background="new 0 0 841.89 595.28" xml:space="preserve">
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="228" y="128.988" width="385.896" height="336.292"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_2_)" fill="none" stroke="#435463" stroke-width="30" d="M365.625,199.493h-80.212
+		c0,0-42.413,0-42.413,42.414v165.961c0,0,0,42.414,42.413,42.414h271.072c0,0,42.414,0,42.414-42.414V241.907
+		c0,0,0-42.414-42.414-42.414h-76.529"/>
+	
+		<line clip-path="url(#SVGID_2_)" fill="none" stroke="#435463" stroke-width="30" stroke-linecap="round" x1="423.997" y1="143.989" x2="423.997" y2="346.831"/>
+</g>
+<polyline fill="none" stroke="#435463" stroke-width="30" stroke-linecap="round" points="456.721,311.636 423.996,346.831 
+	391.274,311.636 "/>
+</svg>

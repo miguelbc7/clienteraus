@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-
-
 import { IonicModule } from '@ionic/angular';
 
 import { Register1Page } from './register1.page';

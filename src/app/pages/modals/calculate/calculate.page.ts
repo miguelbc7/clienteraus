@@ -83,6 +83,10 @@ export class CalculatePage implements OnInit {
   }
 
   async send() {
+    console.log('total', this.total);
+    console.log('data', this.data);
+    console.log('dataid', this.dataid);
+
     if(!this.total) {
       this.presentToast('Debe ingresar un monto para enviar');
     }
@@ -91,7 +95,7 @@ export class CalculatePage implements OnInit {
       this.presentToast('Debe seleccionar un restaurante');
     }
 
-    if(this.dataid) {
+    if(!this.dataid) {
       this.presentToast('Debe seleccionar un restaurante');
     }
   

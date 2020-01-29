@@ -96,12 +96,15 @@ export class HomePage implements OnInit {
 				this.db.list('clientes/' + uid + '/accounts').valueChanges().subscribe( success => {
 					let c: any = 0;
 					success.forEach( (row: any) => {
-						c += parseFloat(row);
+						c += parseFloat(row.value);
 					});
+
+					c = c.toFixed(2);
+					console.log('c', c);
 
 					if((c.toString()).indexOf('.') > -1) {
 						this.count = (c.toString()).split('.')[0];
-						this.count2 = (c.toString()).split('.')[1];
+						this.count2 = ((c.toString()).split('.')[1]);
 					} else {
 						this.count = c;
 						this.count2 = '00';

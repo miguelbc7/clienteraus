@@ -13,21 +13,42 @@
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">País</ion-label>
-				<ion-input formControlName="country" clearInput="true" type="text" required></ion-input>
+				<ion-input formControlName="country" [(ngModel)]="country" clearInput="true" type="text" required></ion-input>
 			</ion-item>
+		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.country">
+				<div class="error-message" *ngIf="register2.get('country').hasError(validation.type) && (register2.get('country').dirty || register2.get('country').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
 		</div>
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Ciudad</ion-label>
-				<ion-input formControlName="city" clearInput="true" type="text" required></ion-input>
+				<ion-input formControlName="city" [(ngModel)]="city" clearInput="true" type="text" required></ion-input>
 			</ion-item>
+		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.city">
+				<div class="error-message" *ngIf="register2.get('city').hasError(validation.type) && (register2.get('city').dirty || register2.get('city').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
 		</div>
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Dirección</ion-label>
-				<ion-input formControlName="address" type="text" required></ion-input>
+				<ion-input formControlName="address" [(ngModel)]="address" type="text" required></ion-input>
 				<ion-icon name="pin" color="bluedark" slot="end" align-self-end></ion-icon>
 			</ion-item>
+		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.address">
+				<div class="error-message" *ngIf="register2.get('address').hasError(validation.type) && (register2.get('address').dirty || register2.get('address').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
 		</div>
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
@@ -35,9 +56,16 @@
 				<ion-input formControlName="zipcode" clearInput="true" type="number" required></ion-input>
 			</ion-item>
 		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.zipcode">
+				<div class="error-message" *ngIf="register2.get('zipcode').hasError(validation.type) && (register2.get('zipcode').dirty || register2.get('zipcode').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
    		<br>
 		<div class="ion-text-center">
-			<ion-button type="submit" class="font15" color="bluedark">
+			<ion-button type="submit" [disabled]="!register2.valid" class="font15" color="bluedark">
 				Siguiente
 			</ion-button>
 		</div>

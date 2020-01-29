@@ -900,3 +900,74 @@ ion-textarea.textareaCustom{
     overflow: hidden;
     background-color: #77afde;
 }
+
+.modalBeneficios .modal-wrapper {
+    height: auto;
+    max-height:190px;
+    width: 80%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+    background-color: #a0a9c0;
+}
+
+.modalRecargar .modal-wrapper {
+    height: auto;
+    max-height:360px;
+    width: 80%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+}
+
+.modalAgregarSaldo .modal-wrapper {
+    height: auto;
+    max-height:180px;
+    width: 80%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+}
+
+.modalEliminar .modal-wrapper {
+    height: auto;
+    max-height:140px;
+    width: 90%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+}
+
+.modalAgregarTarjeta .modal-wrapper {
+    height: auto;
+    max-height:290px;
+    width: 80%;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute; 
+    display: block;  
+    overflow: hidden;
+}

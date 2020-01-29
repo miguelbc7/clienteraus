@@ -10,35 +10,75 @@
 				<ion-input formControlName="email" clearInput="true" type="email" required></ion-input>
 			</ion-item>
 		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.email">
+				<div class="error-message" *ngIf="register3.get('email').hasError(validation.type) && (register3.get('email').dirty || register3.get('email').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Teléfono</ion-label>
 				<ion-input formControlName="phone" clearInput="true" type="tel"></ion-input>
 			</ion-item>
 		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.phone">
+				<div class="error-message" *ngIf="register3.get('phone').hasError(validation.type) && (register3.get('phone').dirty || register3.get('phone').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
 		<ion-item class="ion-no-padding">
 			<ion-label class="font14" position="floating">Contraseña</ion-label>
 			<ion-input formControlName="password" [type]="passwordType"></ion-input>
 			<ion-icon [name]="passwordShown === true ? 'eye-off' : 'eye'" [color]="passwordShown === true ? 'bluelight' : 'bluedark' " slot="end" align-self-end (click)="togglePassword()"></ion-icon>
 		</ion-item>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.password">
+				<div class="error-message" *ngIf="register3.get('password').hasError(validation.type) && (register3.get('password').dirty || register3.get('password').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
 		<ion-item class="ion-margin-bottom ion-no-padding">
 			<ion-label class="font14" position="floating">Confirmar contraseña</ion-label>
 			<ion-input formControlName="cpassword" [type]="passwordType2"></ion-input>
 			<ion-icon [name]="passwordShown2 === true ? 'eye-off' : 'eye'" [color]="passwordShown2 === true ? 'bluelight' : 'bluedark' " slot="end" align-self-end (click)="revelarConfirmacion()"></ion-icon>
 		</ion-item>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.cpassword">
+				<div class="error-message" *ngIf="register3.get('cpassword').hasError(validation.type) && (register3.get('cpassword').dirty || register3.get('cpassword').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
 		<div class="footerLogin">
 			<ion-grid no-padding>
-				<ion-row class="" style="margin:0px 2px">
-				<ion-col size="6" >
-					<ion-checkbox checked="false" formControlName="polit" color="bluedark"></ion-checkbox>
-					<p class="font10 noMarginTop blue-dark  ion-text-wrap" fill="cler" (click)="acceptPoliticas()">Leer y aceptar políticas de  privacidad</p>
-				</ion-col>
-				<ion-col size="6" >
-					<ion-checkbox checked="false" formControlName="terms" color="bluedark"></ion-checkbox>
-					<p class="font10 noMarginTop blue-dark  ion-text-wrap" fill="cler" (click)="acceptTerminos()">leer y aceptar terminos y condiciones del servicio</p>
-				</ion-col>
+				<ion-row style="margin:0px 2px">
+					<ion-col size="6">
+						<ion-checkbox checked="false" (change)="politval = !politval" formControlName="polit" color="bluedark"></ion-checkbox>
+						<p class="font10 noMarginTop blue-dark  ion-text-wrap" fill="cler" (click)="acceptPoliticas()">Leer y aceptar políticas de  privacidad</p>
+					</ion-col>
+					<ion-col size="6">
+						<ion-checkbox checked="false" (change)="termsval = !termsval" formControlName="terms" color="bluedark"></ion-checkbox>
+						<p class="font10 noMarginTop blue-dark  ion-text-wrap" fill="cler" (click)="acceptTerminos()">leer y aceptar terminos y condiciones del servicio</p>
+					</ion-col>
 				</ion-row>
 			</ion-grid>
+		</div>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.polit">
+				<div class="error-message" *ngIf="register3.get('polit').hasError(validation.type) && (register3.get('polit').dirty || register3.get('polit').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+			<ng-container *ngFor="let validation of validation_messages.terms">
+				<div class="error-message" *ngIf="register3.get('terms').hasError(validation.type) && (register3.get('terms').dirty || register3.get('terms').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
 		</div>
         <div class="boxInputs">
             <div class="dFlex">
@@ -50,7 +90,7 @@
             <p>te llegará via sms y e-mail</p>
         </div>
 		<div class="ion-text-center">
-			<ion-button type="submit"  class="font15" color="bluedark" (click)='modalCodigo()'>
+			<ion-button type="submit" [disabled]="!register3.valid" class="font15" color="bluedark">
 				Confirmar e ir a Raus
 			</ion-button>
 		</div>

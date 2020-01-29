@@ -18,6 +18,7 @@ export class TipoPagoPage implements OnInit {
   restotal1;
   restotal2;
   activation: any = 1;
+  uid;
 
   constructor(
     private modalCtrl:ModalController,
@@ -27,6 +28,13 @@ export class TipoPagoPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.firebaseAuth.auth.onAuthStateChanged(user => {
+			if (user) {
+			  	// logged in or user exists
+        this.uid = user.uid;
+      }
+    });
+
     var tt = this.total;
 
     if((tt.toString()).indexOf(',') > -1) {
@@ -47,54 +55,122 @@ export class TipoPagoPage implements OnInit {
   }
 
   async send() {
-    this.firebaseAuth.auth.onAuthStateChanged(user => {
-			if (user) {
-			  	// logged in or user exists
-				let uid = user.uid;
-        var ref = this.db.list('restaurantes/' + this.dataid);
-        var ref2 = this.db.list('clientes/' + uid);
+    var ref = this.db.list('restaurantes/' + this.dataid);
+    var ref2 = this.db.list('clientes/' + this.uid);
 
-        ref2.valueChanges().subscribe( (success2: any) => {
-          console.log('ref2', success2);
-          var dat;
+    var t = this.total.toString();
 
-          if(this.activation == 1) {
-            var p = parseFloat(success2[0]['beneficios']) - parseFloat(this.total);
+    if(t.indexOf(',') > -1) {
+      this.total = t.split(',').join('.');
+    }
 
-            dat = {
-              beneficios: p,
-              intensivos: parseFloat(success2[0]['intensivos']),
-              propia: parseFloat(success2[0]['propia']),
-            }
-          } else {
-            var p = parseFloat(success2[0]['propia']) - parseFloat(this.total);
+    ref2.valueChanges().subscribe( (success2: any) => {
+      console.log('ref2', success2);
+      var dat;
 
-            dat = {
-              beneficios: parseFloat(success2[0]['beneficios']),
-              intensivos: parseFloat(success2[0]['intensivos']),
-              propia: p,
-            }
+      if(this.activation == 1) {
+        var p = parseFloat(success2[0]['eats'].value) - parseFloat(this.total);
+
+        dat = {
+          eats: { 
+            value: p,
+            type: 1
+          },
+          books: {
+            value: parseFloat(success2[0]['books'].value),
+            type: 2
+          },
+          fuel: {
+            value: parseFloat(success2[0]['fuel'].value),
+            type: 1
+          },
+          gyms: {
+            value: parseFloat(success2[0]['gyms'].value),
+            type: 2
+          },
+          kids: {
+            value: parseFloat(success2[0]['kids'].value),
+            type: 1
+          },
+          propia: {
+            value: parseFloat(success2[0]['propia'].value),
+            type: 3
+          },
+          trips: {
+            value: parseFloat(success2[0]['trips'].value),
+            type:   2
           }
+        }
 
-          if(p > 0) {
-            this.db.list('clientes').update(uid, { accounts: dat }).then(success => {
-              ref.valueChanges().subscribe( (success: any) => {
-                console.log('ref', success);
-                var price = parseFloat(success[0]) + parseFloat(this.total);
-      
-                this.db.list('restaurantes').update(this.dataid, { balance: price }).then( success2 => {
-                  this.successModal();
-                });
+        if(p > 0) {
+          this.db.list('clientes').update(this.uid, { accounts: dat }).then(success => {
+            ref.valueChanges().subscribe( (success: any) => {
+              console.log('ref', success);
+              
+              var price = parseFloat(success[0]) + parseFloat(this.total);
+  
+              this.db.list('restaurantes').update(this.dataid, { balance: price }).then( success2 => {
+                this.successModal();
               });
             });
-          } else {
-            this.presentToast('No tiene saldo en esta cuenta para enviar esa cantidad');
+          });
+        } else {
+          this.presentToast('No tiene saldo en esta cuenta para enviar esa cantidad');
+        }
+      } else if(this.activation == 2) {
+        var p = parseFloat(success2[0]['propia'].value) - parseFloat(this.total);
+
+        dat = {
+          eats: { 
+            value: parseFloat(success2[0]['eats'].value),
+            type: 1
+          },
+          books: {
+            value: parseFloat(success2[0]['books'].value),
+            type: 2
+          },
+          fuel: {
+            value: parseFloat(success2[0]['fuel'].value),
+            type: 1
+          },
+          gyms: {
+            value: parseFloat(success2[0]['gyms'].value),
+            type: 2
+          },
+          kids: {
+            value: parseFloat(success2[0]['kids'].value),
+            type: 1
+          },
+          propia: {
+            value: p,
+            type: 3
+          },
+          trips: {
+            value: parseFloat(success2[0]['trips'].value),
+            type:   2
           }
-        });
+        }
+
+        if(p > 0) {
+          this.db.list('clientes').update(this.uid, { accounts: dat }).then(success => {
+            ref.valueChanges().subscribe( (success: any) => {
+              console.log('ref', success);
+              
+              var price = parseFloat(success[0]) + parseFloat(this.total);
+  
+              this.db.list('restaurantes').update(this.dataid, { balance: price }).then( success2 => {
+                this.successModal();
+              });
+            });
+          });
+        } else {
+          this.presentToast('No tiene saldo en esta cuenta para enviar esa cantidad');
+        }
       } else {
-        this.presentToast('');
+
       }
     });
+
   }
 
   async presentToast(message) {

@@ -1,0 +1,117 @@
+
+<ion-content class="optionPage">
+  	<ion-grid class="px-0 marginTopGrid">
+    	<ion-row>
+        	<ion-col size="7" class="hgLine  px-0">
+            	<div style="position: relative; margin-left: 10px;">
+              		<p class="font16 my-0 ml-10 blue-dark">Balance</p>
+              		<p class="my-0 alinearBalance">
+                		<span class="fontSize" >{{ total1 }}</span>
+               		 	<span class="font18 decimal">,{{ total2 }}€</span>
+              		</p> 
+            	</div>
+            	<ion-icon class="iconBack" src="assets/img/icon/back.svg" routerLink="/home"></ion-icon>
+        	</ion-col>
+        	<ion-col size="5">
+          		<ion-avatar class="avatar">
+            		<img class="imgAvatar" src="assets/img/avatar.png" alt="avatar perfil">
+          		</ion-avatar>
+          		<p class="ion-text-center textName">
+            		{{ name }}
+          		</p>
+        	</ion-col>
+    	</ion-row>
+  	</ion-grid>
+
+  	<ion-grid>
+    	<ion-row>
+      		<ion-col size="4">
+        		<div class="buttonDiv ion-align-items-center box" (click)="modalBeneficios(1)">
+          			<div class="price">
+						<span class="a">{{ count.count11 }}</span>
+						<span class="b">,{{ count.count12 }}€</span>
+         			</div>
+          			<p class="ion-text-center my-0 font10 titleOptions">Beneficios </p>
+        		</div>
+      		</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box" (click)="modalBeneficios(2)">
+					<div class="price">
+						<span class="a">{{ count.count21 }}</span>
+						<span class="b">,{{ count.count22 }}€</span>
+					</div>
+					<p class="ion-text-center my-0 font10 titleOptions">Incetivos </p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box" (click)="modalBeneficios(3)">
+					<div class="price">
+						<span class="a">{{ count.count31 }}</span>
+						<span class="b">,{{ count.count32 }}€</span>
+					</div>
+					<p class="ion-text-center my-0 font10 titleOptions">Propios</p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box">
+					<div class="price">
+						<span class="a">8</span>
+						<span class="b">00€</span>
+					</div>
+					<p class="ion-text-center my-0 font10 titleOptions"><ion-icon src="assets/img/icon/menu/fidelizacion.svg"></ion-icon> Puntos</p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box">
+					<div class="price">
+						<span class="a">12</span>
+						<span class="b">00€</span>
+					</div>
+					<p class="ion-text-center my-0 font10 titleOptions"><ion-icon src="assets/img/icon/icono-puntos.svg"></ion-icon> Puntos</p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box" routerLink="/favorites">
+					<ion-icon class="height" src="assets/img/icon/heartred.svg"></ion-icon>
+					<p class="ion-text-center my-0 font10 titleOptions">Favoritos</p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box" (click)="modalRecargar()">
+					<ion-icon class="height" src="assets/img/icon/menu/agregarazul.svg"></ion-icon>
+					<p class="ion-text-center my-0 font10 titleOptions">Recargar</p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box">
+					<ion-icon class="height family" src="assets/img/icon/icono-raus-family.svg"></ion-icon>
+					<p class="ion-text-center my-0 font10 titleOptions">Convertir en Raus familiar</p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box">
+					<ion-icon class="height" src="assets/img/icon/menu/perfilazul.svg"></ion-icon>
+					<p class="ion-text-center my-0 font10 titleOptions">Perfil</p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box">
+					<ion-icon class="height" src="assets/img/icon/menu/historialazul.svg"></ion-icon>
+					<p class="ion-text-center my-0 font10 titleOptions">Historial</p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box">
+					<ion-icon class="height" src="assets/img/icon/config.svg"></ion-icon>
+					<p class="ion-text-center my-0 font10 titleOptions">Config.</p>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="buttonDiv ion-align-items-center box">
+					<ion-icon class="height" src="assets/img/icon/menu/salirazul.svg"></ion-icon>
+					<p class="ion-text-center my-0 font10 titleOptions">Salir</p>
+				</div>
+			</ion-col>
+   		</ion-row>
+  	</ion-grid>
+</ion-content>
