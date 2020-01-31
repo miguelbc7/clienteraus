@@ -45,6 +45,7 @@ export class DetallesNotificacionesPage implements OnInit {
 				}
 			}).subscribe( 
 				res => { 
+					console.log('res', res);
 					this.detail = res;
 				},
 				err => (console.log('err', err))

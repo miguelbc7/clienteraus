@@ -30,9 +30,19 @@ export class AgregarSaldoPage implements OnInit {
 			if (user) {
 				var uid = user.uid;
 				var ref = this.db.list('clientes/' + uid);
+
+				var s = this.saldo;
 				
-				ref.valueChanges().subscribe( (success: any) => {
-					var p = parseFloat(success[0]['propia'].value) + parseFloat(this.saldo);
+				if(s.indexOf('.') > -1) {
+					s = s.split('.').join(',');
+				} else {
+					s = s;
+				}
+
+				console.log('s', s);
+
+				var r = ref.valueChanges().subscribe( (success: any) => {
+					var p = parseFloat(success[0]['propia'].value) + parseFloat(s);
 
 					var dat = {
 						eats: { 
@@ -67,6 +77,7 @@ export class AgregarSaldoPage implements OnInit {
 
 					this.db.list('clientes').update(uid, { accounts: dat }).then( success => {
 						this.closeModal();
+						r.unsubscribe();
 						this.router.navigate(["/options"]);
 					}).catch( error => {
 						this.presentToast('Ocurrio un error al recargar su saldo');

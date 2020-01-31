@@ -10,7 +10,7 @@
             <span>€</span>
             <!-- <p>12,00</p> -->
             <ion-input [(ngModel)]="total" name="total" class="inputEdit"></ion-input>
-            <ion-list *ngIf="isItemAvailable">
+            <ion-list class="editCalculate" *ngIf="isItemAvailable">
               <ion-item *ngFor="let item of items" (click)="setData(item.name, item.key)">{{ item.name }}</ion-item>
             </ion-list>
           </div>

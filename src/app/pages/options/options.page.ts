@@ -95,6 +95,11 @@ export class OptionsPage implements OnInit {
 				t += parseFloat(row.value);
 			});
 
+			t = t.toFixed(2);
+			c = c.toFixed(2);
+			c2 = c2.toFixed(2);
+			c3 = c3.toFixed(2);
+
 			if((t.toString()).indexOf('.') > -1) {
 				this.total1 = (t.toString()).split('.')[0];
 				this.total2 = (t.toString()).split('.')[1];

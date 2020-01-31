@@ -31,21 +31,11 @@
             }
         }
     }
-}
-
-.footer{
-    background: #fff;
-    padding: 5px 20px;
-    --background-colorr: transparent;
-    border: none;
-    box-shadow: none;
-    &:after, &:before{
-        background-image: none;
-    }
     .dflexCenter{
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         ion-button{
+            margin-top: 15px;
             width: 45%;
             font-size: 12pt;
             --padding-start: 10px !important;
@@ -69,3 +59,15 @@
         }
     }
 }
+
+/* .footer{
+    background: #fff;
+    padding: 5px 20px;
+    --background-colorr: transparent;
+    border: none;
+    box-shadow: none;
+    &:after, &:before{
+        background-image: none;
+    }
+  
+} */

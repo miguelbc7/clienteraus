@@ -1,5 +1,5 @@
 <ion-content>
-	<ion-icon class="backHeader ion-text-center" src="assets/img/icon/back.svg" routerLink="/opciones"></ion-icon>
+	<ion-icon class="backHeader ion-text-center" src="assets/img/icon/back.svg" routerLink="/notifications"></ion-icon>
 	<ion-row>
 		<ion-col class="ion-text-center" size="12">
 			<p class="my-0">
@@ -13,7 +13,7 @@
 			<div class="boxBanner">
         		<h5 class="titleNotification">{{ detail?.title }}</h5>
 				<ion-slides>
-					<ion-slide class="changeStyle">
+					<ion-slide class="changeStyle" *ngFor="let image of detail?.images, let i = index">
 						<div class="boxImagen">
 							<img src="{{ image.img }}" alt="">
 						</div>
@@ -22,7 +22,7 @@
 			</div>
 		</ion-col>
 	</ion-row>
-	<ion-card class="customCard2 edit">
+	<ion-card class="customCard2 edit" *ngFor="let item of detail?.items">
 		<ion-card-content class="cardContent">
 			<ion-row>
 				<ion-col size="8">
@@ -33,39 +33,8 @@
 				</ion-col>
 				<ion-col class="px-0" size="4">
 					<img class="imgnotificaciones" src="{{ item.img }}"/>
-					<!-- <div class="time">
-						<h5>Detalles: </h5>
-						<ul>
-							<li><span>180 g</span></li>
-							<li><span>2 Personas </span><ion-icon name="people"></ion-icon></li>
-							<li><span>5 minutos </span><ion-icon name="time"></ion-icon></li>
-						</ul>
-          			</div> -->
 				</ion-col>
 			</ion-row>
 		</ion-card-content>
   	</ion-card>
-	<!-- <ion-card class="customCard2 edit">
-			<ion-card-content class="cardContent">
-				<ion-row>
-					<ion-col size="8">
-						<p class="mg-bottom">Descripción del producto</p>
-						<p>No te dejes engañar por su tamaño, son muy sabrosos y versátiles. Añádelos a tus ensaladas o como complemento</p><br>
-						<p class="mg-bottom">Ingredientes</p>
-						<p>No te dejes engañar por su tamaño, son muy sabrosos y versátiles. Añádelos a tus ensaladas o como complemento</p>
-					</ion-col>
-					<ion-col class="px-0" size="4">
-			<img class="imgnotificaciones" src="assets/img/pasta1.jpg"/>
-			<div class="time">
-				<h5>Detalles: </h5>
-				<ul>
-				<li><span>180 g</span></li>
-				<li><span>2 Personas </span><ion-icon name="people"></ion-icon></li>
-				<li><span>5 minutos </span><ion-icon name="time"></ion-icon></li>
-				</ul>
-			</div>
-					</ion-col>
-				</ion-row>
-			</ion-card-content>
-		</ion-card> -->
 </ion-content>

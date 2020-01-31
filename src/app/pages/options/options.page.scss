@@ -54,17 +54,22 @@
     .alinearBalance {
         margin-left: 10px;
         color: #4e5d6a;
+        display: flex;
         .fontSize{
-            font-size: 76px;
+            font-size: 46px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
     }
     
     .decimal {
-        position: absolute;
+    /*     position: absolute; */
         // top: 20%;
         // right: 47px;
-        margin-left: 3px;
-        top: 29%;
+      /*   margin-le */
+      /*   top: 29%; */
+      margin-top: 5px;
     }
     
     .text-dorado {
@@ -125,13 +130,19 @@
         .price{
             display: flex;
             align-items: flex-start;
+            max-width: 100%;
+            padding: 0 10px;
             .a{
-                font-size: 38px;
+                font-size: 22px;
                 color: #4e5d6a;
                 font-weight: bold;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
             }
             .b{
-                margin-top: 10px;
+               /*  margin-top: 10px; */
+               font-size: 14px;
                 color: #4e5d6a;
                 font-weight: bold;
             }
