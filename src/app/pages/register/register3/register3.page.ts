@@ -82,13 +82,13 @@ export class Register3Page implements OnInit {
 				Validators.required,
 				Validators.minLength(8),
             	Validators.maxLength(15),
-				Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+				Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$.@$!%*?&])[A-Za-z0-9\d$@$.!%*?&].{8,15}')
 			])],
 			cpassword: ['', Validators.compose([
 				Validators.required,
 				Validators.minLength(8),
             	Validators.maxLength(15),
-				Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+				Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$.@$!%*?&])[A-Za-z0-9\d$@$.!%*?&].{8,15}')
 			])],
 			polit: [false, Validators.compose([
 				Validators.pattern('true')
@@ -146,13 +146,34 @@ export class Register3Page implements OnInit {
 			var uid = value.user.uid;
 
 			var b = {
-				eats: 0,
-				books: 0,
-				gyms: 0,
-				fuel: 0,
-				kids: 0,
-				propia: 0,
-				trips: 0
+				eats: {
+					type: 1,
+					value: 0
+				},
+				books: {
+					type: 2,
+					value: 0
+				},
+				gyms: {
+					type: 2,
+					value: 0
+				},
+				fuel: {
+					type: 1,
+					value: 0
+				},
+				kids: {
+					type: 1,
+					value: 0
+				},
+				propia: {
+					type: 3,
+					value: 0
+				},
+				trips: {
+					type: 2,
+					value: 0
+				}
 			}
 
 			var a = { 

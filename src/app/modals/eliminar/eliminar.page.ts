@@ -21,10 +21,10 @@ export class EliminarPage implements OnInit {
 	ngOnInit() {}
 	  
 	delete() {
-		this.firebaseAuth.auth.onAuthStateChanged(user => {
+		/* this.firebaseAuth.auth.onAuthStateChanged(user => {
 			if (user) {
-				var uid = user.uid;
-
+				var uid = user.uid; */
+				var uid = localStorage.getItem('uid');
 				var items = this.afs.doc('clientes/' + uid + '/creditcard/' + this.id);
 
 				items.delete().then( success => {
@@ -33,10 +33,10 @@ export class EliminarPage implements OnInit {
 				}).catch( error => {
 					console.log('error', error);
 				})
-			} else {
+			/* } else {
 				
 			}
-		});
+		}); */
 	}
 
   	closeModal(){

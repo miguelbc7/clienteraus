@@ -34,15 +34,16 @@ export class OptionsPage implements OnInit {
   	) {}
 
   	ngOnInit() {
-		  this.firebaseAuth.auth.onAuthStateChanged(user => {
+		  /* this.firebaseAuth.auth.onAuthStateChanged(user => {
 			if (user) {
-				this.uid = user.uid;
+				this.uid = user.uid; */
+				this.uid = localStorage.getItem('uid');
 				this.getName();
 				this.getBalance();
-			} else {
+			/* } else {
 
 			}
-		});
+		});*/
 	}
 
   	async modalBeneficios(type) {

@@ -1,0 +1,25 @@
+<div style="height: 50%;width: 100%; z-index: 999" id="map_canvas"></div>
+<ion-content>
+	<ion-row class="ion-no-padding ion-justify-content-center ion-text-center">
+		<!-- <ion-col class="ion-no-padding">
+			<img class="boxMap" src="assets/img/map.png" alt="map">
+		</ion-col> -->
+		
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<div class="ion-margin-vertical">
+				<ion-item class="itemTransparent">
+					<!-- <ion-label class="font14" position="floating">Dirección</ion-label> -->
+					<ion-input type="text" [(ngModel)]="address" ></ion-input>
+					<ion-icon class="ion-align-self-end" name="pin" color="bluedark" slot="end"></ion-icon>
+				</ion-item>
+			</div>
+		</ion-col>
+		<ion-col size="12" class="ion-text-center">
+          <ion-button type="button" class="font15 mx-2" color="bluedark" (click)="save()" >Guardar</ion-button>
+          <ion-button type="button" class="font15 mx-2" color="bluelight" (click)="closeModal()">Cancelar
+          </ion-button>
+      	</ion-col>
+	</ion-row>
+</ion-content>

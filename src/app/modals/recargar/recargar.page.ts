@@ -81,9 +81,10 @@ export class RecargarPage implements OnInit {
 	}
 	
 	async getCards() {
-		this.firebaseAuth.auth.onAuthStateChanged(user => {
+		/* this.firebaseAuth.auth.onAuthStateChanged(user => {
 			if (user) {
-				var uid = user.uid;
+				var uid = user.uid; */
+				var uid = localStorage.getItem('uid');
 
 				var items = this.afs.collection('clientes/' + uid + '/creditcard');
 				items.valueChanges().subscribe( success => {
@@ -91,10 +92,10 @@ export class RecargarPage implements OnInit {
 					this.cardslength = this.cards.length
 					console.log('cards', this.cards);
 				});
-			} else {
+			/* } else {
 
 			}
-		});
+		}); */
 	}
 
 	async closeModal() {

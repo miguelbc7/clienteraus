@@ -15,7 +15,13 @@
  	<p class="ion-text-center titleSection" *ngIf="cardslength > 0">Seleccionar tarjeta o cuenta </p>
   	<ion-list class="ion-padding font14 list-tarjetas">
 		<ion-row *ngFor="let card of cards">
-			<ion-col class="ion-text-start" (click)="agregarSaldo(card.id)">
+			<div class="boxTarget">
+				<p (click)="agregarSaldo(card.id)">{{ card.nombre }}</p>
+				<p (click)="agregarSaldo(card.id)">{{ card.numero }}</p>
+				
+				<p (click)="eliminar(card.id)"><ion-icon class="mx-0 iconWhite iconclose" name="close"></ion-icon> </p>
+			</div>
+			<!-- <ion-col class="ion-text-start" (click)="agregarSaldo(card.id)">
 				<ion-label class="iconWhite">{{ card.nombre }}</ion-label>
 			</ion-col>
 			<ion-col class="ion-text-end" (click)="agregarSaldo(card.id)">
@@ -23,7 +29,7 @@
 			</ion-col>
 			<ion-col class="ion-text-center" (click)="eliminar(card.id)" size="2">
 				<ion-icon class="mx-0 iconWhite iconclose" name="close"></ion-icon>
-			</ion-col>
+			</ion-col> -->
 		</ion-row>
 		<!-- <ion-row>
 			<ion-col class="ion-text-start" (click)="openConfirmarAgregar(d.payload.doc.id)">

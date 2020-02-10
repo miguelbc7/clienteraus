@@ -1,0 +1,156 @@
+.bodyDetallesRestaurante{
+    .nav{
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+        ion-button{
+            --background: transparent;
+        }
+        .btnBack{
+            width: 25%;
+            .iconBack{
+                font-size: 24px;
+            }   
+        }
+        .nameRestaurant{
+            width: 60%;
+            h5{
+                font-size: 14px;
+                text-align: center;
+                color: #494947;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+        .buttons{
+            width: 25%;
+            display: flex;
+            ion-button{
+                font-size: 17px;
+                --padding-start: 5px !important;
+                --padding-end: 5px !important;
+                --padding-top: 10px !important;
+                --padding-bottom: 10px !important;
+            }
+        }
+    }
+    .body{
+        .contentImage{
+            ion-slides{
+                ion-slide{
+                    img{
+                        max-height: 220px;
+                        object-fit: cover;
+                        width: 100%;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+        .map-wrapper{
+            background-color: #c1c1c1;
+            height: 90px;
+        }
+        .boxDirection{
+            display: flex;
+            justify-content: center;
+            padding: 15px 10px;
+            align-items: center;
+            h5{
+                flex-grow: 1;
+                max-width: 40%;
+                margin-right: auto;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                color: #494947;
+                font-size: 12px;
+                margin-top: 0;
+                margin-bottom: 0;
+                @media (max-width: 320px){
+                    font-size: 10px;
+                    max-width: 35%;
+                }
+            }
+            .horario{
+                position: absolute;
+                display: flex;
+                align-items: center;
+                ion-icon{
+                    font-size: 36px;
+                }
+                span{
+                    color: #494947;
+                }
+            }
+        }
+        .sheddule{
+            display:flex;
+            .boxTime{
+                width: 14.2%;
+                background-color: #fafaf0;
+                padding: 5px;
+                p{
+                    margin: 0;
+                    text-align: center;
+                    font-size: 10px;
+                    span{
+                        &:nth-child(2){
+                            margin: auto 2.5px;
+                        }
+                    }
+                }
+            }
+        }
+        .boxCards{
+            margin: 5px auto;
+            .customCard{
+                margin: auto;
+                .imgCarta3{
+                    height: 120px;
+                    object-fit: cover;
+                    width: 100%;
+                }
+                .bodyCard {
+                    padding: 10px;
+                    padding-bottom: 0;
+                    .price{
+                        display: flex;
+                        justify-content: flex-end;
+                        a{
+                            font-size: 22px !important;
+                        }
+                    }
+                    .title{
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                    .subtitle{
+                        font-size: 12px !important;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                    .buttons{
+                        display: flex;
+                        justify-content: flex-end;
+                        position: relative;
+                        left: 10px;
+                        ion-button{
+                            --padding-start: 0px !important;
+                            --padding-end: 0px !important;
+                            --padding-top: 0px !important;
+                            --padding-bottom: 0px !important;
+                            --background-focused: transparent;
+                            --background-hover: transparent;
+                            --background: transparent;
+                            font-size: 17px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

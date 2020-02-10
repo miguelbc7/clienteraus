@@ -88,6 +88,7 @@ export class LoginPage implements OnInit {
 
 			this.db.list('clientes/' + uid).valueChanges().subscribe( success => {
 				console.log('success', success);
+				localStorage.setItem('uid', uid);
 				this.router.navigate(["/home"]);
 			}, error => {
 				console.log('error', error);

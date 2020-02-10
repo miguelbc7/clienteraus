@@ -1,0 +1,36 @@
+<ion-content class="bodyFamilia">
+	<div class="body">
+		<div class="nav">
+			<h5>Asignar saldo a</h5>
+			<ion-button (click)="agregarFamilia()">
+			<ion-icon name="add"></ion-icon>
+				Rauss Familia
+			</ion-button>
+		</div>
+		<ion-list class="ion-list">
+			<ion-item *ngFor="let f of family, let i = index;" (click)="changeStatus(i, f.status, f.key)">
+				<ion-label>{{ f.name }} {{ f.lastname }}</ion-label>
+				<ion-icon *ngIf="f.status" slots="end" src="assets/img/icon/check.svg"></ion-icon>
+				<div *ngIf="!f.status" class="circle" slots="end"></div>
+			</ion-item>
+		</ion-list>
+		<div class="box">
+			<p class="amount">Monto</p>
+			<div class="d-flex">
+			<span>€</span>
+				<ion-input type="number" [(ngModel)]="amount" (ionChange)="keypress($event)" placeholder="24,00"></ion-input>
+			</div>
+			<p class="title">Seleccione el destino</p>
+			<div class="boxButtons">
+				<div [ngClass]="type == 1 ? 'active' : ''" (click)="type = 1">Comer</div>
+				<div [ngClass]="type == 2 ? 'active' : ''" (click)="type = 2">Libros</div>
+				<div [ngClass]="type == 3 ? 'active' : ''" (click)="type = 3">Gasolina</div>
+				<div [ngClass]="type == 4 ? 'active' : ''" (click)="type = 4">Gimnasio</div>
+				<div [ngClass]="type == 5 ? 'active' : ''" (click)="type = 5">Niños</div>
+				<div [ngClass]="type == 6 ? 'active' : ''" (click)="type = 6">Viajes / Hoteles</div>
+				<div [ngClass]="type == 7 ? 'active' : ''" (click)="type = 7">Propia</div>
+			</div>
+		</div>
+		<ion-button class="btnConfig" (click)="send()">Confirmar</ion-button>
+	</div>
+</ion-content>

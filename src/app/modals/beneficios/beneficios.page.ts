@@ -23,10 +23,10 @@ export class BeneficiosPage implements OnInit {
 	}
 
 	  async getBalance() {
-		this.firebaseAuth.auth.onAuthStateChanged(user => {
+		/* this.firebaseAuth.auth.onAuthStateChanged(user => {
 			if (user) {
-			  	// logged in or user exists
-				let uid = user.uid;
+				let uid = user.uid; */
+				var uid = localStorage.getItem('uid');
 				console.log('uid', uid);
 
 				this.db.list('clientes/' + uid + '/accounts', ref => ref.orderByChild('type').equalTo(this.type)).snapshotChanges().subscribe( success => {
@@ -48,12 +48,12 @@ export class BeneficiosPage implements OnInit {
 				}, error => {
 					console.log('error', error);
 				});
-			}
-			else {
+			/*}
+			 else {
 			  	// not logged in
 			  	console.log('no user')
 			}
-	  	})
+	  	}) */
 	}
 
 }

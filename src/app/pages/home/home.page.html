@@ -76,7 +76,7 @@
 								{{ restaurant.name }}
 							</p>
 						</ion-col>
-						<ion-col class="ion-align-self-center ion-justify-content-center text-align-left" size="5">
+						<ion-col class="ion-align-self-center ion-justify-content-center text-align-left" size="5" (click)="goToRestaurant(restaurant.key)">
 							Ir <ion-icon class="" name="play"></ion-icon>
 						</ion-col>
 					</ion-row>

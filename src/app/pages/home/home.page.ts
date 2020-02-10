@@ -4,6 +4,7 @@ import { HomeserviceService } from '../../services/homeservice.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { CalculatePage } from '../modals/calculate/calculate.page';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 
 @Component({
@@ -29,7 +30,8 @@ export class HomePage implements OnInit {
 		private homeService: HomeserviceService,
 		private db: AngularFireDatabase,
 		private firebaseAuth: AngularFireAuth,
-		private modalController: ModalController
+		private modalController: ModalController,
+		private router: Router
 	) {}
 
 	ngOnInit() {
@@ -76,22 +78,20 @@ export class HomePage implements OnInit {
 						slider = "";
 					}
 
-					var a = { name: data[i].name, slider: slider};
+					var a = { name: data[i].name, slider: slider, key: i };
 					res.push(a);
 				}
 				
-				console.log('array', res)
 				this.restaurants = res;
 			});
 		});
 	}
 
 	async getBalance() {
-		this.firebaseAuth.auth.onAuthStateChanged(user => {
+		/* this.firebaseAuth.auth.onAuthStateChanged(user => {
 			if (user) {
-			  	// logged in or user exists
-				let uid = user.uid;
-				console.log('uid', uid);
+				let uid = user.uid; */
+				var uid = localStorage.getItem('uid');
 
 				this.db.list('clientes/' + uid + '/accounts').valueChanges().subscribe( success => {
 					let c: any = 0;
@@ -100,7 +100,6 @@ export class HomePage implements OnInit {
 					});
 
 					c = c.toFixed(2);
-					console.log('c', c);
 
 					if((c.toString()).indexOf('.') > -1) {
 						this.count = (c.toString()).split('.')[0];
@@ -112,20 +111,23 @@ export class HomePage implements OnInit {
 				}, error => {
 					console.log('error', error);
 				});
-			}
+			/* }
 			else {
-			  	// not logged in
 			  	console.log('no user')
 			}
-	  	})
+	  	}) */
 	}
 
 	async calculate() {
 		const modal = await this.modalController.create({
-		  component: CalculatePage,
-		  cssClass: 'calculate'
+			component: CalculatePage,
+			cssClass: 'calculate'
 		});
 
 		return await modal.present();
-	} 
+	}
+	
+	async goToRestaurant(id) {
+		this.router.navigate(['/detailsrestaurant', id]);
+	}
 }

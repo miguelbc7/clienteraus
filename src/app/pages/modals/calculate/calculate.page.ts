@@ -51,7 +51,6 @@ export class CalculatePage implements OnInit {
       var c = 0;
 
       var length = Object.keys(success).length;
-      console.log('length', length);
 
       for(let s in success) {
         var a = { name: success[s].name, key: s }
@@ -59,7 +58,6 @@ export class CalculatePage implements OnInit {
         c++;
 
         if(c == length) {
-          console.log('success', arr);
           this.items = arr;
         }
       }

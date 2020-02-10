@@ -1,0 +1,279 @@
+<ion-content class="bodyDetallesRestaurante">
+  <div class="nav">
+    <ion-button class="btnBack" routerLink="/home"><ion-icon class="iconBack" src="assets/img/icon/back.svg" routerLink="/options"></ion-icon></ion-button>
+    <div class="nameRestaurant">
+      <h5>{{ restaurant?.name }}</h5>
+    </div>
+    <div class="buttons">
+      <ion-button><ion-icon class="iconBack" src="assets/img/icon/compartir.svg"></ion-icon></ion-button>
+      <ion-button><ion-icon class="iconBack" src="assets/img/icon/corazon_gris.svg"></ion-icon></ion-button>
+    </div>
+  </div>
+  <div class="body">
+    <div class="contentImage">
+      <ion-slides [options]="options" *ngIf="restaurant?.slider">
+        <ion-slide *ngFor="let photo of restaurant?.slider">
+          <img src="{{ photo.photo }}"/>
+        </ion-slide>
+      </ion-slides>
+      <ion-slides [options]="options" *ngIf="!restaurant?.slider">
+        <ion-slide>
+          <img src="assets/img/rest1.jpg"/>
+        </ion-slide>
+      </ion-slides>
+    </div>
+    <div class="map-wrapper">
+      <div class="map">
+
+      </div>
+    </div>
+    <div class="boxDirection">
+      <h5>Carrer deAribau 655</h5>
+      <div class="horario">
+       <ion-icon src="assets/img/icon/reloj.svg"></ion-icon>
+       <span>Horario</span>
+      </div>
+    </div>
+    <div class="sheddule">
+      <div class="boxTime" *ngFor="let schedule of days">
+        <p>{{ schedule.name }}</p>
+        <p *ngFor="let s of schedule.schedules">
+          <span>{{ s.start | time }}</span>
+          <span>a</span>
+          <span>{{ s.end | time }}</span>
+        </p>
+        <p *ngIf="!schedule.status">Cerrado</p>
+        <p *ngIf="schedule.status">Abierto</p>
+      </div>
+    </div>
+    <div class="boxCards">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" *ngFor="let product of products">
+            <ion-card class="customCard" (click)="goToProduct(product._id)">
+              <div class="boxBanner">
+                <ion-slides *ngIf="product.image">
+                  <ion-slide class="changeStyle" *ngFor="let image of product.images">
+                    <img class="imgCarta3" src="{{ image.img }}" alt="avatar perfil"> 
+                  </ion-slide> 
+                </ion-slides>
+                <ion-slides *ngIf="!product.image">
+                  <ion-slide class="changeStyle">
+                    <img class="imgCarta3" src="assets/img/pasta1.jpg" alt="avatar perfil"> 
+                  </ion-slide> 
+                </ion-slides>
+              </div>  
+              <ion-card-content class="bodyCard">
+                <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 title">
+                    {{ product.name }}
+                  </p> 
+                </ion-col>
+                <ion-col class="ion-no-padding" size="5">
+                  <div  style="position: relative;" >
+                    <p class="my-0 hgPCarta ion-text-center customDarkText price">
+                      <span class="font12 a">{{ product.pricewithiva }} €</span>
+                      <!-- <span class="font8 b">,50€</span> -->
+                    </p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 subtitle">
+                    {{ product.description }}
+                  </p> 
+                </ion-col>
+                <ion-col size="5">
+                  <div class="buttons">
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/compartir.svg"></ion-icon></ion-button>
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/corazon_gris.svg"></ion-icon></ion-button>
+                  </div>
+                </ion-col>
+              </ion-row>
+             </ion-card-content>
+            </ion-card>
+          </ion-col>
+         <!--  <ion-col size="6">
+            <ion-card class="customCard" routerLink="/detalles-productos">
+              <div class="boxBanner">
+                <ion-slides >
+                 <ion-slide class="changeStyle">
+                  <img class="imgCarta3" src="assets/img/pasta1.jpg" alt="avatar perfil"> 
+                </ion-slide> 
+                <ion-slide class="changeStyle">
+                  <img class="imgCarta3" src="assets/img/pasta2.jpg" alt="avatar perfil"> 
+                </ion-slide> 
+              </ion-slides>
+              </div>  
+              <ion-card-content class="bodyCard">
+                <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 title">
+                    Rao Rest...
+                  </p> 
+                </ion-col>
+                <ion-col class="ion-no-padding" size="5">
+                  <div  style="position: relative;" >
+                    <p class="my-0 hgPCarta ion-text-center customDarkText price">
+                      <span class="font12 a">10</span>
+                      <span class="font8 b">,50€</span>
+                    </p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 subtitle">
+                    Menú Pasta con..
+                  </p> 
+                </ion-col>
+                <ion-col size="5">
+                  <div class="buttons">
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/compartir.svg"></ion-icon></ion-button>
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/corazon_gris.svg"></ion-icon></ion-button>
+                  </div>
+                </ion-col>
+              </ion-row>
+             </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col size="6">
+            <ion-card class="customCard" routerLink="/detalles-productos">
+              <div class="boxBanner">
+                <ion-slides >
+                 <ion-slide class="changeStyle">
+                  <img class="imgCarta3" src="assets/img/pasta1.jpg" alt="avatar perfil"> 
+                </ion-slide> 
+                <ion-slide class="changeStyle">
+                  <img class="imgCarta3" src="assets/img/pasta2.jpg" alt="avatar perfil"> 
+                </ion-slide> 
+              </ion-slides>
+              </div>  
+              <ion-card-content class="bodyCard">
+                <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 title">
+                    Rao Rest...
+                  </p> 
+                </ion-col>
+                <ion-col class="ion-no-padding" size="5">
+                  <div  style="position: relative;" >
+                    <p class="my-0 hgPCarta ion-text-center customDarkText price">
+                      <span class="font12 a">10</span>
+                      <span class="font8 b">,50€</span>
+                    </p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 subtitle">
+                    Menú Pasta con..
+                  </p> 
+                </ion-col>
+                <ion-col size="5">
+                  <div class="buttons">
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/compartir.svg"></ion-icon></ion-button>
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/corazon_gris.svg"></ion-icon></ion-button>
+                  </div>
+                </ion-col>
+              </ion-row>
+             </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-card class="customCard" routerLink="/detalles-productos">
+              <div class="boxBanner">
+                <ion-slides >
+                 <ion-slide class="changeStyle">
+                  <img class="imgCarta3" src="assets/img/pasta1.jpg" alt="avatar perfil"> 
+                </ion-slide> 
+                <ion-slide class="changeStyle">
+                  <img class="imgCarta3" src="assets/img/pasta2.jpg" alt="avatar perfil"> 
+                </ion-slide> 
+              </ion-slides>
+              </div>  
+              <ion-card-content class="bodyCard">
+                <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 title">
+                    Rao Rest...
+                  </p> 
+                </ion-col>
+                <ion-col class="ion-no-padding" size="5">
+                  <div  style="position: relative;" >
+                    <p class="my-0 hgPCarta ion-text-center customDarkText price">
+                      <span class="font12 a">10</span>
+                      <span class="font8 b">,50€</span>
+                    </p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 subtitle">
+                    Menú Pasta con..
+                  </p> 
+                </ion-col>
+                <ion-col size="5">
+                  <div class="buttons">
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/compartir.svg"></ion-icon></ion-button>
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/corazon_gris.svg"></ion-icon></ion-button>
+                  </div>
+                </ion-col>
+              </ion-row>
+             </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col size="6">
+            <ion-card class="customCard" routerLink="/detalles-productos">
+              <div class="boxBanner">
+                <ion-slides >
+                 <ion-slide class="changeStyle">
+                  <img class="imgCarta3" src="assets/img/pasta1.jpg" alt="avatar perfil"> 
+                </ion-slide> 
+                <ion-slide class="changeStyle">
+                  <img class="imgCarta3" src="assets/img/pasta2.jpg" alt="avatar perfil"> 
+                </ion-slide> 
+              </ion-slides>
+              </div>  
+              <ion-card-content class="bodyCard">
+                <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 title">
+                    Rao Rest...
+                  </p> 
+                </ion-col>
+                <ion-col class="ion-no-padding" size="5">
+                  <div  style="position: relative;" >
+                    <p class="my-0 hgPCarta ion-text-center customDarkText price">
+                      <span class="font12 a">10</span>
+                      <span class="font8 b">,50€</span>
+                    </p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col class="ion-no-padding ion-align-self-center " size="7">
+                  <p class="hgPCarta my-0 customDarkText font12 subtitle">
+                    Menú Pasta con..
+                  </p> 
+                </ion-col>
+                <ion-col size="5">
+                  <div class="buttons">
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/compartir.svg"></ion-icon></ion-button>
+                    <ion-button><ion-icon class="iconBack" src="assets/img/icon/corazon_gris.svg"></ion-icon></ion-button>
+                  </div>
+                </ion-col>
+              </ion-row>
+             </ion-card-content>
+            </ion-card>
+          </ion-col> -->
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

@@ -149,4 +149,9 @@ export class Register2Page implements OnInit {
 		
     	this.router.navigate(["/register3"]);
 	}
+
+	getMap() {
+		localStorage.setItem('url','register');
+		this.router.navigate(['map']);
+	}
 }

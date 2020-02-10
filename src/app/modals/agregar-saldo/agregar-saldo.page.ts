@@ -26,9 +26,10 @@ export class AgregarSaldoPage implements OnInit {
 	ngOnInit() {}
 	  
 	agregarSaldo() {
-		this.firebaseAuth.auth.onAuthStateChanged(user => {
+		/* this.firebaseAuth.auth.onAuthStateChanged(user => {
 			if (user) {
-				var uid = user.uid;
+				var uid = user.uid; */
+				var uid = localStorage.getItem('uid');
 				var ref = this.db.list('clientes/' + uid);
 
 				var s = this.saldo;
@@ -83,10 +84,10 @@ export class AgregarSaldoPage implements OnInit {
 						this.presentToast('Ocurrio un error al recargar su saldo');
 					});
 				});
-			} else {
+			/* } else {
 
 			}
-		});
+		}); */
 	}
 
 	async presentToast(message) {

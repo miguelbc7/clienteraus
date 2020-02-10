@@ -40,7 +40,7 @@
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Dirección</ion-label>
 				<ion-input formControlName="address" [(ngModel)]="address" type="text" required></ion-input>
-				<ion-icon name="pin" color="bluedark" slot="end" align-self-end></ion-icon>
+				<ion-icon name="pin" color="bluedark" slot="end" align-self-end (click)="getMap()"></ion-icon>
 			</ion-item>
 		</div>
 		<div class="validation-errors">

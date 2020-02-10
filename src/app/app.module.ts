@@ -26,6 +26,8 @@ import { RecargarPageModule } from './modals/recargar/recargar.module';
 import { AgregarSaldoPageModule } from './modals/agregar-saldo/agregar-saldo.module';
 import { AgregarTarjetaPageModule } from './modals/agregar-tarjeta/agregar-tarjeta.module';
 import { EliminarPageModule } from './modals/eliminar/eliminar.module';
+import { AgregarFamiliaPageModule } from './pages/modals/agregar-familia/agregar-familia.module';
+import { BaseSuccessPageModule } from './pages/modals/base-success/base-success.module';
 
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
@@ -35,8 +37,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
   declarations: [
     AppComponent,
   ],
-  entryComponents: [
-  ],
+  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -54,7 +55,9 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     RecargarPageModule,
     AgregarSaldoPageModule,
     AgregarTarjetaPageModule,
-    EliminarPageModule
+    EliminarPageModule,
+    AgregarFamiliaPageModule,
+    BaseSuccessPageModule
   ],
   providers: [
     StatusBar,
@@ -64,6 +67,6 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     GoogleMaps,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

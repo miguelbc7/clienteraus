@@ -6,7 +6,7 @@
 	}
     .list-tarjetas{
         max-height: 150px;
-        max-width: 80%;
+        max-width: 90%;
         margin: auto;
         overflow: auto;
         @media (max-width: 340px){
@@ -81,6 +81,37 @@
     
     .error-message.text-center{
         text-align: center;
+    }
+
+    .boxTarget{
+        display: flex;
+        align-items: center;
+        p{
+            margin: 0;
+            font-size: 14px;
+            color: #fff;
+            padding: 0 5px;
+            @media (max-width: 320px){
+                font-size: 11px;
+            }
+            &:nth-child(1){
+                width: 30%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: 13px;
+                @media (max-width: 320px){
+                    width: 30%;
+                }
+            }
+            &:nth-child(2){
+                width: 60%;
+                font-size: 3.4vw;
+            }
+            &:nth-child(3){
+                width: 10%;
+            }
+        }
     }
 }
 

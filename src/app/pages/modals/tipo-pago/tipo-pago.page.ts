@@ -29,11 +29,12 @@ export class TipoPagoPage implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.firebaseAuth.auth.onAuthStateChanged(user => {
+		/* this.firebaseAuth.auth.onAuthStateChanged(user => {
 			if (user) {
-				this.uid = user.uid;
-			}
-		});
+				this.uid = user.uid; */
+				this.uid = localStorage.getItem('uid');
+			/* }
+		}); */
 
 		var tt = this.total;
 
@@ -65,11 +66,11 @@ export class TipoPagoPage implements OnInit {
 		}
 
 		var r1 = ref2.valueChanges().subscribe( (success2: any) => {
-			console.log('ref2', success2);
 			var dat;
 
 			if(this.activation == 1) {
 				var p = parseFloat(success2[0]['eats'].value) - parseFloat(this.total);
+				console.log('p', p);
 
 				dat = {
 					eats: { 
@@ -103,18 +104,18 @@ export class TipoPagoPage implements OnInit {
 				}
 
 				if(p < 0) {
+					r1.unsubscribe();
 					this.presentToast('No tiene saldo en esta cuenta para enviar esa cantidad');
 				} else {
 					r1.unsubscribe();
 					this.db.list('clientes').update(this.uid, { accounts: dat }).then(success => {
 						var r2 = ref.valueChanges().subscribe( (success: any) => {
-							console.log('ref', success);
 						
 							var price = parseFloat(success[0]) + parseFloat(this.total);
 			
 							this.db.list('restaurantes').update(this.dataid, { balance: price }).then( success2 => {
 								r2.unsubscribe();
-								this.successModal();
+								this.newTransaction(p);
 							});
 						});
 					});
@@ -154,24 +155,24 @@ export class TipoPagoPage implements OnInit {
 				}
 
 				if(p < 0) {
+					r1.unsubscribe();
 					this.presentToast('No tiene saldo en esta cuenta para enviar esa cantidad');
 				} else {
 					r1.unsubscribe();
 					this.db.list('clientes').update(this.uid, { accounts: dat }).then( success => {
 						var r2 = ref.valueChanges().subscribe( (success: any) => {
-							console.log('ref', success);
 							
 							var price = parseFloat(success[0]) + parseFloat(this.total);
 				
 							this.db.list('restaurantes').update(this.dataid, { balance: price }).then( success2 => {
 								r2.unsubscribe();
-								this.successModal();
+								console.log('p', p);
+								this.newTransaction(p);
 							});
 						}, error => {
 							console.log('error', error);
 							r2.unsubscribe();
 						}, () => {
-							console.log('completed');
 							r2.unsubscribe();
 						});
 					});
@@ -183,7 +184,6 @@ export class TipoPagoPage implements OnInit {
 			console.log('error', error);
 			r1.unsubscribe();
 		}, () => {
-			console.log('completed')
 			r1.unsubscribe();
 		});
 	}
@@ -209,5 +209,82 @@ export class TipoPagoPage implements OnInit {
 		});
 
 		return await modal.present();
+	}
+
+	async newTransaction(price) {
+		console.log('price', price)
+		if(this.activation == 1) {
+			var tipo = 'eats';
+		} else {
+			var tipo = 'propia';
+		}
+
+		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
+			var d;
+			var dat = new Date();
+			var year = dat.getFullYear();
+			var month = dat.getMonth();
+			var day = dat.getDate();
+			var date = year + '-' + month + '-' + day;
+
+			if(data2['id_empresa']) {
+				d = {
+					"date": date,
+					"id_empresa": data2['id_empresa'],
+					"id_restaurante": this.dataid,
+					"name": data2['name'] + ' ' + data2['lastname'],
+					"price": price,
+					"tipo": tipo,
+					"uid": this.uid
+				}
+			} else {
+				d = {
+					"date": date,
+					"id_restaurante": this.dataid,
+					"name": data2['name'] + ' ' + data2['lastname'],
+					"price": price,
+					"tipo": tipo,
+					"uid": this.uid
+				}
+			}
+			this.db.list('transactions').push(d).then( success => {
+				if(data2['id_empresa']) {
+					r.unsubscribe();
+					this.newNotification(price, data2['id_empresa'], data2['name'], data2['lastname'], success.key);
+				} else {
+					r.unsubscribe();
+					this.successModal();
+				}
+			}).catch( error => {
+				console.log('error', error);
+			});
+		})
+	}
+
+	async newNotification(price, empresa, name, lastname, key) {
+		var dat = new Date();
+		var year = dat.getFullYear();
+		var month = dat.getMonth();
+		var day = dat.getDate();
+		var hour = dat.getHours();
+		var minute = dat.getMinutes();
+		var second = dat.getSeconds();
+		var date = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+
+		var d = {
+			content: "El empleado " + name + " " + lastname + " ha enviado " + price + "€ a traves de su cuenta de beneficios",
+			create_at: date,
+			id_transaccion_beneficio: key,
+			img: "",
+			like: false,
+			read: false
+		}
+
+		this.db.list('notifications/' + empresa).push(d).then( success => {
+			this.successModal();
+		}).catch( error => {
+			console.log('error', error);
+			this.successModal();
+		});
 	}
 }
