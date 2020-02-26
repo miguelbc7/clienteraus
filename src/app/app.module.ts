@@ -28,6 +28,7 @@ import { AgregarTarjetaPageModule } from './modals/agregar-tarjeta/agregar-tarje
 import { EliminarPageModule } from './modals/eliminar/eliminar.module';
 import { AgregarFamiliaPageModule } from './pages/modals/agregar-familia/agregar-familia.module';
 import { BaseSuccessPageModule } from './pages/modals/base-success/base-success.module';
+import { AgregarEntregaPageModule } from './modals/agregar-entrega/agregar-entrega.module';
 
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
@@ -57,7 +58,8 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     AgregarTarjetaPageModule,
     EliminarPageModule,
     AgregarFamiliaPageModule,
-    BaseSuccessPageModule
+    BaseSuccessPageModule,
+    AgregarEntregaPageModule
   ],
   providers: [
     StatusBar,

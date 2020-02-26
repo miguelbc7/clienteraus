@@ -3,127 +3,145 @@ import { ModalController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { TipoPagoPage } from '../tipo-pago/tipo-pago.page';
-import { ToastController } from '@ionic/angular';      
+import { ToastController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-calculate',
-  templateUrl: './calculate.page.html',
-  styleUrls: ['./calculate.page.scss'],
+	selector: 'app-calculate',
+	templateUrl: './calculate.page.html',
+	styleUrls: ['./calculate.page.scss'],
 })
 export class CalculatePage implements OnInit {
 
-  total;
-  data;
-  dataid;
-  items;
-  isItemAvailable;
-  restaurants;
+	total;
+	data;
+	dataid;
+	items;
+	isItemAvailable;
+	restaurants;
 
-  constructor(
+	constructor(
 		private db: AngularFireDatabase,
-    private modalController: ModalController,
-    public toastController: ToastController
-  ) {}
+		private modalController: ModalController,
+		public toastController: ToastController
+	) {}
 
-  ngOnInit() {
-    this.isItemAvailable = false;
-    this.getRestaunrants();
-  }
+	ngOnInit() {
+		this.isItemAvailable = false;
+		this.getRestaunrants();
+	}
    
-  async getItems(ev: any) {
-    // set val to the value of the searchbar
-    const val = ev.target.value;
+	async getItems(ev: any) {
+		const val = ev.target.value;
+	
+		if (val && val.trim() != '') {
+			this.isItemAvailable = true;
 
-    console.log('val', val);
-   
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-        this.isItemAvailable = true;
-        this.items = this.items.filter((item) => {
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
+			if(this.items.length < 1) {
+				this.getRestaunrants();
 
-  async getRestaunrants() {
-    this.db.object('restaurantes').valueChanges().subscribe( (success: any) => {
-      var arr = [];
-      var c = 0;
+				this.items = this.items.filter((item) => {
+					return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+				});
+			} else {
+				this.items = this.items.filter((item) => {
+					return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+				});
+			}
+		}
+	}
 
-      var length = Object.keys(success).length;
+	async getRestaunrants() {
+		this.db.object('restaurantes').valueChanges().subscribe( (success: any) => {
+			console.log('success', success);
+			var arr = [];
+			var c = 0;
 
-      for(let s in success) {
-        var a = { name: success[s].name, key: s }
-        arr.push(a);
-        c++;
+			var length = Object.keys(success).length;
 
-        if(c == length) {
-          this.items = arr;
-        }
-      }
-    }, error => {
-      console.log('error', error);
-    });
-  }
+			for(let s in success) {
+				var a = { name: success[s].name, key: s }
+				arr.push(a);
+				c++;
 
-  async setData(value, value2) {
-    this.data = value;
-    this.dataid = value2;
-    this.isItemAvailable = false;
-  }
+				if(c == length) {
+				console.log('success', arr);
+				this.items = arr;
+				}
+			}
+		}, error => {
+			console.log('error', error);
+		});
+	}
 
-  async setNumber(number: string) {
-    if(this.total) {
-      this.total = this.total.toString() + number.toString();
-    } else {
-      this.total = number.toString();
-    }
-  }
+	async setData(value, value2) {
+		this.data = value;
+		this.dataid = value2;
+		this.isItemAvailable = false;
+	}
 
-  async send() {
-    console.log('total', this.total);
-    console.log('data', this.data);
-    console.log('dataid', this.dataid);
+	async setNumber(number: string) {
+		if(this.total) {
+			this.total = this.total.toString() + number.toString();
+		} else {
+			this.total = number.toString();
+		}
+	}
 
-    if(!this.total) {
-      this.presentToast('Debe ingresar un monto para enviar');
-    }
+	async send() {
+		if(!this.total) {
+			this.presentToast('Debe ingresar un monto para enviar');
+		}
 
-    if(!this.data) {
-      this.presentToast('Debe seleccionar un restaurante');
-    }
+		if(!this.data) {
+			this.presentToast('Debe seleccionar un restaurante');
+		}
 
-    if(!this.dataid) {
-      this.presentToast('Debe seleccionar un restaurante');
-    }
-  
-    if((this.total) && (this.data) && (this.dataid)) {
-      this.closeModal();
+		if(!this.dataid) {
+			this.presentToast('Debe seleccionar un restaurante');
+		}
+	
+		if((this.total) && (this.data) && (this.dataid)) {
+			this.closeModal();
 
-      const modal = await this.modalController.create({
-        component: TipoPagoPage,
-        componentProps: { 
-          total: this.total,
-          data: this.data,
-          dataid: this.dataid
-        },
-        cssClass: 'tipoPago'
-      });
-      
-      return await modal.present();
-    }
-  }
+			const modal = await this.modalController.create({
+				component: TipoPagoPage,
+				componentProps: { 
+				total: this.total,
+				data: this.data,
+				dataid: this.dataid
+				},
+				cssClass: 'tipoPago'
+			});
+			
+			return await modal.present();
+		}
+	}
 
-  async presentToast(message) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000
-    });
-    toast.present();
-  }
+	async presentToast(message) {
+		const toast = await this.toastController.create({
+			message: message,
+			duration: 2000
+		});
 
-  closeModal() {
-    this.modalController.dismiss();
-  }
+		toast.present();
+	}
 
+	async closeModal() {
+		this.modalController.dismiss();
+  	}
+
+	async cleanTotal() {
+		this.total = '';
+	}
+
+	async keyTotal(e) {
+		var a = this.total;
+
+		if(a) {
+			if(a.indexOf('.') > -1) {
+				var b = a.split(',').join('.');
+				this.total = b;
+			}
+		}
+	}
 }

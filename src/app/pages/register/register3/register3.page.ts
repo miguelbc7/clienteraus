@@ -64,8 +64,6 @@ export class Register3Page implements OnInit {
 		private db: AngularFireDatabase,
 		public toastController: ToastController
 	) {
-		console.log(localStorage.getItem('city'));
-
     	this.register3 = formBuilder.group({
       		email: ['', Validators.compose([
 				Validators.required,
@@ -127,7 +125,7 @@ export class Register3Page implements OnInit {
 		var phone = this.register3.value.phone;
 		var name = localStorage.getItem('name');
 		var lastname = localStorage.getItem('lastname');
-		var dni = localStorage.getItem('lastname');
+		var dni = localStorage.getItem('dni');
 		var birthdate = localStorage.getItem('birthdate');
 		var country = localStorage.getItem('country');
 		var city = localStorage.getItem('city');
@@ -194,6 +192,7 @@ export class Register3Page implements OnInit {
 			const itemRef = this.db.object('clientes/' + uid);
 			itemRef.set(a).then( success => {
 				console.log('success');
+				this.register3.reset();
 				this.router.navigate(["/home"]);
 			}).catch( error => {
 				console.log('error');

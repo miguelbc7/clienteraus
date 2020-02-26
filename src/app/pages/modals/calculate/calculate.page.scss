@@ -24,6 +24,7 @@
             margin-right: 0;
             padding-top: 13px;
             font-size: 22px;
+            margin: 0 5px;
         }
         .inputEdit{
             margin: 0 auto;
@@ -38,6 +39,21 @@
                 color: #fff;
             }
         }
+        ion-button{
+            --background: transparent;
+            --background: transparent;
+            --background-focused: transparent;
+            --background-hover: transparent;
+            --color: #ffffff;
+            --color-activated: #ffffff;
+            --color-focused: #ffffff;
+            padding-bottom: 0;
+            --padding-bottom: 0 !important;
+            --overflow: visible;
+            ion-icon{
+                transform: scale(2.5) translateX(-2px);
+            }
+        }
     } 
     .rowEdit{
         display: flex;
@@ -48,6 +64,9 @@
             background: transparent;
             color: #fff;
             font-size: 24px;
+            ion-icon{
+                transform: scale(2.2);
+            }
         }
         .check{
             ion-icon{

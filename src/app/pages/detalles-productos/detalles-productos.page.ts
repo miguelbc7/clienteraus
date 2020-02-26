@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { AgregarEntregaPage } from '../../modals/agregar-entrega/agregar-entrega.page';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { Location } from '@angular/common';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { ToastController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-detalles-productos',
@@ -12,6 +14,7 @@ import { ProductService } from '../../services/product.service';
 
 export class DetallesProductosPage implements OnInit {
 
+	uid;
 	cant: number = 0;
 	id: any;
 	restaurant: any;
@@ -21,14 +24,27 @@ export class DetallesProductosPage implements OnInit {
 		public modalController: ModalController,
 		private route: ActivatedRoute,
 		private productService: ProductService,
-		private router: Router
+		private router: Router,
+		private _location: Location,
+		private db: AngularFireDatabase,
+		public toastController: ToastController
 	) {}
 
   	ngOnInit() {
 		this.id = this.route.snapshot.params.id;
 		this.restaurant = this.route.snapshot.params.restaurant;
+		this.uid = localStorage.getItem('uid');
 
 		this.getProduct(this.route.snapshot.params.id, this.route.snapshot.params.restaurant)
+	}
+
+	async presentToast(message) {
+		const toast = await this.toastController.create({
+			message: message,
+			duration: 2000
+		});
+
+		await toast.present();
 	}
 
 	async getProduct(id, res) {
@@ -52,15 +68,32 @@ export class DetallesProductosPage implements OnInit {
 	}
 
 	async agregarEntrega() {
-		const modal = await this.modalController.create({
-			component: AgregarEntregaPage,
-			cssClass: 'agregarEntrega2'
-		});
+		var price = this.product.price_with_iva;
+		var quantity = this.cant;
+		var total = price * quantity;
 
-		return await modal.present();
+		var data = {
+			"price": price,
+			"product": this.id,
+			"productData": this.product,
+			"quantity": quantity,
+			"restaurant": this.restaurant,
+			"total": total
+		}
+
+		this.db.list('cart/' + this.uid).push(data).then( success => {
+			console.log('success', success);
+			this.presentToast('El producto ha sido agregado al carrito con éxito');
+		}).catch( error => {
+			console.log('error', error);
+		})
 	}
 
 	async back() {
-		this.router.navigate(['/detailsrestaurant', this.restaurant]);
+		this._location.back();
+	}
+
+	async cart() {
+		this.router.navigate(['/cart']);
 	}
 }

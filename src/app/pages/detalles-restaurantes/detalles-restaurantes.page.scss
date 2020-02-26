@@ -2,36 +2,52 @@
     .nav{
         display: flex;
         justify-content: space-between;
-        padding: 0 10px;
+        align-items: center;
+        padding: 0 5px;
         ion-button{
+            width: 30%;
             --background: transparent;
         }
         .btnBack{
-            width: 25%;
+            --padding-start: 5px !important;
+            --padding-end: 5px !important;
+            --padding-top: 0px !important;
+            --padding-bottom: 0px !important;
             .iconBack{
                 font-size: 24px;
+                text-align: left;
+                margin-right: auto;
             }   
         }
         .nameRestaurant{
-            width: 60%;
+            width: 50%;
             h5{
-                font-size: 14px;
+                font-size: 13px;
                 text-align: center;
                 color: #494947;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+                margin: auto;
             }
         }
         .buttons{
-            width: 25%;
+            width: 30%;
             display: flex;
+            justify-content: flex-end;
             ion-button{
-                font-size: 17px;
-                --padding-start: 5px !important;
-                --padding-end: 5px !important;
-                --padding-top: 10px !important;
-                --padding-bottom: 10px !important;
+                font-size: 16px;
+                --padding-start: 10px !important;
+                --padding-end: 10px !important;
+                --padding-top: 0px !important;
+                --padding-bottom: 0px !important;
+                margin: 0;
+                ion-icon{
+                    transform: scale(2);
+                }
+                img{
+                    transform: scale(1.3);
+                }
             }
         }
     }

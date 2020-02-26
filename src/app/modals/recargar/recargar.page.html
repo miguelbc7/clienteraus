@@ -1,7 +1,7 @@
 <ion-content class="addCard">
     <div class="">
         <ion-item class="itemSaldo ">
-		   <ion-input class="saldoModal ion-text-center" [(ngModel)]="value" name="value" (keypress)="decimal($event)" type="text" placeholder="0,00" required></ion-input>  
+		   <ion-input class="saldoModal ion-text-center" [(ngModel)]="value" name="value" (keypress)="decimal($event)" type="number" placeholder="0,00" required></ion-input>  
 		   <span class="euro">€</span>
         </ion-item>
 	</div>

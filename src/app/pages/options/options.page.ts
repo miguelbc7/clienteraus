@@ -4,6 +4,7 @@ import { BeneficiosPage } from '../../modals/beneficios/beneficios.page';
 import { RecargarPage } from '../../modals/recargar/recargar.page';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { Router } from '@angular/router';
 
 @Component({
   	selector: 'app-options',
@@ -30,20 +31,15 @@ export class OptionsPage implements OnInit {
   	constructor(
 		public modalController: ModalController,
 		private db: AngularFireDatabase,
-		private firebaseAuth: AngularFireAuth
+		private firebaseAuth: AngularFireAuth,
+		private router: Router
   	) {}
 
   	ngOnInit() {
-		  /* this.firebaseAuth.auth.onAuthStateChanged(user => {
-			if (user) {
-				this.uid = user.uid; */
-				this.uid = localStorage.getItem('uid');
-				this.getName();
-				this.getBalance();
-			/* } else {
+		this.uid = localStorage.getItem('uid');
+		this.getName();
+		this.getBalance();
 
-			}
-		});*/
 	}
 
   	async modalBeneficios(type) {
@@ -135,5 +131,11 @@ export class OptionsPage implements OnInit {
 		}, error => {
 			console.log('error', error);
 		});
+	}
+
+	async logout() {
+		this.firebaseAuth.auth.signOut();
+		localStorage.removeItem('uid');
+		this.router.navigate(['/login']);
 	}
 }

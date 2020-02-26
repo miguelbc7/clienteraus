@@ -9,7 +9,6 @@ import { HomePage } from './home.page';
 
 import { SharedModule } from '../sharedmodals/shared.module';
 
-
 const routes: Routes = [
   {
     path: '',

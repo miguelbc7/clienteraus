@@ -299,4 +299,8 @@ export class DetallesRestaurantesPage implements OnInit {
 	async askToTurnOnGPS() {
 		this.loadMap();
 	}
+
+	async cart() {
+		this.router.navigate(['/cart']);
+	}
 }

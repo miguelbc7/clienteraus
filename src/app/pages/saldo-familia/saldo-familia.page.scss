@@ -1,6 +1,11 @@
 .bodyFamilia{
     .body{
         padding: 5px 15px;
+        .iconBack{
+            font-size: 42px;
+            margin-top: 10px;
+            margin-bottom: -5px;
+        }
         .nav{
             display: flex;
             justify-content: space-between;
@@ -71,7 +76,6 @@
                     border: none;
                     box-shadow: none;
                     text-align: center;
-                    font-weight: bold;
                     &::placeholder{
                         color: #fff;
                     }

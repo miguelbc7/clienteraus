@@ -18,9 +18,15 @@ import { MyLocation, Geocoder, GoogleMap, GoogleMaps, GeocoderResult, LocationSe
 export class AgregarFamiliaPage implements OnInit {
 	
 	uid;
+	uidselect;
+	email;
+	name;
+	lastname;
+	phone;
 	country;
 	city;
 	address;
+	status;
 	passwordType: string = "password";
   	passwordShown: boolean = false;
   	passwordType2: string = "password";
@@ -35,29 +41,6 @@ export class AgregarFamiliaPage implements OnInit {
         	{ type: 'required', message: 'Debe ingresar un apellido.' },
         	{ type: 'maxlength', message: 'Debe ser menor de 30 caracteres.' }
       	],
-      	'dni': [
-        	{ type: 'required', message: 'Debe ingresar un DNI.' },
-        	{ type: 'maxlength', message: 'Debe ser menor de 20 caracteres.' }
-      	],
-      	'birthdate': [
-	        { type: 'required', message: 'Debe ingresar una fecha de nacimiento.' },
-		  ],
-		  'country': [
-        	{ type: 'required', message: 'Debe ingresar un país.' },
-        	{ type: 'maxlength', message: 'Debe ser menor de 30 caracteres.' }
-      	],
-      	'city': [
-        	{ type: 'required', message: 'Debe ingresar una ciudad.' },
-        	{ type: 'maxlength', message: 'Debe ser menor de 30 caracteres.' }
-      	],
-      	'address': [
-        	{ type: 'required', message: 'Debe ingresar una dirección.' },
-        	{ type: 'maxlength', message: 'Debe ser menor de 20 caracteres.' }
-      	],
-      	'zipcode': [
-	        { type: 'required', message: 'Debe ingresar un código postal.' },
-        	{ type: 'maxlength', message: 'Debe ser menor de 20 caracteres.' }
-      	],
     	'email': [
 			{ type: 'required', message: 'Correo requerido' },
 			{ type: 'minlength', message: 'Debe ser mayor de 5 caracteres' },
@@ -66,27 +49,9 @@ export class AgregarFamiliaPage implements OnInit {
 		],
 		'phone': [
 			{ type: 'required', message: 'Telefono requerido' },
-			{ type: 'minlength', message: 'Debe ser mayor de 5 caracteres' },
-			{ type: 'maxlength', message: 'Debe ser menor de 30 caracteres.' }
-      	],
-      	'password': [
-            { type: 'required', message: 'Contraseña Rederida' },
-            { type: 'minlength', message: 'Debe ser mayor de 8 caracteres' },
-            { type: 'maxlength', message: 'Debe ser menor de 15 caracteres.' },
-            { type: 'pattern', message: 'Su contraseña debe contener al menos una mayúscula, una minúscula y un número.' }
-		],
-		'cpassword': [
-            { type: 'required', message: 'Contraseña Rederida' },
-            { type: 'minlength', message: 'Debe ser mayor de 8 caracteres' },
-            { type: 'maxlength', message: 'Debe ser menor de 15 caracteres.' },
-            { type: 'pattern', message: 'Su contraseña debe contener al menos una mayúscula, una minúscula y un número.' }
-		],
-		/* 'polit': [
-            { type: 'pattern', message: 'Debe aceptar las politicas de privacidad' }
-		],
-		'terms': [
-			{ type: 'pattern', message: 'Debe aceptar los terminos y condiciones' }
-		] */
+			{ type: 'minlength', message: 'Debe ser mayor de 7 caracteres' },
+			{ type: 'maxlength', message: 'Debe ser menor de 11 caracteres.' }
+      	]
 	}
 
   	constructor(
@@ -96,7 +61,7 @@ export class AgregarFamiliaPage implements OnInit {
 		private firebaseAuth: AngularFireAuth,
 		private db: AngularFireDatabase,
 		private androidPermissions: AndroidPermissions,
-    	private locationAccuracy: LocationAccuracy
+    	private locationAccuracy: LocationAccuracy,
 	) {
 		this.register = formBuilder.group({
 			name: ['', Validators.compose([
@@ -107,29 +72,6 @@ export class AgregarFamiliaPage implements OnInit {
         		Validators.required,
         		Validators.maxLength(30)
       		])],
-      		dni: ['', Validators.compose([
-        		Validators.required,
-        		Validators.maxLength(20)
-      		])],
-      		birthdate: ['', Validators.compose([
-        		Validators.required,
-			  ])],
-			  country: ['', Validators.compose([
-				Validators.required,
-				Validators.maxLength(30)
-			])],
-			city: ['', Validators.compose([
-				Validators.required,
-			  	Validators.maxLength(30)
-			])],
-			address: ['', Validators.compose([
-			  	Validators.required,
-			  	Validators.maxLength(20)
-			])],
-			zipcode: ['', Validators.compose([
-				Validators.required,
-				Validators.maxLength(20)
-			])],
 			email: ['', Validators.compose([
 				Validators.required,
 				Validators.minLength(8),
@@ -140,37 +82,13 @@ export class AgregarFamiliaPage implements OnInit {
 				Validators.required,
 				Validators.minLength(8),
 				Validators.maxLength(10)
-			])],
-			password: ['', Validators.compose([
-				Validators.required,
-				Validators.minLength(8),
-				Validators.maxLength(15),
-				Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$.@$!%*?&])[A-Za-z0-9\d$@$.!%*?&].{8,15}')
-			])],
-			cpassword: ['', Validators.compose([
-				Validators.required,
-				Validators.minLength(8),
-				Validators.maxLength(15),
-				Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$.@$!%*?&])[A-Za-z0-9\d$@$.!%*?&].{8,15}')
 			])]
-			/* polit: [false, Validators.compose([
-				Validators.pattern('true')
-			])],
-			terms: [false, Validators.compose([
-				Validators.pattern('true')
-			])] */
 	  	});
 	}
 
   	ngOnInit() {
-		/* this.firebaseAuth.auth.onAuthStateChanged( user => {
-			if (user) {
-				this.uid = user.uid; */
-				this.checkGPSPermission();
-				this.uid = localStorage.getItem('uid');
-			/* }
-		}); */
-	  }
+		this.uid = localStorage.getItem('uid');
+	}
 
 	async success(message) {
 		const modal = await this.modalController.create({
@@ -192,163 +110,18 @@ export class AgregarFamiliaPage implements OnInit {
 	}
 
 	async onSubmit(values) {
-		var name = this.register.value.name;
-		var lastname = this.register.value.lastname;
-		var dni = this.register.value.dni;
-		var birthdate = this.register.value.birthdate;
-		var country = this.register.value.country;
-		var city = this.register.value.city;
-		var address = this.register.value.address;
-		var zipcode = this.register.value.zipcode;
-		var email = this.register.value.email;
-		var password = this.register.value.password;
-		var phone = this.register.value.phone;
-		var d = new Date();
-		var year = d.getFullYear();
-		var month = d.getMonth() + 1;
-		var day = d.getDate();
-		var date = year + '-' + month + '-' + day;
-
-		this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(value => {
-			var uid = value.user.uid;
-
-			var b = {
-				eats: {
-					type: 1,
-					value: 0
-				},
-				books: {
-					type: 2,
-					value: 0
-				},
-				gyms: {
-					type: 2,
-					value: 0
-				},
-				fuel: {
-					type: 1,
-					value: 0
-				},
-				kids: {
-					type: 1,
-					value: 0
-				},
-				propia: {
-					type: 3,
-					value: 0
-				},
-				trips: {
-					type: 2,
-					value: 0
-				}
-			}
-
-			var a = { 
-				accounts: b,
-				name: name,
-				email: email,
-				lastname: lastname,
-				phone: phone,
-				dni: dni,
-				birthdate: birthdate,
-				country: country,
-				city: city,
-				key: uid,
-				address: address,
-				zipcode: zipcode,
-				createt_ad: date,
-				id_familiar: this.uid
-			}
-
-			const itemRef = this.db.object('clientes/' + uid);
-			itemRef.set(a).then( success => {
-				console.log('success');
+		if(this.status == 2) {
+			this.db.list('clientes').update(this.uidselect, { id_familiar: this.uid }).then( success => {
 				this.modalController.dismiss();
-				this.success('El usuario ha sido creado con exito');
+				this.register.reset();
+				this.success('El familiar ha sido registrado con exito');
 			}).catch( error => {
-				console.log('error');
 				this.presentToast('error al registrar el usuario');
 			});
-		}).catch(err => {
-			console.log('Something went wrong:', err.message);
-			this.presentToast('error al registrar el usuario');
-		});
+		} else {
+			this.presentToast('Este usuario ya es familiar de otra persona');
+		}
 	}
-
-	checkGPSPermission() {
-		console.log('checkGPSPermission');
-		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
-			result => {
-				if (result.hasPermission) {
-					console.log('hasPermission');
-					this.askToTurnOnGPS();
-				} else {
-					console.log('no hasPermission');
-					this.requestGPSPermission();
-				}
-			}, err => {
-				console.error(err);
-			}
-		).catch( error => {
-			console.log('error', error);
-		});
-	}
-
-	requestGPSPermission() {
-		console.log('requestGPSPermission');
-		this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-			if (canRequest) {
-				console.log("4");
-				this.myLocation()
-			} else {
-				this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then( () => {
-					console.log('go to ask permissions');
-					this.askToTurnOnGPS();
-				}, error => {
-					console.error('requestPermission Error requesting location permissions 1' + error)
-				});
-			}
-		});
-	}
-
-	askToTurnOnGPS() {
-		console.log('askToTurnOnGPS');
-		this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then( () => {
-			console.log('go to my location');
-			this.myLocation()
-		}, error => { 
-			console.error('Error requesting location permissions 2' + JSON.stringify(error))
-		});
-	}
-
-	myLocation(){
-		console.log('myLocation');
-		LocationService.getMyLocation().then((myLocation: MyLocation) => {
-			this.geocoderMap(myLocation.latLng);
-		});
-	}
-
-	geocoderMap(latlng){
-		console.log('geocoderMap');
-		let options = {
-			position: latlng
-		};
-
-		Geocoder.geocode(options).then( (results: GeocoderResult[])=>{
-			this.country = results[0].country;
-			this.city = results[0].locality;
-			if(results[0].thoroughfare) {
-				this.address = results[0].thoroughfare;
-			}
-		}).catch(error =>{
-			console.error(error);
-		})
-	}
-
-	/* getMap() {
-		localStorage.setItem('url','register');
-		this.router.navigate(['map']);
-	} */
 
 	public togglePassword() {
     	if(this.passwordShown) {
@@ -368,5 +141,44 @@ export class AgregarFamiliaPage implements OnInit {
       		this.passwordShown2 = true;
       		this.passwordType2 = "text";
     	}
+	}
+
+	async getUser(e) {
+		var email = this.email;
+
+		if(!this.lastname) {
+
+		}
+		
+		if(!this.name) {
+
+		}
+		
+		if (!this.phone) {
+
+		}
+		
+		if(!this.email) {
+
+		}
+
+		if((this.name) && (this.lastname) && (this.email) && (this.phone)) {
+			this.db.list('/clientes', ref => ref.orderByChild('email').equalTo(email)).valueChanges().subscribe( data => {
+				if(data[0]['key'] == this.uid) {
+					this.presentToast('No puede agregarse usted mismo como familiar');
+				} else {
+					this.uidselect = data[0]['key'];
+					this.name = data[0]['name'];
+					this.lastname = data[0]['lastname'];
+					this.phone = data[0]['phone'];
+	
+					if(data[0]['id_familiar']) {
+						this.status = 1;
+					} else {
+						this.status = 2;
+					}
+				}
+			});
+		}
 	}
 }

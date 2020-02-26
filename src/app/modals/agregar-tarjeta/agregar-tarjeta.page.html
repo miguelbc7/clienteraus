@@ -4,11 +4,11 @@
         <form [formGroup]="addcard" (ngSubmit)="onSubmit(addcard.value)" class="ion-margin-horizontal">
           <ion-item mode="md">
             <ion-label position="floating">Tarjeta número</ion-label>
-            <ion-input type="number" formControlName="number" lines="none"></ion-input>
+            <ion-input type="number" formControlName="numero" lines="none"></ion-input>
           </ion-item>
           <div class="validation-errors">
-            <ng-container *ngFor="let validation of validation_messages.number">
-              <div class="error-message" *ngIf="addcard.get('number').hasError(validation.type) && (addcard.get('number').dirty || addcard.get('number').touched)">
+            <ng-container *ngFor="let validation of validation_messages.numero">
+              <div class="error-message" *ngIf="addcard.get('numero').hasError(validation.type) && (addcard.get('numero').dirty || addcard.get('numero').touched)">
                 {{ validation.message }}
               </div>
             </ng-container>

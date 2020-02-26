@@ -147,6 +147,7 @@ export class Register2Page implements OnInit {
     	localStorage.setItem('address', this.register2.value.address);
 		localStorage.setItem('zipcode', this.register2.value.zipcode);
 		
+		this.register2.reset();
     	this.router.navigate(["/register3"]);
 	}
 

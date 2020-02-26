@@ -62,6 +62,7 @@ export class Register1Page implements OnInit {
     	localStorage.setItem('dni', this.register1.value.dni);
     	localStorage.setItem('birthdate', this.register1.value.birthdate);
 
+		this.register1.reset();
     	this.router.navigate(["/register2"]);
   	}
 }

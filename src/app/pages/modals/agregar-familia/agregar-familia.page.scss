@@ -9,25 +9,25 @@
         ion-list{
             padding:0 15px;
             ion-item{
-                margin-bottom: 10px;
+                margin-bottom: 3px;
                 --padding-start: 0;
                 ion-label{
                     padding-bottom: 3px;
                     font-size: 18px !important;
                 }
             }
-            .msgError{
+            .error-message{
                 margin: 0px auto 5px;
                 color: red;
                 font-size: 12px;
-                margin-left: 15px;
+                margin-left: 0px;
             }
         }
       
     }
 }
 ion-footer{
-    padding: 5px 20px 10px;
+    padding: 15px;
     background-color: #fff  ;
     border: none;
     box-shadow: none;
@@ -42,7 +42,7 @@ ion-footer{
         --background-hover: #4e5d6a;
         --background-activated: #4e5d6a;
         display: block;
-        margin: 20px auto;
+        margin: 0px auto;
         max-width: max-content;
         letter-spacing: 0;
         font-size: 18px;

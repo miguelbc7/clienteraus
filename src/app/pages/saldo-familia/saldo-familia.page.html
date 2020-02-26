@@ -1,5 +1,7 @@
+<app-navbar></app-navbar>
 <ion-content class="bodyFamilia">
 	<div class="body">
+		<ion-icon class="iconBack" src="assets/img/icon/back.svg" routerLink="/options"></ion-icon>
 		<div class="nav">
 			<h5>Asignar saldo a</h5>
 			<ion-button (click)="agregarFamilia()">
@@ -18,7 +20,7 @@
 			<p class="amount">Monto</p>
 			<div class="d-flex">
 			<span>€</span>
-				<ion-input type="number" [(ngModel)]="amount" (ionChange)="keypress($event)" placeholder="24,00"></ion-input>
+				<ion-input type="number" [(ngModel)]="amount" name="amount" placeholder="0,00" elastic step="any"></ion-input>
 			</div>
 			<p class="title">Seleccione el destino</p>
 			<div class="boxButtons">

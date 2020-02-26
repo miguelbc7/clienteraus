@@ -102,6 +102,10 @@ const routes: Routes = [
 		path: 'saldofamilia',
 		loadChildren: () => import('./pages/saldo-familia/saldo-familia.module').then( m => m.SaldoFamiliaPageModule)
 	},
+	{
+		path: 'cart',
+		loadChildren: () => import('./pages/carrito/carrito.module').then( m => m.CarritoPageModule)
+	}
 ];
 
 @NgModule({

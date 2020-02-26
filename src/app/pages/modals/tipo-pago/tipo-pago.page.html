@@ -5,7 +5,7 @@
     <div class="dflex">
       <button [ngClass]="activation==1 ? 'active' : ''" (click)="setActive(1)">Eats</button>
       <button [ngClass]="activation==2 ? 'active' : ''" (click)="setActive(2)">Propio</button>
-      <button [ngClass]="activation==3 ? 'active' : ''">Mix</button>
+      <button [ngClass]="activation==3 ? 'active' : ''" (click)="setActive(3)">Mix</button>
       <button [ngClass]="activation==4 ? 'active' : ''">Puntos</button>
     </div>
     <div class="content">

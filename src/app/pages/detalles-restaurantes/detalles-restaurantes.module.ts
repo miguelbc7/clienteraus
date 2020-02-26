@@ -8,6 +8,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { DetallesRestaurantesPage } from './detalles-restaurantes.page';
 
+import { SharedModule } from '../sharedmodals/shared.module';
+
 const routes: Routes = [
   {
     path: '',
@@ -20,6 +22,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

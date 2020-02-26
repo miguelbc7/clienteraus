@@ -30,14 +30,18 @@ export class SaldoFamiliaPage implements OnInit {
 	) {}
 
 	ngOnInit() {
-		/* this.firebaseAuth.auth.onAuthStateChanged( user => {
-			if (user) {
-				this.uid = user.uid; */
-				this.uid = localStorage.getItem('uid');
-				console.log('uid', localStorage.getItem('uid'))
-				this.getFamily(localStorage.getItem('uid'));
-			/* }
-		}); */
+		this.uid = localStorage.getItem('uid');
+		console.log('uid', localStorage.getItem('uid'))
+		this.getFamily(localStorage.getItem('uid'));
+	}
+
+	async presentToast(message) {
+		const toast = await this.toastController.create({
+			message: message,
+			duration: 2000
+		});
+
+		toast.present();
 	}
 
 	change(id){
@@ -58,15 +62,6 @@ export class SaldoFamiliaPage implements OnInit {
 			component: AgregarFamiliaPage,
 			cssClass: 'agregarFamilia'
 		});
-
-		/* modal.onDidDismiss().then( success => {
-			this.firebaseAuth.auth.onAuthStateChanged( user => {
-				if (user) {
-					this.uid = user.uid;
-					this.getFamily(user.uid);
-				}
-			});
-		}) */
 
 		return await modal.present();
 	}
@@ -440,27 +435,4 @@ export class SaldoFamiliaPage implements OnInit {
 		});
 	}
 
-	async presentToast(message) {
-		const toast = await this.toastController.create({
-			message: message,
-			duration: 2000
-		});
-
-		toast.present();
-	}
-
-	async keypress(e) {
-		var a = this.amount;
-
-		console.log('a', a);
-
-		if((a.toString()).indexOf('.') > 1) {
-			console.log('1');
-			var b = a.split('.').join(',');
-			console.log('b', b);
-			this.amount = a;
-		} else {
-			console.log('2');
-		}
-	}
 }
