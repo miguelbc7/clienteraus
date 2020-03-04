@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { MyLocation, Geocoder, GoogleMap, GoogleMaps, GeocoderResult, LocationService } from '@ionic-native/google-maps';
+import { Storage } from '@ionic/storage';
 
 @Component({
 	selector: 'app-register2',
@@ -18,6 +20,8 @@ export class Register2Page implements OnInit {
 	address;
 	country;
 	city;
+	dir;
+	zipcode
   	validation_messages = {
     	'country': [
         	{ type: 'required', message: 'Debe ingresar un país.' },
@@ -29,7 +33,6 @@ export class Register2Page implements OnInit {
       	],
       	'address': [
         	{ type: 'required', message: 'Debe ingresar una dirección.' },
-        	{ type: 'maxlength', message: 'Debe ser menor de 20 caracteres.' }
       	],
       	'zipcode': [
 	        { type: 'required', message: 'Debe ingresar un código postal.' },
@@ -41,7 +44,10 @@ export class Register2Page implements OnInit {
 		public formBuilder: FormBuilder,
 		public router: Router,
 		private androidPermissions: AndroidPermissions,
-    	private locationAccuracy: LocationAccuracy,
+		private locationAccuracy: LocationAccuracy,
+		private modalController: ModalController,
+		readonly ngZone: NgZone,
+		private storage: Storage
 	) {		
 		this.register2 = formBuilder.group({
 			country: ['', Validators.compose([
@@ -53,8 +59,7 @@ export class Register2Page implements OnInit {
 			  	Validators.maxLength(30)
 			])],
 			address: ['', Validators.compose([
-			  	Validators.required,
-			  	Validators.maxLength(20)
+			  	Validators.required
 			])],
 			zipcode: ['', Validators.compose([
 				Validators.required,
@@ -63,12 +68,19 @@ export class Register2Page implements OnInit {
 		});
   	}
 
-	ngOnInit() {
+	async ngOnInit() {
+		
+	}
+
+	async ionViewWillEnter() {
+		/* var dir = localStorage.getItem('directionClient'); */
+		
 		this.checkGPSPermission();
 	}
 
 	checkGPSPermission() {
 		console.log('checkGPSPermission');
+
 		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
 			result => {
 				if (result.hasPermission) {
@@ -88,16 +100,47 @@ export class Register2Page implements OnInit {
 
 	requestGPSPermission() {
 		console.log('requestGPSPermission');
+
 		this.locationAccuracy.canRequest().then((canRequest: boolean) => {
 			if (canRequest) {
-				console.log("4");
-				this.myLocation()
+				console.log('storage1');
+				this.storage.get('directionClient').then( data => {
+					if(data) {
+						data.extra.lines.pop();
+						console.log('data', data);
+						this.dir = data;
+						this.address = data.street;
+						this.zipcode = data.postalCode;
+						this.country = data.country;
+						this.city = data.locality;
+						this.storage.remove('directionClient').then(success => {
+							console.log('success', success);
+						}).catch( error => {
+							console.log('error', error);
+						});
+					} else {
+						this.myLocation();
+					}
+				});
 			} else {
-				this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then( () => {
-					console.log('go to ask permissions');
-					this.askToTurnOnGPS();
-				}, error => {
-					console.error('requestPermission Error requesting location permissions 1' + error)
+				console.log('storage2');
+				this.storage.get('directionClient').then( data => {
+					if(data) {
+						data.extra.lines.pop();
+						console.log('data', data);
+						this.dir = data;
+						this.address = data.street;
+						this.zipcode = data.postalCode;
+						this.country = data.country;
+						this.city = data.locality;
+						this.storage.remove('directionClient').then(success => {
+							console.log('success', success);
+						}).catch( error => {
+							console.log('error', error);
+						});
+					} else {
+						this.myLocation();
+					}
 				});
 			}
 		});
@@ -105,9 +148,27 @@ export class Register2Page implements OnInit {
 
 	askToTurnOnGPS() {
 		console.log('askToTurnOnGPS');
+
 		this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then( () => {
 			console.log('go to my location');
-			this.myLocation()
+			this.storage.get('directionClient').then( data => {
+				if(data) {
+					data.extra.lines.pop();
+					console.log('data', data);
+					this.dir = data;
+					this.address = data.street;
+					this.zipcode = data.postalCode;
+					this.country = data.country;
+					this.city = data.locality;
+					this.storage.remove('directionClient').then(success => {
+						console.log('success', success);
+					}).catch( error => {
+						console.log('error', error);
+					});
+				} else {
+					this.myLocation();
+				}
+			});
 		}, error => { 
 			console.error('Error requesting location permissions 2' + JSON.stringify(error))
 		});
@@ -115,6 +176,7 @@ export class Register2Page implements OnInit {
 
 	myLocation(){
 		console.log('myLocation');
+
 		LocationService.getMyLocation().then((myLocation: MyLocation) => {
 			this.geocoderMap(myLocation.latLng);
 		});
@@ -122,15 +184,14 @@ export class Register2Page implements OnInit {
 
 	geocoderMap(latlng){
 		console.log('geocoderMap');
+
 		let options = {
 			position: latlng
 		};
 
 		Geocoder.geocode(options).then( (results: GeocoderResult[])=>{
-			console.log('result', results)
-			/* this.direction = results[0];
-			this.direction.extra.lines.pop();
-			this.address = this.direction.extra.lines.join(', '); */
+			console.log('result', results);
+
 			this.country = results[0].country;
 			this.city = results[0].locality;
 			if(results[0].thoroughfare) {
@@ -138,7 +199,7 @@ export class Register2Page implements OnInit {
 			}
 		}).catch(error =>{
 			console.error(error);
-		})
+		});
 	}
 
 	onSubmit(values){
@@ -151,7 +212,7 @@ export class Register2Page implements OnInit {
     	this.router.navigate(["/register3"]);
 	}
 
-	getMap() {
+	async getMap() {
 		localStorage.setItem('url','register');
 		this.router.navigate(['map']);
 	}

@@ -66,17 +66,17 @@ export class AgregarTarjetaPage implements OnInit {
 	  
 	async onSubmit(values) {
 		var uid = localStorage.getItem('uid');
-		var numero = this.addcard.value.number;
+		var numero = this.addcard.value.numero;
 		var fechaExp = this.addcard.value.date;
 		var yearExp = this.addcard.value.year;
 		var cvc = this.addcard.value.cvc;
 		var nombre = this.addcard.value.name;
 		const id = this.afs.createId();
+		
 		const item = { id, nombre, numero, cvc, fechaExp, yearExp };
 		var items = this.afs.collection('clientes/' + uid + '/creditcard');
 
 		items.doc(id).set(item).then( success => {
-			console.log('success');
 			this.addcard.reset();
 			this.closeModal();
 		}).catch( error => {

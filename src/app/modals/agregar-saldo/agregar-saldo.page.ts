@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { BaseSuccessPage } from '../../pages/modals/base-success/base-success.page';
 
 @Component({
 	selector: 'app-agregar-saldo',
@@ -26,68 +27,60 @@ export class AgregarSaldoPage implements OnInit {
 	ngOnInit() {}
 	  
 	agregarSaldo() {
-		/* this.firebaseAuth.auth.onAuthStateChanged(user => {
-			if (user) {
-				var uid = user.uid; */
-				var uid = localStorage.getItem('uid');
-				var ref = this.db.list('clientes/' + uid);
+		var uid = localStorage.getItem('uid');
+		var ref = this.db.list('clientes/' + uid);
 
-				var s = this.saldo;
-				
-				if(s.indexOf('.') > -1) {
-					s = s.split('.').join(',');
-				} else {
-					s = s;
+		var s = this.saldo;
+
+		if((s.toString()).indexOf('.') > -1) {
+			s = (s.toString).split('.').join(',');
+		} else {
+			s = s.toString();
+		}
+
+		var r = ref.valueChanges().subscribe( (success: any) => {
+			var p = parseFloat(success[0]['propia'].value) + parseFloat(s);
+
+			var dat = {
+				eats: { 
+					value: parseFloat(success[0]['eats'].value),
+					type: 1
+				},
+				books: {
+					value: parseFloat(success[0]['books'].value),
+					type: 2
+				},
+				fuel: {
+					value: parseFloat(success[0]['fuel'].value),
+					type: 1
+				},
+				gyms: {
+					value: parseFloat(success[0]['gyms'].value),
+					type: 2
+				},
+				kids: {
+					value: parseFloat(success[0]['kids'].value),
+					type: 1
+				},
+				propia: {
+					value: p,
+					type: 3
+				},
+				trips: {
+					value: parseFloat(success[0]['trips'].value),
+					type:   2
 				}
-
-				console.log('s', s);
-
-				var r = ref.valueChanges().subscribe( (success: any) => {
-					var p = parseFloat(success[0]['propia'].value) + parseFloat(s);
-
-					var dat = {
-						eats: { 
-						  value: parseFloat(success[0]['eats'].value),
-						  type: 1
-						},
-						books: {
-						  value: parseFloat(success[0]['books'].value),
-						  type: 2
-						},
-						fuel: {
-						  value: parseFloat(success[0]['fuel'].value),
-						  type: 1
-						},
-						gyms: {
-						  value: parseFloat(success[0]['gyms'].value),
-						  type: 2
-						},
-						kids: {
-						  value: parseFloat(success[0]['kids'].value),
-						  type: 1
-						},
-						propia: {
-						  value: p,
-						  type: 3
-						},
-						trips: {
-						  value: parseFloat(success[0]['trips'].value),
-						  type:   2
-						}
-					}
-
-					this.db.list('clientes').update(uid, { accounts: dat }).then( success => {
-						this.closeModal();
-						r.unsubscribe();
-						this.router.navigate(["/options"]);
-					}).catch( error => {
-						this.presentToast('Ocurrio un error al recargar su saldo');
-					});
-				});
-			/* } else {
-
 			}
-		}); */
+
+			this.db.list('clientes').update(uid, { accounts: dat }).then( success => {
+				this.closeModal();
+				r.unsubscribe();
+				this.success('Se ha recargado el sado con éxito');
+			}).catch( error => {
+				this.presentToast('Ocurrio un error al recargar su saldo');
+			});
+		});
+
 	}
 
 	async presentToast(message) {
@@ -101,5 +94,15 @@ export class AgregarSaldoPage implements OnInit {
 
   	async closeModal(){
     	await this.modalCtrl.dismiss();
-  	}
+	}
+	  
+	async success(message) {
+		const modal = await this.modalCtrl.create({
+			component: BaseSuccessPage,
+			cssClass: 'successBaseModal',
+			componentProps: { message: message }
+		});
+
+		return await modal.present();
+	}
 }

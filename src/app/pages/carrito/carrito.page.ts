@@ -4,6 +4,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { AgregarEntregaPage } from '../../modals/agregar-entrega/agregar-entrega.page';
+import { BaseSuccessPage } from '../modals/base-success/base-success.page';
 
 @Component({
 	selector: 'app-carrito',
@@ -26,6 +27,7 @@ export class CarritoPage implements OnInit {
 	name;
 	dni;
 	addresses;
+	restaurantid;
 	restaurant;
 	del;
 	
@@ -108,9 +110,12 @@ export class CarritoPage implements OnInit {
 	}
 
 	async getName() {
+		console.log('uid',  this.uid);
 		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data => {
+			console.log('data', data);
 			this.name = data['name'] + ' ' + data['lastname'];
 			this.dni = data['dni'];
+			r.unsubscribe();
 		})
 	}
 
@@ -123,9 +128,15 @@ export class CarritoPage implements OnInit {
 				var a = { key: d, price: data[d].price, product: data[d].product, productData: data[d].productData, quantity: data[d].quantity, restaurant: data[d].restaurant, total: data[d].total };
 				t = t + parseFloat(data[d].total);
 
-				this.restaurant = data[d].restaurant; 
+				this.restaurantid = data[d].restaurant;
 
 				arr.push(a);
+			}
+
+			if(arr.length >= 1) {
+				this.del = true;
+			} else {
+				this.del = false;
 			}
 			
 			var tt = t + 5;
@@ -135,27 +146,61 @@ export class CarritoPage implements OnInit {
 			this.iva = st;
 			this.subtotal = iv;
 
-			if(arr.length > 1) {
-				this.del = true;
-			} else {
-				this.del = false;
-			}
-			
 			this.products = arr;
+		 	this.getRestaurant();
 		}, error => {
 			console.log('error', error);
 		});
 	}
 
+	async getRestaurant() {
+		var r = this.db.object('restaurantes/' + this.restaurantid).valueChanges().subscribe( data => {
+			this.restaurant = data['name'];
+			r.unsubscribe();
+		});
+	}
+
 	async getAddress() {
-		this.db.object('addresses/' + this.uid).valueChanges().subscribe( data => {
+		var r = this.db.object('addresses/' + this.uid).valueChanges().subscribe( data => {
 			if(data) {
-				this.showadd = true;
+				this.addresses = data;
+				r.unsubscribe();
 			} else {
-				this.showadd = false;
+				var r2 = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
+					console.log('data2', data2);
+
+					var addresses = {
+						city: '',
+						country: '',
+						street: '',
+						phone: '',
+						zipcode: ''
+					};
+
+
+					if(data2['city']) {
+						addresses['city'] = data2['city'];
+					}
+
+					if(data2['country']) {
+						addresses['country'] = data2['city'];
+					}
+
+					if(data2['address']) {
+						addresses['street'] = data2['address'];
+					}
+
+					if(data2['phone']) {
+						addresses['phone'] = data2['phone'];
+					}
+
+					if(data2['zipcode']) {
+						addresses['zipcode'] = data2['zipcode'];
+					}
+
+					this.addresses = addresses;
+				})
 			}
-			
-			this.addresses = data;
 		})
 	}
 
@@ -172,6 +217,12 @@ export class CarritoPage implements OnInit {
 			componentProps: {
 				type: a
 			}
+		});
+
+		modal.onDidDismiss().then( data => {
+			this.getAddress();
+		}).catch( error => {
+			this.getAddress();
 		});
 
 		return await modal.present();
@@ -196,7 +247,6 @@ export class CarritoPage implements OnInit {
 
 	async cleanCart() {
 		this.db.list('cart/' + this.uid).remove().then( success => {
-			console.log('success', success);
 			this.del = false;
 		}).catch( error => {
 			console.log('error', error);
@@ -214,22 +264,29 @@ export class CarritoPage implements OnInit {
 
 		if((this.showadd) && (Object.keys(this.products).length > 0)) {
 			var ref = this.db.list('clientes/' + this.uid);
-			var ref2 = this.db.list('restaurantes/' + this.restaurant);
+			var ref2 = this.db.list('restaurantes/' + this.restaurantid);
 
 			var r1 = ref.valueChanges().subscribe( (success2: any) => {
-				console.log('success2', success2);
-
 				var t =  parseFloat(this.total) - parseFloat(success2[0]['eats'].value);
 				var p: number, p2: number;
 				var status;
 
 				if(t > 0) {
-					p = Math.abs(t - parseFloat(success2[0]['propia'].value));
+					if(t > parseFloat(success2[0]['propia'].value)) {
+						r1.unsubscribe();
+						this.presentToast('No tiene saldo suficiente en sus cuentas para pagar esa cantidad');
+					} else {
+						p = parseFloat(success2[0]['propia'].value) - t;
+						status = 1;
+					}
 					p2 = 0;
-					status = 1;
 				} else {
-					p = 0;
-					p2 = Math.abs(parseFloat(this.total) - parseFloat(success2[0]['eats'].value));
+					if(parseFloat(this.total) > parseFloat(success2[0]['eats'].value)) {
+						p2 = parseFloat(this.total) - parseFloat(success2[0]['eats'].value);
+					} else {
+						p2 = parseFloat(success2[0]['eats'].value) - parseFloat(this.total);
+					}
+					p = success2[0]['propia'].value;
 					status = 2;
 				}
 
@@ -264,26 +321,19 @@ export class CarritoPage implements OnInit {
 					}
 				}
 
-				if((status == 1 && p2 < 0) || (status == 2 && p < 0)) {
+				if((status == 1 && p < 1) || (status == 2 && p2 < 1)) {
 					r1.unsubscribe();
 					this.presentToast('No tiene saldo suficiente en sus cuentas para pagar esa cantidad');
 				} else {
 					r1.unsubscribe();
 					this.db.list('clientes').update(this.uid, { accounts: dat }).then( success => {
 						var r2 = ref2.valueChanges().subscribe( (success: any) => {
-							
 							var price = parseFloat(success[0]) + parseFloat(this.total);
 				
-							this.db.list('restaurantes').update(this.restaurant, { balance: price }).then( success2 => {
+							this.db.list('restaurantes').update(this.restaurantid, { balance: price }).then( success2 => {
 								r2.unsubscribe();
 								this.cleanCart();
-								this.presentToast('El pago se ha realizado con éxito');
-
-								/* if(t > 0) {
-									this.newTransaction2(p, p2);
-								} else {
-									this.newTransaction(p2);
-								} */
+								this.success('El pago se ha realizado con éxito')
 							});
 						}, error => {
 							console.log('error', error);
@@ -295,5 +345,15 @@ export class CarritoPage implements OnInit {
 				}
 			});
 		}
+	}
+
+	async success(message) {
+		const modal = await this.modalController.create({
+			component: BaseSuccessPage,
+			cssClass: 'successBaseModal',
+			componentProps: { message: message }
+		});
+
+		return await modal.present();
 	}
 }

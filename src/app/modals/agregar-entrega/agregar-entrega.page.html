@@ -16,51 +16,59 @@
           </ng-container>
         </div>
         <div class="inline-items">
-          <ion-item mode="md">
-            <ion-label  position="floating">Número</ion-label>
-            <ion-input type="text" formControlName="number" lines="none"></ion-input>
-          </ion-item>
-          <div class="validation-errors">
-            <ng-container *ngFor="let validation of validation_messages.number">
-              <div class="error-message" *ngIf="addaddress.get('number').hasError(validation.type) && (addaddress.get('number').dirty || addaddress.get('number').touched)">
-                {{ validation.message }}
-              </div>
-            </ng-container>
+          <div class="box">
+            <ion-item mode="md">
+              <ion-label  position="floating">Número</ion-label>
+              <ion-input type="text" formControlName="number" lines="none"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.number">
+                <div class="error-message" *ngIf="addaddress.get('number').hasError(validation.type) && (addaddress.get('number').dirty || addaddress.get('number').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
           </div>
-          <ion-item mode="md">
-            <ion-label position="floating">Código postal</ion-label>
-            <ion-input types="number" formControlName="zipcode" lines="none"></ion-input>
-          </ion-item>
-          <div class="validation-errors">
-            <ng-container *ngFor="let validation of validation_messages.zipcode">
-              <div class="error-message" *ngIf="addaddress.get('zipcode').hasError(validation.type) && (addaddress.get('zipcode').dirty || addaddress.get('zipcode').touched)">
-                {{ validation.message }}
-              </div>
-            </ng-container>
+          <div class="box">
+            <ion-item mode="md">
+              <ion-label position="floating">Código postal</ion-label>
+              <ion-input types="number" formControlName="zipcode" lines="none"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.zipcode">
+                <div class="error-message" *ngIf="addaddress.get('zipcode').hasError(validation.type) && (addaddress.get('zipcode').dirty || addaddress.get('zipcode').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
           </div>
         </div>
         <div class="inline-items">
-          <ion-item mode="md">
-            <ion-label  position="floating">Ciudad</ion-label>
-            <ion-input type="text" formControlName="city" lines="none"></ion-input>
-          </ion-item>
-          <div class="validation-errors">
-            <ng-container *ngFor="let validation of validation_messages.city">
-              <div class="error-message" *ngIf="addaddress.get('city').hasError(validation.type) && (addaddress.get('city').dirty || addaddress.get('city').touched)">
-                {{ validation.message }}
-              </div>
-            </ng-container>
+          <div class="box">
+            <ion-item mode="md">
+              <ion-label  position="floating">Ciudad</ion-label>
+              <ion-input type="text" formControlName="city" lines="none"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.city">
+                <div class="error-message" *ngIf="addaddress.get('city').hasError(validation.type) && (addaddress.get('city').dirty || addaddress.get('city').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
           </div>
-          <ion-item mode="md">
-            <ion-label position="floating">País</ion-label>
-            <ion-input types="text" formControlName="country" lines="none"></ion-input>
-          </ion-item>
-          <div class="validation-errors">
-            <ng-container *ngFor="let validation of validation_messages.country">
-              <div class="error-message" *ngIf="addaddress.get('country').hasError(validation.type) && (addaddress.get('country').dirty || addaddress.get('country').touched)">
-                {{ validation.message }}
-              </div>
-            </ng-container>
+          <div class="box">
+            <ion-item mode="md">
+              <ion-label position="floating">País</ion-label>
+              <ion-input types="text" formControlName="country" lines="none"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.country">
+                <div class="error-message" *ngIf="addaddress.get('country').hasError(validation.type) && (addaddress.get('country').dirty || addaddress.get('country').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
           </div>
         </div>
         <ion-item mode="md">
@@ -74,7 +82,7 @@
             </div>
           </ng-container>
         </div>
-        <ion-button mode="md" type="submit" [disabled]="!addaddress.valid" class="confirm">Listo</ion-button>
+        <ion-button mode="md" type="submit" [disabled]="!addaddress.valid" class="confirmButton">Listo</ion-button>
       </form>
     </ion-list>
   </div>

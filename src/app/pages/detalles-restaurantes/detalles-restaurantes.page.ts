@@ -8,6 +8,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { Platform } from '@ionic/angular';
 import { GoogleMaps, GoogleMap, GoogleMapsEvent, Marker, GoogleMapsAnimation, MyLocation, Geocoder, GeocoderResult, Environment } from '@ionic-native/google-maps';
+import * as moment from "moment";
 
 @Component({
 	selector: 'app-detalles-restaurantes',
@@ -121,12 +122,12 @@ export class DetallesRestaurantesPage implements OnInit {
 							var b = { start: row.schedules[s].start, end: row.schedules[s].end };
 							arr2.push(b);
 						}
+
 						var a = { name: row.name, status: row.status, schedules: arr2 }
 						arr.push(a);
 					});
 				}
 
-				console.log('data', arr);
 				this.schedules = arr;
 			});
 		});

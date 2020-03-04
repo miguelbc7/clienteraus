@@ -16,16 +16,7 @@ export class NavbarComponent implements OnInit {
   	) {}
 
 	ngOnInit() {
-		/* console.log('router', this.router);
-		var url = this.router.url;
 
-		if(url.indexOf('detailsproduct') > -1) {
-			this.showcarrito = false;
-		} else if(url.indexOf('detailsrestaurant') > -1) {
-			this.showcarrito = false;
-		} else {
-			this.showcarrito = true;
-		} */
 	}
 
 	async notificaciones() {

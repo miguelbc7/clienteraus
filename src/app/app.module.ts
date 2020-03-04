@@ -36,7 +36,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   entryComponents: [],
   imports: [
@@ -71,4 +71,4 @@ import { GoogleMaps } from '@ionic-native/google-maps';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { MaskPipe }

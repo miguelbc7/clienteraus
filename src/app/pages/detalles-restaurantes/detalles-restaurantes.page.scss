@@ -73,13 +73,14 @@
             justify-content: center;
             padding: 15px 10px;
             align-items: center;
+            flex-direction: column;
             h5{
                 flex-grow: 1;
-                max-width: 40%;
+                max-width: 100%;
                 margin-right: auto;
-                text-overflow: ellipsis;
+                /* text-overflow: ellipsis; */
                 overflow: hidden;
-                white-space: nowrap;
+                /* white-space: nowrap; */
                 color: #494947;
                 font-size: 12px;
                 margin-top: 0;
@@ -90,7 +91,6 @@
                 }
             }
             .horario{
-                position: absolute;
                 display: flex;
                 align-items: center;
                 ion-icon{

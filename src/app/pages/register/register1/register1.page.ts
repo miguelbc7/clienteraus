@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
+import { MyLocation, Geocoder, GoogleMap, GoogleMaps, GeocoderResult, LocationService } from '@ionic-native/google-maps';
 
 @Component({
   	selector: 'app-register1',
@@ -32,7 +35,9 @@ export class Register1Page implements OnInit {
 
   	constructor(
 		public formBuilder: FormBuilder,
-		private router: Router
+		private router: Router,
+		private androidPermissions: AndroidPermissions,
+    	private locationAccuracy: LocationAccuracy,
 	) {
 
     	this.register1 = formBuilder.group({
@@ -54,7 +59,51 @@ export class Register1Page implements OnInit {
   		});
   	}
 
-  	ngOnInit() {}
+	ngOnInit() {
+		this.checkGPSPermission();
+	}
+	  
+	checkGPSPermission() {
+		console.log('checkGPSPermission');
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
+			result => {
+				if (result.hasPermission) {
+
+				} else {
+					console.log('no hasPermission');
+					this.requestGPSPermission();
+				}
+			}, err => {
+				console.error(err);
+			}
+		).catch( error => {
+			console.log('error', error);
+		});
+	}
+
+	requestGPSPermission() {
+		console.log('requestGPSPermission');
+		this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+			if (canRequest) {
+
+			} else {
+				this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then( () => {
+					this.askToTurnOnGPS();
+				}, error => {
+					console.error('requestPermission Error requesting location permissions 1' + error)
+				});
+			}
+		});
+	}
+
+	askToTurnOnGPS() {
+		console.log('askToTurnOnGPS');
+		this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then( () => {
+			
+		}, error => { 
+			console.error('Error requesting location permissions 2' + JSON.stringify(error))
+		});
+	}
 
   	onSubmit(values){
     	localStorage.setItem('name', this.register1.value.name);

@@ -191,7 +191,7 @@ export class Register3Page implements OnInit {
 
 			const itemRef = this.db.object('clientes/' + uid);
 			itemRef.set(a).then( success => {
-				console.log('success');
+				localStorage.setItem('uid', uid);
 				this.register3.reset();
 				this.router.navigate(["/home"]);
 			}).catch( error => {

@@ -90,6 +90,7 @@ export class AgregarEntregaPage implements OnInit {
 		}
 
 		this.db.object('addresses/' + this.uid).set(data).then( success => {
+			console.log('success', success);
 			this.closeModal();
 		}).catch( error => {
 			console.log('error', error);

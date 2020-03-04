@@ -32,6 +32,7 @@ export class AgregarFamiliaPage implements OnInit {
   	passwordType2: string = "password";
 	passwordShown2: boolean = false;
 	public register: FormGroup;
+	disab = true;
 	validation_messages = {
 		'name': [
         	{ type: 'required', message: 'Debe ingresar un nombre.' },
@@ -145,39 +146,36 @@ export class AgregarFamiliaPage implements OnInit {
 
 	async getUser(e) {
 		var email = this.email;
-
-		if(!this.lastname) {
-
-		}
-		
-		if(!this.name) {
-
-		}
-		
-		if (!this.phone) {
-
-		}
 		
 		if(!this.email) {
 
 		}
 
-		if((this.name) && (this.lastname) && (this.email) && (this.phone)) {
+		if(this.email) {
 			this.db.list('/clientes', ref => ref.orderByChild('email').equalTo(email)).valueChanges().subscribe( data => {
-				if(data[0]['key'] == this.uid) {
-					this.presentToast('No puede agregarse usted mismo como familiar');
-				} else {
-					this.uidselect = data[0]['key'];
-					this.name = data[0]['name'];
-					this.lastname = data[0]['lastname'];
-					this.phone = data[0]['phone'];
-	
-					if(data[0]['id_familiar']) {
-						this.status = 1;
+				if(data) {
+					console.log('data', data[0]);
+					if(data[0]['key'] == this.uid) {
+						this.disab = true
+						this.presentToast('No puede agregarse usted mismo como familiar');
 					} else {
-						this.status = 2;
+						this.uidselect = data[0]['key'];
+						this.name = data[0]['name'];
+						this.lastname = data[0]['lastname'];
+						this.phone = data[0]['phone'];
+		
+						if(data[0]['id_familiar']) {
+							this.status = 1;
+						} else {
+							this.status = 2;
+						}
 					}
+				} else if(!data[0]) {
+					this.presentToast('Este usuario no existe');
+				} else {
+					this.presentToast('Este usuario no existe');
 				}
+				
 			});
 		}
 	}

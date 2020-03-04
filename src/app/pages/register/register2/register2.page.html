@@ -53,7 +53,7 @@
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Código postal</ion-label>
-				<ion-input formControlName="zipcode" clearInput="true" type="number" required></ion-input>
+				<ion-input formControlName="zipcode" [(ngModel)]="zipcode" clearInput="true" type="number" required></ion-input>
 			</ion-item>
 		</div>
 		<div class="validation-errors">

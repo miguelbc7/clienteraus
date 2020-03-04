@@ -177,12 +177,21 @@ export class TipoPagoPage implements OnInit {
 				var status;
 
 				if(t > 0) {
-					p = Math.abs(t - parseFloat(success2[0]['propia'].value));
+					if(t > parseFloat(success2[0]['propia'].value)) {
+						r1.unsubscribe();
+						this.presentToast('No tiene saldo suficiente en sus cuentas para pagar esa cantidad');
+					} else {
+						p = parseFloat(success2[0]['propia'].value) - t;
+						status = 1;
+					}
 					p2 = 0;
-					status = 1;
 				} else {
-					p = 0;
-					p2 = Math.abs(parseFloat(this.total) - parseFloat(success2[0]['eats'].value));
+					if(parseFloat(this.total) > parseFloat(success2[0]['eats'].value)) {
+						p2 = parseFloat(this.total) - parseFloat(success2[0]['eats'].value);
+					} else {
+						p2 = parseFloat(success2[0]['eats'].value) - parseFloat(this.total);
+					}
+					p = success2[0]['propia'].value;
 					status = 2;
 				}
 

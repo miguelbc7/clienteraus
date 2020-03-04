@@ -92,41 +92,72 @@ export class OptionsPage implements OnInit {
 				t += parseFloat(row.value);
 			});
 
-			t = t.toFixed(2);
-			c = c.toFixed(2);
-			c2 = c2.toFixed(2);
-			c3 = c3.toFixed(2);
+			if(t > 0) {
+				t = t.toFixed(2);
+			} else {
+				t = 0;
+			}
+
+			if(c > 0) {
+				c = c.toFixed(2);
+			} else {
+				c = 0;
+			}
+
+			if(c2 > 0) {
+				c2 = c2.toFixed(2);
+			} else {
+				c2 = 0;
+			}
+
+			if(c3 > 0) {
+				c3 = c3.toFixed(2);
+			} else {
+				c3 = 0;
+			}
 
 			if((t.toString()).indexOf('.') > -1) {
 				this.total1 = (t.toString()).split('.')[0];
 				this.total2 = (t.toString()).split('.')[1];
+			} else if((t.toString()).indexOf(',') > -1) {
+				this.total1 = (t.toString()).split(',')[0];
+				this.total2 = (t.toString()).split(',')[1];
 			} else {
 				this.total1 = t;
-				this.total2 = '00';
+				this.total2 = '';
 			}
 
 			if((c.toString()).indexOf('.') > -1) {
 				this.count.count11 = (c.toString()).split('.')[0];
 				this.count.count12 = (c.toString()).split('.')[1];
+			} else if((c.toString()).indexOf(',') > -1) {
+				this.count.count11 = (c.toString()).split(',')[0];
+				this.count.count12 = (c.toString()).split(',')[1];
 			} else {
 				this.count.count11 = c;
-				this.count.count12 = '00';
+				this.count.count12 = '';
 			}
 
 			if((c2.toString()).indexOf('.') > -1) {
 				this.count.count21 = (c2.toString()).split('.')[0];
 				this.count.count22 = (c2.toString()).split('.')[1];
+			} else if((c2.toString()).indexOf(',') > -1) {
+				this.count.count21 = (c2.toString()).split(',')[0];
+				this.count.count22 = (c2.toString()).split(',')[1];
 			} else {
 				this.count.count21 = c2;
-				this.count.count22 = '00';
+				this.count.count22 = '';
 			}
 
 			if((c3.toString()).indexOf('.') > -1) {
 				this.count.count31 = (c3.toString()).split('.')[0];
 				this.count.count32 = (c3.toString()).split('.')[1];
+			} else if((c3.toString()).indexOf(',') > -1) {
+				this.count.count31 = (c3.toString()).split(',')[0];
+				this.count.count32 = (c3.toString()).split(',')[1];
 			} else {
 				this.count.count31 = c3;
-				this.count.count32 = '00';
+				this.count.count32 = '';
 			}
 		}, error => {
 			console.log('error', error);

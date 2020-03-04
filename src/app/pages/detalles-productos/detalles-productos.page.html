@@ -3,7 +3,7 @@
     <div class="nav">
       <ion-button class="btnBack" (click)="back()"><ion-icon class="iconBack" src="./assets/img/icon/back.svg" routerLink="/options"></ion-icon></ion-button>
       <div class="nameRestaurant">
-        <h5>Vegetalia Restaurant</h5>
+        <h5>{{ restaurant }}</h5>
       </div>
       <div class="buttons">
         <ion-button><img class="iconBack" src="./assets/img/icon/corazon-gray.png"></ion-button>
@@ -47,7 +47,7 @@
               </div>
             </ion-col>
             <ion-col size="5">
-              <p class="price">{{ product?.price_with_iva }} €</p>
+              <p class="price">{{ product?.price_with_iva | mask }} €</p>
               <div class="inputGroup">
                 <ion-button (click)="less()">-</ion-button>
                 <ion-input type="text" value="{{cant}}" [(ngModel)]="cant"></ion-input>

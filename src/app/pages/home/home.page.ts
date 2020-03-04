@@ -13,6 +13,8 @@ import * as firebase from 'firebase';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+	restaurantes:boolean = false;
+	productos:boolean = true;
 
   	slideOpts = {
     	initialSlide: 1,
@@ -34,10 +36,10 @@ export class HomePage implements OnInit {
 		private router: Router
 	) {}
 
-	ngOnInit() {
-		this.getBalance();
-		this.getPromotions();
-		this.getRestaurants();
+	async ngOnInit() {
+		await this.getBalance();
+		await this.getPromotions();
+		await this.getRestaurants();
 	}
 	  
 	async getPromotions() {
@@ -65,15 +67,15 @@ export class HomePage implements OnInit {
 	}
 
 	async getRestaurants() {
-		this.homeService.getRestaurants().then( response => {
-			response.subscribe( data => {
+		await this.homeService.getRestaurants().then( response => {
+			response.subscribe( async data => {
 				var res = [];
 
-				for(let i of Object.keys(data)) {
+				for await (let i of Object.keys(data)) {
 					var slider;
 
 					if(data[i].slider) {
-						slider = data[i].slider[0].photo
+						slider = data[i].slider[0].photo;
 					} else {
 						slider = "";
 					}
@@ -88,34 +90,27 @@ export class HomePage implements OnInit {
 	}
 
 	async getBalance() {
-		/* this.firebaseAuth.auth.onAuthStateChanged(user => {
-			if (user) {
-				let uid = user.uid; */
-				var uid = localStorage.getItem('uid');
+		var uid = localStorage.getItem('uid');
 
-				this.db.list('clientes/' + uid + '/accounts').valueChanges().subscribe( success => {
-					let c: any = 0;
-					success.forEach( (row: any) => {
-						c += parseFloat(row.value);
-					});
+		this.db.list('clientes/' + uid + '/accounts').valueChanges().subscribe( success => {
+			let c: any = 0;
+			success.forEach( (row: any) => {
+				c += parseFloat(row.value);
+			});
 
-					c = c.toFixed(2);
+			c = c.toFixed(2);
 
-					if((c.toString()).indexOf('.') > -1) {
-						this.count = (c.toString()).split('.')[0];
-						this.count2 = ((c.toString()).split('.')[1]);
-					} else {
-						this.count = c;
-						this.count2 = '00';
-					}
-				}, error => {
-					console.log('error', error);
-				});
-			/* }
-			else {
-			  	console.log('no user')
+			if((c.toString()).indexOf('.') > -1) {
+				this.count = (c.toString()).split('.')[0];
+				this.count2 = ((c.toString()).split('.')[1]);
+			} else {
+				this.count = c;
+				this.count2 = '00';
 			}
-	  	}) */
+		}, error => {
+			console.log('error', error);
+		});
+
 	}
 
 	async calculate() {
@@ -129,5 +124,15 @@ export class HomePage implements OnInit {
 	
 	async goToRestaurant(id) {
 		this.router.navigate(['/detailsrestaurant', id]);
+	}
+
+	showContain(id){
+		if(id == 0){
+			this.restaurantes = true;
+			this.productos = false;
+		}else{
+			this.restaurantes = false;
+			this.productos = true;
+		}
 	}
 }

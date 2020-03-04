@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -26,7 +26,6 @@ export class MapPage implements OnInit {
 	url;
 
 	constructor(
-		private modalCtrl: ModalController,
 		public loadingCtrl: LoadingController,
 		public toastCtrl: ToastController,
 		private platform: Platform,
@@ -34,7 +33,8 @@ export class MapPage implements OnInit {
 		private storage: Storage,
 		private androidPermissions: AndroidPermissions,
 		private locationAccuracy: LocationAccuracy,
-		readonly ngZone: NgZone
+		readonly ngZone: NgZone,
+		private _location: Location
     ) {}
 
 	async ngOnInit() {
@@ -86,17 +86,14 @@ export class MapPage implements OnInit {
 		this.map.getMyLocation().then((location: MyLocation) => {
 			this.markerlatlong = location.latLng;
 			this.map.animateCamera({
-			target: location.latLng,
-			zoom: 17,
-			tilt: 30
+				target: location.latLng,
+				zoom: 17,
+				tilt: 30
 			});
 
-			this.map.on(GoogleMapsEvent.MAP_CLICK)
-			.subscribe((result) => {
-			console.log('result', result);
-
-			this.addMarker(result[0]);
-			this.geocoderMap(result[0]);
+			this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((result) => {
+				this.addMarker(result[0]);
+				this.geocoderMap(result[0]);
 			});
 
 			this.addMarker(location.latLng)
@@ -109,15 +106,18 @@ export class MapPage implements OnInit {
 	async addMarker(latLng) {
 		this.map.clear().then(() => {
 			this.map.addMarker({
-			position: latLng,
-			animation: GoogleMapsAnimation.DROP,
+				position: latLng,
+				animation: GoogleMapsAnimation.DROP,
 			}).then(marker =>{
 				marker.on(GoogleMapsEvent.MAP_CLICK).subscribe(() => {
 					this.markerlatlong = marker.getPosition();
 					this.geocoderMap(this.markerlatlong);
 				});
-
+			}).catch( error => {
+				console.log('error', error);
 			});
+		}).catch( error => {
+			console.log('error2', error);
 		});
 	}
 
@@ -170,7 +170,7 @@ export class MapPage implements OnInit {
 			} else {
 				var adminArea = '';
 			}
-			
+
 			var add = subThoroughfare + ' ' + thoroughfare + ' ' + locality + ' ' + subAdminArea + ' ' + adminArea;
 			var add2 = add.split(' ');
 			var x = (names) => names.filter((v,i) => names.indexOf(v) === i)
@@ -178,7 +178,7 @@ export class MapPage implements OnInit {
 			var arr = unique.join(' ');
 
 			this.ngZone.run(() => {
-				this.address =  arr;
+				this.address = arr;
 			});
 		}).catch(error =>{
 			this.showToast(error.error_message);
@@ -190,6 +190,7 @@ export class MapPage implements OnInit {
 		this.storage.set('directionClient', this.direccion);
 
 		this.url = localStorage.getItem('urlClient');
+		this.router.navigate(['register2']);
 
 		/* if(this.url == 'register') {
 			this.router.navigate(['register1']);
@@ -197,7 +198,7 @@ export class MapPage implements OnInit {
 			this.authService.updateAddress(this.direccion).then((res) => {
 				res.subscribe( res => {
 					this.platform.backButton.observers.pop();
-					this.router.navigate(['home']);
+					
 				}, err => {
 					console.error(err);
 				})
