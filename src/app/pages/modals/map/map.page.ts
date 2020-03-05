@@ -7,7 +7,7 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { GoogleMaps, GoogleMap, GoogleMapsEvent, Marker, GoogleMapsAnimation, MyLocation, Geocoder, GeocoderResult, Environment } from '@ionic-native/google-maps';
 import { ToastController, Platform, LoadingController } from '@ionic/angular';
 import { until } from 'protractor';
-
+import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 declare var google;
 
 @Component({
@@ -21,9 +21,18 @@ export class MapPage implements OnInit {
 	map: GoogleMap;
 	loading: any;
 	address;
+	address2;
 	markerlatlong;
 	direccion;
 	url;
+	private autoComplete = new google.maps.places.AutocompleteService();
+	public resultado = new Array<any>();
+	addreslength: string;
+	opttps: NativeGeocoderOptions = {
+		useLocale: true,
+		maxResults: 5
+	};
+	showlist = false;
 
 	constructor(
 		public loadingCtrl: LoadingController,
@@ -34,7 +43,8 @@ export class MapPage implements OnInit {
 		private androidPermissions: AndroidPermissions,
 		private locationAccuracy: LocationAccuracy,
 		readonly ngZone: NgZone,
-		private _location: Location
+		private _location: Location,
+		private nativeGeocoder: NativeGeocoder
     ) {}
 
 	async ngOnInit() {
@@ -80,6 +90,26 @@ export class MapPage implements OnInit {
 		await this.mapStart();
 	}
 
+	async loadMap2(lat, lng) {
+		Environment.setEnv({
+			API_KEY_FOR_BROWSER_RELEASE: "AIzaSyBUhsxeoY9tYVFFD31lLygBdRROqHU7s6k",
+			API_KEY_FOR_BROWSER_DEBUG: "AIzaSyBUhsxeoY9tYVFFD31lLygBdRROqHU7s6k"
+		});
+
+		this.map = GoogleMaps.create('map_canvas', {
+			camera: {
+			target: {
+				lat: lat,
+				lng: lng
+			},
+			zoom: 18,
+			tilt: 30
+			}
+		});
+
+		await this.mapStart2({ lat: lat, lng: lng });
+	}
+
 	async mapStart() {
 		this.map.clear();
 
@@ -103,11 +133,35 @@ export class MapPage implements OnInit {
 		});
 	}
 
+	async mapStart2(LatLng) {
+		console.log('LatLng', LatLng);
+
+		this.map.clear();
+
+			this.markerlatlong = LatLng;
+			this.map.animateCamera({
+				target: LatLng,
+				zoom: 17,
+				tilt: 30
+			});
+
+			this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((result) => {
+				this.addMarker(result[0]);
+				this.geocoderMap(result[0]);
+			});
+
+			this.addMarker(LatLng)
+			this.geocoderMap(LatLng);
+
+	}
+
 	async addMarker(latLng) {
+		console.log('latLng', latLng);
 		this.map.clear().then(() => {
 			this.map.addMarker({
 				position: latLng,
 				animation: GoogleMapsAnimation.DROP,
+				draggable: true
 			}).then(marker =>{
 				marker.on(GoogleMapsEvent.MAP_CLICK).subscribe(() => {
 					this.markerlatlong = marker.getPosition();
@@ -249,5 +303,50 @@ export class MapPage implements OnInit {
 	
 	async askToTurnOnGPS() {
 		this.loadMap();
+	}
+
+	busqueda() {
+		/* this.addreslength = this.address.length */
+		/* if (!this.address2.trim().length) return */
+		
+		this.autoComplete.getPlacePredictions({ input: this.address }, predictions => {
+			this.showlist = true;
+			console.log('predictions', predictions);
+			this.resultado = predictions;
+		});
+	}
+
+	seleccionarDireccion(trae) {
+		this.resultado = [];
+		this.address2 = '';
+		this.showlist = false;
+		this.address = trae.description;
+		let array = trae.terms;
+		console.log(trae);
+
+		if (array.length == 3) {
+			let array = trae.terms;
+		}
+		if (array.length == 4) {
+			this.addreslength = '';
+		}
+
+		this.getLatLong();
+	}
+
+	async getLatLong() {
+		this.nativeGeocoder.forwardGeocode(this.address, this.opttps).then( (result: NativeGeocoderResult[]) => {
+			console.log('result', result[0]);
+			console.log('The coordinates are latitude=' + result[0].latitude + ' and longitude=' + result[0].longitude);
+			
+			var data = {
+				lat: parseFloat(result[0].latitude),
+				lng: parseFloat(result[0].longitude)
+			}
+
+			this.mapStart2(data);
+		}).catch( (error: any) => { 
+			console.log(error)
+		});
 	}
 }

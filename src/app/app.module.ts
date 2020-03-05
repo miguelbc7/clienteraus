@@ -33,6 +33,7 @@ import { AgregarEntregaPageModule } from './modals/agregar-entrega/agregar-entre
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { GoogleMaps } from '@ionic-native/google-maps';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     AndroidPermissions,
     LocationAccuracy,
     GoogleMaps,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

@@ -8,12 +8,16 @@
 	</ion-row>
 	<ion-row>
 		<ion-col>
-			<div class="ion-margin-vertical">
-				<ion-item class="itemTransparent">
+			<div class="ion-margin-vertical item">
+				<div class="itemTransparent">
 					<!-- <ion-label class="font14" position="floating">Dirección</ion-label> -->
-					<ion-input type="text" [(ngModel)]="address" ></ion-input>
-					<ion-icon class="ion-align-self-end" name="pin" color="bluedark" slot="end"></ion-icon>
-				</ion-item>
+					<ion-input type="text" (ionChange)="busqueda()" [(ngModel)]="address" ></ion-input>
+					<ion-input [(ngModel)]="address2" type="hidden" required></ion-input>
+					<ion-list class="ion-margin-horizontal" [hidden]="!showlist">
+						<ion-item (click)="seleccionarDireccion(resultados)" *ngFor="let resultados of resultado" > {{resultados.description}}</ion-item>
+					</ion-list>
+					<ion-icon class="ion-align-self-end pin" name="pin" color="bluedark" slot="end"></ion-icon>
+				</div>
 			</div>
 		</ion-col>
 		<ion-col size="12" class="ion-text-center">

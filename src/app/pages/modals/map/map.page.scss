@@ -5,3 +5,30 @@
 	object-fit: cover;
 	margin: 0 auto;
 }
+
+
+.item{
+	ion-input{
+		max-width: 90%;
+		margin: auto;
+		--padding-start: 8px;
+		--padding-end: 28px;
+		margin-bottom: 15px;
+		border-bottom: 1px solid #d1d1d1;
+		&:focus{
+			border-color: var(--ion-color-bluedark-shade);
+		}
+	}
+	.pin{
+		position: absolute;
+		top: 10px;
+		right: 30px;
+		font-size: 24px;
+	}
+	ion-list{
+		background: white;
+		box-shadow: 0 0 10px black;
+		border: 1px solid #f1f1f1;
+	}
+}
+
