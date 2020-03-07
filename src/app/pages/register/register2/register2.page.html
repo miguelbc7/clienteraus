@@ -39,8 +39,7 @@
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Dirección  aqui</ion-label>
-				<ion-input (ionChange)="busqueda()" formControlName="address" [(ngModel)]="address" type="text" required></ion-input>
-				<ion-input formControlName="address2" [(ngModel)]="address2" type="hidden" required></ion-input>
+				<ion-input (ionInput)="busqueda($event)" (ionChange)="busqueda2($event)" formControlName="address" [(ngModel)]="address" type="text" required></ion-input>
 				<ion-list class="ion-margin-horizontal" [hidden]="!showlist">
 					<ion-item (click)="seleccionarDireccion(resultados)"  *ngFor="let resultados of resultado" > {{resultados.description}}</ion-item>
 				</ion-list>
@@ -74,4 +73,5 @@
 			</ion-button>
 		</div>
 	</form>
+	<ion-input [(ngModel)]="address2" type="hidden" required></ion-input>
 </ion-content>

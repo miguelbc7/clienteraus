@@ -20,12 +20,13 @@ export class Register2Page implements OnInit {
 	public register2: FormGroup;
 	direction;
 	address;
-	address2;
+	address2 = 'a';
 	country;
 	city;
 	dir;
 	zipcode;
 	showlist = false;
+	test = false;
 	opttps: NativeGeocoderOptions = {
 		useLocale: true,
 		maxResults: 5
@@ -72,9 +73,6 @@ export class Register2Page implements OnInit {
 			])],
 			address: ['', Validators.compose([
 				Validators.required
-			])],
-			address2: ['', Validators.compose([
-				
 			])],
 			zipcode: ['', Validators.compose([
 				Validators.required,
@@ -231,12 +229,23 @@ export class Register2Page implements OnInit {
 	}
 	
 
-	busqueda() {
+	busqueda(e) {
+		console.log('busqueda');
+		this.test = true;
+
 		this.autoComplete.getPlacePredictions({ input: this.address2 }, predictions => {
 			this.showlist = true;
 			this.resultado = predictions;
-			this.getZipCode();
 		})
+	}
+
+	busqueda2(e) {
+		if(this.test) {
+			this.test = false;
+		} else {
+			console.log('busqueda2');
+			this.showlist = false;
+		}
 	}
 
 	async getZipCode() {
@@ -270,5 +279,7 @@ export class Register2Page implements OnInit {
 			this.country = array[3].value;
 			this.addreslength = '';
 		}
+
+		this.getZipCode();
 	}
 }

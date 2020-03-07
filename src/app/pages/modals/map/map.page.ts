@@ -33,6 +33,7 @@ export class MapPage implements OnInit {
 		maxResults: 5
 	};
 	showlist = false;
+	test = false;
 
 	constructor(
 		public loadingCtrl: LoadingController,
@@ -305,15 +306,24 @@ export class MapPage implements OnInit {
 		this.loadMap();
 	}
 
-	busqueda() {
-		/* this.addreslength = this.address.length */
-		/* if (!this.address2.trim().length) return */
-		
+	busqueda(e) {
+		console.log('busqueda');
+		this.test = true;
+
 		this.autoComplete.getPlacePredictions({ input: this.address }, predictions => {
 			this.showlist = true;
 			console.log('predictions', predictions);
 			this.resultado = predictions;
 		});
+	}
+
+	busqueda2(e) {
+		if(this.test) {
+			this.test = false;
+		} else {
+			console.log('busqueda2');
+			this.showlist = false;
+		}
 	}
 
 	seleccionarDireccion(trae) {
