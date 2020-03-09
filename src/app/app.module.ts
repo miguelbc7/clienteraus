@@ -34,6 +34,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
     LocationAccuracy,
     GoogleMaps,
     NativeGeocoder,
+    Geolocation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

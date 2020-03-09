@@ -7,6 +7,7 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { MyLocation, Geocoder, GoogleMap, GoogleMaps, GeocoderResult, LocationService } from '@ionic-native/google-maps';
 import { Storage } from '@ionic/storage';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 declare let google: any;
 
 @Component({
@@ -25,6 +26,7 @@ export class Register2Page implements OnInit {
 	city;
 	dir;
 	zipcode;
+	latlng;
 	showlist = false;
 	test = false;
 	opttps: NativeGeocoderOptions = {
@@ -60,7 +62,8 @@ export class Register2Page implements OnInit {
 		private modalController: ModalController,
 		readonly ngZone: NgZone,
 		private storage: Storage,
-		private nativeGeocoder: NativeGeocoder
+		private nativeGeocoder: NativeGeocoder,
+		private geolocation: Geolocation
 	) {
 		this.register2 = formBuilder.group({
 			country: ['', Validators.compose([
@@ -187,10 +190,22 @@ export class Register2Page implements OnInit {
 
 	myLocation() {
 		console.log('myLocation');
+		
+		this.geolocation.getCurrentPosition().then((resp) => {
+			var latLng = {
+				lat: resp.coords.latitude,
+				lng: resp.coords.longitude
+			}
 
-		LocationService.getMyLocation().then((myLocation: MyLocation) => {
-			this.geocoderMap(myLocation.latLng);
+			this.latlng = latLng;
+			this.geocoderMap(latLng);
+		}).catch((error) => {
+			console.log('Error getting location', error);
 		});
+
+		/* LocationService.getMyLocation().then((myLocation: MyLocation) => {
+			this.geocoderMap(myLocation.latLng);
+		}); */
 	}
 
 	geocoderMap(latlng) {
@@ -206,7 +221,12 @@ export class Register2Page implements OnInit {
 			this.country = results[0].country;
 			this.city = results[0].locality;
 			if (results[0].thoroughfare) {
-				this.address = results[0].thoroughfare;
+
+				if(results[1].extra.featureName) {
+					this.address = results[0].thoroughfare + ' ' + results[1].extra.featureName;
+				} else {
+					this.address = results[0].thoroughfare;
+				}
 			}
 		}).catch(error => {
 			console.error(error);
@@ -225,13 +245,17 @@ export class Register2Page implements OnInit {
 
 	async getMap() {
 		localStorage.setItem('url', 'register');
-		this.router.navigate(['map']);
+		this.router.navigate([ 'map', JSON.stringify(this.latlng) ]);
 	}
 	
 
 	busqueda(e) {
 		console.log('busqueda');
 		this.test = true;
+
+		if (!this.address.trim().length) return;
+
+		console.log('address', this.address);
 
 		this.autoComplete.getPlacePredictions({ input: this.address2 }, predictions => {
 			this.showlist = true;

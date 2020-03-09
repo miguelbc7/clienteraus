@@ -70,6 +70,10 @@ const routes: Routes = [
 		path: 'map',
 		loadChildren: './pages/modals/map/map.module#MapPageModule'
 	},
+	{ 
+		path: 'map/:data',
+		loadChildren: './pages/modals/map/map.module#MapPageModule'
+	},
 	{
 		path: 'notifications',
 		loadChildren: () => import('./pages/notifications/notifications.module').then( m => m.NotificationsPageModule)

@@ -124,7 +124,7 @@ export class OptionsPage implements OnInit {
 				this.total2 = (t.toString()).split(',')[1];
 			} else {
 				this.total1 = t;
-				this.total2 = '';
+				this.total2 = '00';
 			}
 
 			if((c.toString()).indexOf('.') > -1) {
@@ -135,7 +135,7 @@ export class OptionsPage implements OnInit {
 				this.count.count12 = (c.toString()).split(',')[1];
 			} else {
 				this.count.count11 = c;
-				this.count.count12 = '';
+				this.count.count12 = '00';
 			}
 
 			if((c2.toString()).indexOf('.') > -1) {
@@ -146,7 +146,7 @@ export class OptionsPage implements OnInit {
 				this.count.count22 = (c2.toString()).split(',')[1];
 			} else {
 				this.count.count21 = c2;
-				this.count.count22 = '';
+				this.count.count22 = '00';
 			}
 
 			if((c3.toString()).indexOf('.') > -1) {
@@ -157,7 +157,7 @@ export class OptionsPage implements OnInit {
 				this.count.count32 = (c3.toString()).split(',')[1];
 			} else {
 				this.count.count31 = c3;
-				this.count.count32 = '';
+				this.count.count32 = '00';
 			}
 		}, error => {
 			console.log('error', error);
