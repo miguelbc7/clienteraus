@@ -54,7 +54,17 @@ export class LoginPage implements OnInit {
             	Validators.maxLength(15),
             	/* Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') */
           	])],
-      	});
+		  });
+		  localStorage.setItem('country','');
+		  localStorage.setItem('city', '');
+		  localStorage.setItem('address', '');
+		  localStorage.setItem('zipcode', '');
+		  localStorage.setItem('name', '');
+		  localStorage.setItem('lastname', '');
+		  localStorage.setItem('dni', '');
+		  localStorage.setItem('birthdate', '');
+
+		  
 	}
 	   
 	ngOnInit() {}

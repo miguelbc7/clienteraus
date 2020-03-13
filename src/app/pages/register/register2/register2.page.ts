@@ -8,6 +8,9 @@ import { MyLocation, Geocoder, GoogleMap, GoogleMaps, GeocoderResult, LocationSe
 import { Storage } from '@ionic/storage';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { HomeserviceService } from "../../../services/homeservice.service";
+import { Location } from '@angular/common'
+
 declare let google: any;
 
 @Component({
@@ -55,6 +58,7 @@ export class Register2Page implements OnInit {
 	}
 
 	constructor(
+		private _location: Location,
 		public formBuilder: FormBuilder,
 		public router: Router,
 		private androidPermissions: AndroidPermissions,
@@ -63,8 +67,10 @@ export class Register2Page implements OnInit {
 		readonly ngZone: NgZone,
 		private storage: Storage,
 		private nativeGeocoder: NativeGeocoder,
-		private geolocation: Geolocation
+		private geolocation: Geolocation,
+		private mapita: HomeserviceService,
 	) {
+		this.myLocation();
 		this.register2 = formBuilder.group({
 			country: ['', Validators.compose([
 				Validators.required,
@@ -91,7 +97,10 @@ export class Register2Page implements OnInit {
 	async ionViewWillEnter() {
 		this.checkGPSPermission();
 	}
-
+	back() {
+		//	this. _location.back()
+		this.router.navigate(['register1']);
+	}
 	checkGPSPermission() {
 		console.log('checkGPSPermission');
 
@@ -113,15 +122,15 @@ export class Register2Page implements OnInit {
 	}
 
 	requestGPSPermission() {
-		console.log('requestGPSPermission');
+		//	console.log('requestGPSPermission');
 
 		this.locationAccuracy.canRequest().then((canRequest: boolean) => {
 			if (canRequest) {
-				console.log('storage1');
+				//	console.log('storage1');
 				this.storage.get('directionClient').then(data => {
 					if (data) {
 						data.extra.lines.pop();
-						console.log('data', data);
+						//	console.log('data', data);
 						this.dir = data;
 						this.address = data.street;
 						this.zipcode = data.postalCode;
@@ -141,7 +150,7 @@ export class Register2Page implements OnInit {
 				this.storage.get('directionClient').then(data => {
 					if (data) {
 						data.extra.lines.pop();
-						console.log('data', data);
+						//	console.log('data', data);
 						this.dir = data;
 						this.address = data.street;
 						this.zipcode = data.postalCode;
@@ -161,21 +170,21 @@ export class Register2Page implements OnInit {
 	}
 
 	askToTurnOnGPS() {
-		console.log('askToTurnOnGPS');
+		//	console.log('askToTurnOnGPS');
 
 		this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(() => {
-			console.log('go to my location');
+			//	console.log('go to my location');
 			this.storage.get('directionClient').then(data => {
 				if (data) {
 					data.extra.lines.pop();
-					console.log('data', data);
+					//	console.log('data', data);
 					this.dir = data;
 					this.address = data.street;
 					this.zipcode = data.postalCode;
 					this.country = data.country;
 					this.city = data.locality;
 					this.storage.remove('directionClient').then(success => {
-						console.log('success', success);
+						//console.log('success', success);
 					}).catch(error => {
 						console.log('error', error);
 					});
@@ -189,16 +198,39 @@ export class Register2Page implements OnInit {
 	}
 
 	myLocation() {
-		console.log('myLocation');
-		
+
+		this.showlist = true;
 		this.geolocation.getCurrentPosition().then((resp) => {
 			var latLng = {
 				lat: resp.coords.latitude,
 				lng: resp.coords.longitude
 			}
+			var key = "AIzaSyBUhsxeoY9tYVFFD31lLygBdRROqHU7s6k"
 
-			this.latlng = latLng;
-			this.geocoderMap(latLng);
+			this.mapita.getDireccion(latLng.lat, latLng.lng, key).subscribe((trae) => {
+				let conteo = trae.results[0].address_components.length
+				// console.log(conteo);
+
+				let zi = trae.results[0].address_components[conteo - 1].long_name;
+				this.zipcode = zi;
+				let g = [];
+
+				for (let index = 0; index < trae.results.length; index++) {
+
+
+					g.push(trae.results[index].formatted_address);
+
+					this.resultado = g;
+					//	console.log(this.resultado);
+
+
+					this.latlng = latLng;
+					this.geocoderMap(latLng, g);
+
+				}
+
+			})
+
 		}).catch((error) => {
 			console.log('Error getting location', error);
 		});
@@ -208,29 +240,24 @@ export class Register2Page implements OnInit {
 		}); */
 	}
 
-	geocoderMap(latlng) {
-		console.log('geocoderMap');
-
+	geocoderMap(latlng, g) {
+		//	console.log('geocoderMap');
+		//console.log(zi);
 		let options = {
 			position: latlng
 		};
+		//	console.log(zi);
 
-		Geocoder.geocode(options).then((results: GeocoderResult[]) => {
-			console.log('result', results);
 
-			this.country = results[0].country;
-			this.city = results[0].locality;
-			if (results[0].thoroughfare) {
+		//	console.log('result', results);
 
-				if(results[1].extra.featureName) {
-					this.address = results[0].thoroughfare + ' ' + results[1].extra.featureName;
-				} else {
-					this.address = results[0].thoroughfare;
-				}
-			}
-		}).catch(error => {
-			console.error(error);
-		});
+
+		//	this.country = results[0].country;
+		//	this.city = results[0].locality;
+		this.address = g;
+		//this.zipcode = zi;
+
+
 	}
 
 	onSubmit(values) {
@@ -239,46 +266,62 @@ export class Register2Page implements OnInit {
 		localStorage.setItem('address', this.register2.value.address);
 		localStorage.setItem('zipcode', this.register2.value.zipcode);
 
-		this.register2.reset();
+		//	this.register2.reset();
 		this.router.navigate(["/register3"]);
 	}
 
 	async getMap() {
 		localStorage.setItem('url', 'register');
-		this.router.navigate([ 'map', JSON.stringify(this.latlng) ]);
+		this.router.navigate(['map', JSON.stringify(this.latlng)]);
 	}
-	
 
-	busqueda(e) {
-		console.log('busqueda');
+
+	busqueda() {
+		//	console.log('busqueda');
 		this.test = true;
 
 		if (!this.address.trim().length) return;
 
-		console.log('address', this.address);
+		//	console.log('address', this.address);
 
-		this.autoComplete.getPlacePredictions({ input: this.address2 }, predictions => {
-			this.showlist = true;
-			this.resultado = predictions;
+		this.autoComplete.getPlacePredictions({ input: this.address }, predictions => {
+			//this.showlist = true;
+
+			//	console.log(predictions);
+			let gas = [];
+			for (let index = 0; index < predictions.length; index++) {
+				const element = predictions[index];
+				gas.push(element.description);
+				this.showlist = true;
+				this.resultado = gas;
+				//	console.log(this.resultado);
+
+			}
+
+
+
 		})
 	}
 
 	busqueda2(e) {
-		if(this.test) {
+		if (this.test) {
 			this.test = false;
 		} else {
-			console.log('busqueda2');
-			this.showlist = false;
+			//	console.log('busqueda2');
+			//  	this.showlist = false;
 		}
 	}
 
 	async getZipCode() {
-		this.nativeGeocoder.forwardGeocode(this.address, this.opttps).then( (result: NativeGeocoderResult[]) => {
-			console.log('result', result[0]);
-			console.log('The coordinates are latitude=' + result[0].latitude + ' and longitude=' + result[0].longitude);
+		//console.log(this.address,this.opttps,'victor');
+
+
+		await this.nativeGeocoder.forwardGeocode(this.address, this.opttps).then((result: NativeGeocoderResult[]) => {
+			//	console.log('result', result);
+			//	console.log('The coordinates are latitude=' + result[0].latitude + ' and longitude=' + result[0].longitude);
 			this.zipcode = result[0].postalCode;
-		}).catch( (error: any) => { 
-			console.log(error)
+		}).catch((error: any) => {
+			//	console.log(error)
 		});
 	}
 
@@ -287,23 +330,56 @@ export class Register2Page implements OnInit {
 		this.address2 = '';
 		this.showlist = false;
 		this.address = trae.description;
-		console.log(trae);
+		//console.log(trae);
 
-		let array = trae.terms;
+		this.geolocation.getCurrentPosition().then((resp) => {
+			var latLng = {
+				lat: resp.coords.latitude,
+				lng: resp.coords.longitude
+			}
+			var key = "AIzaSyBUhsxeoY9tYVFFD31lLygBdRROqHU7s6k";
+			this.mapita.getDireccion2(trae, key).subscribe((trae) => {
+				let lat = trae.results[0].geometry.location.lat;
+				let lng = trae.results[0].geometry.location.lng;
 
-		if (array.length == 3) {
-			let array = trae.terms;
-			this.country = array[2].value;
-			this.city = array[1].value;
-			this.addreslength = '';
+				this.mapita.getDireccion(lat, lng, key).subscribe((trae) => {
+					let conteo = trae.results[0].address_components.length
+					let zi = trae.results[0].address_components[conteo - 1].long_name;
+					this.zipcode = zi;
+
+				})
+
+			})
+
+		})
+
+
+
+		let vale = trae.split(',');
+console.log(vale);
+
+
+		if (trae.split(',').length == 3) {
+
+			//	console.log('aqui');
+
+			//let array = trae.terms;
+			this.country = vale[2];
+			this.city = vale[1];
+			this.address = vale[0];
+			//	this.zipcode =
+			//	this.getZipCode();
 		}
-		if (array.length == 4) {
-			let array = trae.terms;
-			this.city = array[2].value;
-			this.country = array[3].value;
-			this.addreslength = '';
+		if (trae.split(',').length == 4) {
+			//	console.log(vale[2]);
+
+			//let array = trae.terms;
+			this.city = vale[2];
+			this.country = vale[3];
+			this.address = vale[0] + vale[1];
+			//	this.getZipCode();
 		}
 
-		this.getZipCode();
+		//	this.getZipCode();
 	}
 }

@@ -5,6 +5,9 @@
 </ion-header> -->
 
 <ion-content class="bodyRegister">
+	<ion-button (click)="back()" class="backBTn" mode="md">
+		<ion-icon src="assets/img/icon/back.svg"></ion-icon>
+	</ion-button>
     <div class="ion-text-center boxLogo">
         <img class="logoImg" src="assets/img/logo-raus.png" alt="logotipo">
         <p class="blue-dark">..The way you like</p>
@@ -41,7 +44,7 @@
 				<ion-label class="font14" position="floating">Dirección  aqui</ion-label>
 				<ion-input (ionInput)="busqueda($event)" (ionChange)="busqueda2($event)" formControlName="address" [(ngModel)]="address" type="text" required></ion-input>
 				<ion-list class="ion-margin-horizontal" [hidden]="!showlist">
-					<ion-item (click)="seleccionarDireccion(resultados)"  *ngFor="let resultados of resultado" > {{resultados.description}}</ion-item>
+					<ion-item (click)="seleccionarDireccion(resultados)"  *ngFor="let resultados of resultado" > {{resultados}}</ion-item>
 				</ion-list>
 				<ion-icon name="pin" color="bluedark" slot="end" align-self-end (click)="getMap()"></ion-icon>
 			</ion-item>
@@ -68,6 +71,7 @@
 		</div>
    		<br>
 		<div class="ion-text-center">
+			
 			<ion-button type="submit" [disabled]="!register2.valid" class="font15" color="bluedark">
 				Siguiente
 			</ion-button>

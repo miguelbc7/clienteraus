@@ -100,8 +100,14 @@ export class DetallesRestaurantesPage implements OnInit {
 	}
 	 
 	async getRestaurant(id) {
+
+		console.log({"victor":id});
+		
 		var res = this.db.object('restaurantes/' + id).valueChanges().subscribe( data => {
 			this.restaurant = data;
+
+		//	console.log(data);
+			
 		}, error => {
 			console.log('error', error);
 		}, () => {

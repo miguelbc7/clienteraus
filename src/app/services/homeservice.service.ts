@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +67,21 @@ export class HomeserviceService {
 			retry(2),
 			catchError(this.handleError)
 		)
+	}
+
+
+	getDireccion(lat:any,long:any,key:any):Observable<any> {
+		//console.log(lat+long+key);
+		var dir = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long+"&key="+key;
+		//console.log(dir);
+		
+		return this.http.get(dir);
+	}
+	getDireccion2(address,key:any):Observable<any> {
+		//console.log(lat+long+key);
+		var dir = "https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key="+key;
+		//console.log(dir);
+		
+		return this.http.get(dir);
 	}
 }

@@ -34,6 +34,8 @@ export class DetallesProductosPage implements OnInit {
   	ngOnInit() {
 		this.id = this.route.snapshot.params.id;
 		this.restaurantid = this.route.snapshot.params.restaurant;
+		console.log(this.route);
+		
 		this.uid = localStorage.getItem('uid');
 
 		this.getProduct(this.route.snapshot.params.id, this.route.snapshot.params.restaurant);
@@ -110,9 +112,14 @@ export class DetallesProductosPage implements OnInit {
 	}
 
 	async getRestaurant() {
-		var r = this.db.object('restaurantes/' + this.restaurantid).valueChanges().subscribe( data => {
+		
+		 
+	await this.db.object('restaurantes/' + this.restaurantid).valueChanges().subscribe( data => {
+			console.log(data);
+			console.log(this.restaurantid);
+			
 			this.restaurant = data['name'];
-			r.unsubscribe();
+		//	r.unsubscribe();
 		});
 	}
 	

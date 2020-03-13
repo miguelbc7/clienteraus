@@ -1,4 +1,7 @@
 <ion-content class="bodyRegister">
+	<ion-button   (click)="back()" class="backBTn" mode="md">
+		<ion-icon src="assets/img/icon/back.svg"></ion-icon>
+	</ion-button>
     <div class="ion-text-center boxLogo">
         <img class="logoImg" src="assets/img/logo-raus.png" alt="logotipo">
         <p class="blue-dark">..The way you like</p>
@@ -90,6 +93,7 @@
             <p>te llegará via sms y e-mail</p>
         </div>
 		<div class="ion-text-center">
+		
 			<ion-button type="submit" [disabled]="!register3.valid" class="font15" color="bluedark">
 				Confirmar e ir a Raus
 			</ion-button>

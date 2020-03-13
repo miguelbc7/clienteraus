@@ -1016,3 +1016,14 @@ ion-textarea.textareaCustom{
     overflow: hidden;
     --background: #a0a9c0;
 }
+.backBTn{
+    --backgroud-color: transparent;
+    --background-focused:transparent;
+    --background-hover: transparent;
+    --background: transparent;
+    ion-icon{
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+    }
+}

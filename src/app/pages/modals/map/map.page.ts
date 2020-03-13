@@ -46,7 +46,9 @@ export class MapPage implements OnInit {
 		readonly ngZone: NgZone,
 		private _location: Location,
 		private nativeGeocoder: NativeGeocoder
-    ) {}
+    ) {
+		this.showlist =false;
+	}
 
 	async ngOnInit() {
 		this.url = localStorage.getItem('url');
@@ -135,7 +137,7 @@ export class MapPage implements OnInit {
 	}
 
 	async mapStart2(LatLng) {
-		console.log('LatLng', LatLng);
+	//	console.log('LatLng', LatLng);
 
 		this.map.clear();
 
@@ -192,6 +194,8 @@ export class MapPage implements OnInit {
 		};
 	
 		await Geocoder.geocode(options).then( (results: GeocoderResult[])=>{
+			console.log(results[0]);
+			
 			this.direccion = results[0];
 			this.direccion.extra.lines.pop();
 			results[0].extra.lines.pop();
@@ -233,7 +237,7 @@ export class MapPage implements OnInit {
 			var arr = unique.join(' ');
 
 			this.ngZone.run(() => {
-				this.address = arr;
+			//	this.address = arr;
 			});
 		}).catch(error =>{
 			this.showToast(error.error_message);
@@ -312,8 +316,10 @@ export class MapPage implements OnInit {
 
 		this.autoComplete.getPlacePredictions({ input: this.address }, predictions => {
 			this.showlist = true;
-			console.log('predictions', predictions);
+			//console.log('predictions', predictions);
 			this.resultado = predictions;
+		//	console.log(this.resultado);
+			
 		});
 	}
 
@@ -321,7 +327,7 @@ export class MapPage implements OnInit {
 		if(this.test) {
 			this.test = false;
 		} else {
-			console.log('busqueda2');
+		//	console.log('busqueda2');
 			this.showlist = false;
 		}
 	}

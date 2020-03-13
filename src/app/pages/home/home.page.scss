@@ -16,6 +16,9 @@
     justify-content: center;
     margin-top: 15px;
     max-width: 100%;
+    margin-top: 10px;    
+    height: 40px;
+    z-index: 500;
     .font60{
         font-size: 42px !important;
         text-overflow: ellipsis;
@@ -43,12 +46,7 @@ ion-slide.changeStyle img {
         height: 95px !important;
     }
 }
-.decimal {
-    /* position: absolute;
-    top: 30%;
-    right: 10px;
-    margin-left: -6px; */
-}
+
 
 
 
@@ -113,9 +111,7 @@ ion-slide.changeStyle img {
                         font-size: 16px !important;
                     }
                 }
-                .b{
-                    
-                }
+                
             }
         }
     }

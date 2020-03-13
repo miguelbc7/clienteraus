@@ -22,8 +22,8 @@
 		<p class="ion-text-center bodyHome__title">Tus promociones</p>
 	</ion-text>
 	<ion-slides pager="true" [options]="slideOpts">
-		<ion-slide *ngFor="let promotion of promotions">
-			<ion-card class="customCard">
+		<ion-slide *ngFor="let promotion of promotions"  >
+			<ion-card class="customCard" (click)="goToProduct(promotion._id,promotion.id_restaurant)" >
 				<div class="boxBanner">
 					<ion-slides>
 						<ion-slide class="changeStyle" *ngFor="let img of promotion.images">
@@ -31,7 +31,7 @@
 						</ion-slide>
 					</ion-slides>
 				</div>  
-				<ion-card-content class="bodyCard">
+				<ion-card-content class="bodyCard" >
 					<ion-row>
 						<ion-col class="ion-no-padding ion-align-self-center " size="7">
 							<p class="hgPCarta my-0 customDarkText font12 title">
@@ -71,13 +71,13 @@
 		</ion-button>
 	</div>
 	<ion-grid *ngIf="restaurantes">
-		<ion-row>
-			<ion-col size="6">
-				<ion-card class="customCard m-0">
+		<ion-row *ngFor="let producto of products" > 
+			<ion-col size="6"  >
+				<ion-card class="customCard m-0" (click)="goToProduct(producto._id,producto.id_restaurant)">
 					<div class="boxBanner">
 						<ion-slides>
-							<ion-slide class="changeStyle" >
-								<img class="imgCarta3" src="https://cocina-casera.com/wp-content/uploads/2018/04/Pasticho-o-lasa%C3%B1a-al-estilo-venezolano.jpg" alt="avatar perfil"> 
+							<ion-slide class="changeStyle" *ngFor="let imagen of producto.images" >
+								<img class="imgCarta3" src="{{imagen.img}}" alt="avatar perfil"> 
 							</ion-slide>
 						</ion-slides>
 					</div>  
@@ -85,13 +85,13 @@
 						<ion-row>
 							<ion-col class="ion-no-padding ion-align-self-center " size="7">
 								<p class="hgPCarta my-0 customDarkText font12 title">
-									Pasticho
+									{{producto.name}}
 								</p> 
 							</ion-col>
 							<ion-col class="ion-no-padding" size="5">
 								<div  style="position: relative;" >
 								<p class="my-0 hgPCarta ion-text-center customDarkText price">
-									<span class="font12 a">22</span>
+									<span class="font12 a">{{producto.price_with_iva}}</span>
 									<span class="font8 b">,00€</span>
 								</p>
 								</div>
@@ -100,118 +100,16 @@
 						<ion-row>
 							<ion-col class="ion-no-padding ion-align-self-center ">
 								<p class="hgPCarta my-0 customDarkText font12 subtitle">
-									exmplate Text
+									{{producto.description}}
 								</p> 
 							</ion-col>
 						</ion-row>
 					</ion-card-content>
 				</ion-card>
 			</ion-col>
-			<ion-col size="6">
-				<ion-card class="customCard m-0">
-					<div class="boxBanner">
-						<ion-slides>
-							<ion-slide class="changeStyle" >
-								<img class="imgCarta3" src="https://cocina-casera.com/wp-content/uploads/2018/04/Pasticho-o-lasa%C3%B1a-al-estilo-venezolano.jpg" alt="avatar perfil"> 
-							</ion-slide>
-						</ion-slides>
-					</div>  
-					<ion-card-content class="bodyCard">
-						<ion-row>
-							<ion-col class="ion-no-padding ion-align-self-center " size="7">
-								<p class="hgPCarta my-0 customDarkText font12 title">
-									Pasticho
-								</p> 
-							</ion-col>
-							<ion-col class="ion-no-padding" size="5">
-								<div  style="position: relative;" >
-								<p class="my-0 hgPCarta ion-text-center customDarkText price">
-									<span class="font12 a">22</span>
-									<span class="font8 b">,00€</span>
-								</p>
-								</div>
-							</ion-col>
-						</ion-row>
-						<ion-row>
-							<ion-col class="ion-no-padding ion-align-self-center ">
-								<p class="hgPCarta my-0 customDarkText font12 subtitle">
-									exmplate Text
-								</p> 
-							</ion-col>
-						</ion-row>
-					</ion-card-content>
-				</ion-card>
-			</ion-col>
-			<ion-col size="6">
-				<ion-card class="customCard m-0">
-					<div class="boxBanner">
-						<ion-slides>
-							<ion-slide class="changeStyle" >
-								<img class="imgCarta3" src="https://cocina-casera.com/wp-content/uploads/2018/04/Pasticho-o-lasa%C3%B1a-al-estilo-venezolano.jpg" alt="avatar perfil"> 
-							</ion-slide>
-						</ion-slides>
-					</div>  
-					<ion-card-content class="bodyCard">
-						<ion-row>
-							<ion-col class="ion-no-padding ion-align-self-center " size="7">
-								<p class="hgPCarta my-0 customDarkText font12 title">
-									Pasticho
-								</p> 
-							</ion-col>
-							<ion-col class="ion-no-padding" size="5">
-								<div  style="position: relative;" >
-								<p class="my-0 hgPCarta ion-text-center customDarkText price">
-									<span class="font12 a">22</span>
-									<span class="font8 b">,00€</span>
-								</p>
-								</div>
-							</ion-col>
-						</ion-row>
-						<ion-row>
-							<ion-col class="ion-no-padding ion-align-self-center ">
-								<p class="hgPCarta my-0 customDarkText font12 subtitle">
-									exmplate Text
-								</p> 
-							</ion-col>
-						</ion-row>
-					</ion-card-content>
-				</ion-card>
-			</ion-col>
-			<ion-col size="6">
-				<ion-card class="customCard m-0">
-					<div class="boxBanner">
-						<ion-slides>
-							<ion-slide class="changeStyle" >
-								<img class="imgCarta3" src="https://cocina-casera.com/wp-content/uploads/2018/04/Pasticho-o-lasa%C3%B1a-al-estilo-venezolano.jpg" alt="avatar perfil"> 
-							</ion-slide>
-						</ion-slides>
-					</div>  
-					<ion-card-content class="bodyCard">
-						<ion-row>
-							<ion-col class="ion-no-padding ion-align-self-center " size="7">
-								<p class="hgPCarta my-0 customDarkText font12 title">
-									Pasticho
-								</p> 
-							</ion-col>
-							<ion-col class="ion-no-padding" size="5">
-								<div  style="position: relative;" >
-								<p class="my-0 hgPCarta ion-text-center customDarkText price">
-									<span class="font12 a">22</span>
-									<span class="font8 b">,00€</span>
-								</p>
-								</div>
-							</ion-col>
-						</ion-row>
-						<ion-row>
-							<ion-col class="ion-no-padding ion-align-self-center ">
-								<p class="hgPCarta my-0 customDarkText font12 subtitle">
-									exmplate Text
-								</p> 
-							</ion-col>
-						</ion-row>
-					</ion-card-content>
-				</ion-card>
-			</ion-col>
+			
+			
+			
 		</ion-row>
 	</ion-grid>
 	<ion-grid *ngIf="productos" class="px-0">

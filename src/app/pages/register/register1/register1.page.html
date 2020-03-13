@@ -4,7 +4,10 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content class="bodyRegister">
+<ion-content class="bodyRegister" (load)="pull()" >
+	<ion-button (click)="back()" class="backBTn" mode="md">
+		<ion-icon src="assets/img/icon/back.svg"></ion-icon>
+	</ion-button>
     <div class="ion-text-center boxLogo">
         <img class="logoImg" src="assets/img/logo-raus.png" alt="logotipo">
         <p class="blue-dark">..The way you like</p>
@@ -13,7 +16,7 @@
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Nombre</ion-label>
-				<ion-input formControlName="name" clearInput="true" type="text"></ion-input>
+				<ion-input formControlName="name" clearInput="true" type="text" value="{{name}}"></ion-input>
 			</ion-item>
 		</div>
 		<div class="validation-errors">
@@ -26,7 +29,7 @@
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Apellidos</ion-label>
-				<ion-input formControlName="lastname" clearInput="true" type="text"></ion-input>
+				<ion-input formControlName="lastname" clearInput="true" type="text" value="{{lastname}}"></ion-input>
 			</ion-item>
 		</div>
 		<div class="validation-errors">
@@ -39,7 +42,7 @@
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Dni</ion-label>
-				<ion-input formControlName="dni" clearInput="true" type="text"></ion-input>
+				<ion-input formControlName="dni" clearInput="true" type="text" value="{{dni}}"></ion-input>
 			</ion-item>
 		</div>
 		<div class="validation-errors">
@@ -52,7 +55,7 @@
 		<div class="ion-margin-vertical">
 			<ion-item class="ion-no-padding">
 				<ion-label class="font14" position="floating">Fecha de nacimiento día / mes / año</ion-label>
-				<ion-datetime formControlName="birthdate" class="ion-no-padding3px" displayFormat="D / MM / YYYY" value=""></ion-datetime>
+				<ion-datetime formControlName="birthdate" class="ion-no-padding3px" displayFormat="D / MM / YYYY" value="{{birthdate}}"></ion-datetime>
 				</ion-item>
 		</div>
 		<div class="validation-errors">
@@ -64,7 +67,8 @@
 		</div>
 		<br>
 		<div class="ion-text-center">
-			<ion-button type="submit" class="font15" [disabled]="!register1.valid" color="bluedark">
+			
+			<ion-button type="submit" class="font15"   [disabled]="disable" color="bluedark">
 				Siguiente
 			</ion-button>
 		</div>

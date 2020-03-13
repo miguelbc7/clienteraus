@@ -155,13 +155,14 @@ export class TipoPagoPage implements OnInit {
 					r1.unsubscribe();
 					this.db.list('clientes').update(this.uid, { accounts: dat }).then( success => {
 						var r2 = ref.valueChanges().subscribe( (success: any) => {
+							console.log(p);
 							
 							var price = parseFloat(success[0]) + parseFloat(this.total);
-				
+							var valor = parseFloat(this.total);
 							this.db.list('restaurantes').update(this.dataid, { balance: price }).then( success2 => {
 								r2.unsubscribe();
 								console.log('p', p);
-								this.newTransaction(p);
+								this.newTransaction(valor);
 							});
 						}, error => {
 							console.log('error', error);
@@ -235,14 +236,15 @@ export class TipoPagoPage implements OnInit {
 						var r2 = ref.valueChanges().subscribe( (success: any) => {
 							
 							var price = parseFloat(success[0]) + parseFloat(this.total);
+				var valor = parseFloat(this.total);
 				
 							this.db.list('restaurantes').update(this.dataid, { balance: price }).then( success2 => {
 								r2.unsubscribe();
 
 								if(t > 0) {
-									this.newTransaction2(p, p2);
+									this.newTransaction2( valor);
 								} else {
-									this.newTransaction(p2);
+									this.newTransaction(valor);
 								}
 							});
 						}, error => {
@@ -300,9 +302,9 @@ export class TipoPagoPage implements OnInit {
 
 		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
 			var d;
-			var dat = new Date();
+			var dat = new Date()  ;
 			var year = dat.getFullYear();
-			var month = dat.getMonth();
+			var month = dat.getMonth()+1;
 			var day = dat.getDate();
 			var date = year + '-' + month + '-' + day;
 
@@ -314,7 +316,8 @@ export class TipoPagoPage implements OnInit {
 					"name": data2['name'] + ' ' + data2['lastname'],
 					"price": price,
 					"tipo": tipo,
-					"uid": this.uid
+					"uid": this.uid,
+					"typeTransaccion":"envio",
 				}
 			} else {
 				d = {
@@ -323,7 +326,8 @@ export class TipoPagoPage implements OnInit {
 					"name": data2['name'] + ' ' + data2['lastname'],
 					"price": price,
 					"tipo": tipo,
-					"uid": this.uid
+					"uid": this.uid,
+					"typeTransaccion":"envio",
 				}
 			}
 			this.db.list('transactions').push(d).then( success => {
@@ -340,7 +344,7 @@ export class TipoPagoPage implements OnInit {
 		})
 	}
 
-	async newTransaction2(price, price2) {
+	async newTransaction2(price) {
 		if(this.activation == 1) {
 			var tipo = 'eats';
 		} else if(this.activation == 2) {
@@ -365,7 +369,8 @@ export class TipoPagoPage implements OnInit {
 				"name": data2['name'] + ' ' + data2['lastname'],
 				"price": price,
 				"tipo": tipo,
-				"uid": this.uid
+				"uid": this.uid,
+				"typeTransaccion":"envio",
 			}
 
 			var d2 = {
@@ -374,7 +379,8 @@ export class TipoPagoPage implements OnInit {
 				"name": data2['name'] + ' ' + data2['lastname'],
 				"price": price,
 				"tipo": tipo,
-				"uid": this.uid
+				"uid": this.uid,
+				"typeTransaccion":"envio",
 			}
 
 			this.db.list('transactions').push(d).then( success => {

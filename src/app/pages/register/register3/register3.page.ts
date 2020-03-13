@@ -6,7 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ToastController } from '@ionic/angular';
-
+import { Location } from '@angular/common'
 @Component({
 	selector: 'app-register3',
   	templateUrl: './register3.page.html',
@@ -57,6 +57,7 @@ export class Register3Page implements OnInit {
 	}
 
   	constructor(
+		private _location: Location,
     	private modalCtrl: ModalController,
     	public formBuilder: FormBuilder,
     	private router: Router,
@@ -108,7 +109,9 @@ export class Register3Page implements OnInit {
       		this.passwordType = "text";
     	}
   	}
-
+	  back() {
+		this. _location.back()
+	  }
   	public revelarConfirmacion() {
     	if(this.passwordShown2) {
       		this.passwordShown2 = false;
@@ -192,7 +195,7 @@ export class Register3Page implements OnInit {
 			const itemRef = this.db.object('clientes/' + uid);
 			itemRef.set(a).then( success => {
 				localStorage.setItem('uid', uid);
-				this.register3.reset();
+				//this.register3.reset();
 				this.router.navigate(["/home"]);
 			}).catch( error => {
 				console.log('error');
