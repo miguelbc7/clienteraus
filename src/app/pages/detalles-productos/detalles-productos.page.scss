@@ -90,7 +90,6 @@
                 align-items: self-start;
                 font-size: 38px;
                 margin: 0;
-                font-weight: bold;
                 color: #494947;
                 span{
                     font-size: 18px;
@@ -100,6 +99,8 @@
             .inputGroup{
                 display: flex;
                 align-items: center;
+                flex-wrap: wrap;
+                justify-content: center;
                 margin-top: 10px;
                 ion-button{
                     --padding-start: 10px !important;
@@ -130,10 +131,10 @@
                 }
                 p{
                     margin: 0;
-                    font-size: 12px;
+                    font-size: 16px;
                     color: #494947;
                     text-align: center;
-                    font-weight: bold;
+                    width: 100%;
                 }
             }
             .btnBuy{

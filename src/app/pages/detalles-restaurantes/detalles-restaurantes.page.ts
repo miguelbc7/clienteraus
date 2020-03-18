@@ -27,6 +27,7 @@ export class DetallesRestaurantesPage implements OnInit {
 	markerlatlong;
 	address;
 	direccion;
+	showShedule = false;
 	days: any[] = [
 		{ 
 			"name": "Lunes",

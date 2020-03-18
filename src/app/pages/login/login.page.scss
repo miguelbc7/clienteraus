@@ -6,6 +6,15 @@
     flex-direction: column;
 }
 
+.content{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .footerBottom{
+        margin-top: auto;
+    }
+}
+
 .logoImg {
     width: 60%;
     height: auto;

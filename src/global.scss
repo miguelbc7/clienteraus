@@ -30,6 +30,18 @@
   position: static;
 }
 
+ion-button{
+    --box-shadow:none;
+    --ripple-color: transparent !important;
+    --ripple-color: transparent !important;
+    --background-focused: inherit;
+    --background-hover: inherit;
+    --background-activated: inherit;
+    /* --color: inherit; */
+    --color-activated: inherit;
+    --color-focused: inherit;
+}
+
 .error-message
 {
   color:#c70000;
@@ -1015,6 +1027,23 @@ ion-textarea.textareaCustom{
     display: block;  
     overflow: hidden;
     --background: #a0a9c0;
+}
+
+.modalExplorar{
+    .modal-wrapper {
+        height: auto;
+        max-height:470px;
+        width: 90%;
+        top: 0%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        position: absolute; 
+        display: block;  
+        overflow: hidden;
+        --background: #fff;
+    }
 }
 .backBTn{
     --backgroud-color: transparent;

@@ -1,0 +1,59 @@
+.bodyExplorar{
+    .titleModal{
+        ion-button{
+            position: absolute;
+            left: 10px;
+            top: 2.5px;
+            --background: transparent;
+            img{
+                width: 35px;
+                height: 35px;
+                object-fit: contain;
+            }
+        }
+        h5{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #657b9f;
+            font-size: 22px;
+            margin: 15px auto;
+            ion-icon{
+                font-size: 28pt;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .boxButtons{
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 320px;
+        margin: 20px auto;
+        ion-button{
+            line-height: 1.2;
+            --background: #fafaf0;
+            color: #494947;
+            padding: 1px;
+            height: 85px;
+            width: calc(33.3% - 10px);
+            margin: 5px;
+            white-space: normal;
+            word-break: break-word;
+            --background-focused: #89acdb;
+            --background-hover: #89acdb;
+            --background-activated: #89acdb;
+            @media (max-width: 335px){
+                width: calc(33.3% - 10px);
+                margin: 5px;
+                font-size: 14px;
+                height: 75px;
+            }
+        }
+        ion-button.active{
+            --background: #89acdb;
+            color: #fff;
+        }
+    }
+}

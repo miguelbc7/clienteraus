@@ -8,7 +8,6 @@
     }
     
     .marginTopGrid {
-        margin-top: 50px;
         padding: 10px;
     }
     
@@ -53,7 +52,7 @@
     
     .alinearBalance {
         margin-left: 10px;
-        color: #4e5d6a;
+        color: #9d8755;
         display: flex;
         .fontSize{
             font-size: 46px;
@@ -113,8 +112,8 @@
     
     .iconBack {
         font-size: 30pt;
-        margin-left: 20px;
-        margin-top: 20px;
+        margin-left: 30px;
+        margin-top: 0;
     }
     
     .buttonDiv {
@@ -135,7 +134,6 @@
             .a{
                 font-size: 22px;
                 color: #4e5d6a;
-               // font-weight: bold;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
@@ -144,14 +142,12 @@
                /*  margin-top: 10px; */
                font-size: 14px;
                 color: #4e5d6a;
-              //  font-weight: bold;
             }
         }
         .titleOptions{
             margin-top: 10px;
             font-size: 16px !important;
             color: #4e5d6a;
-          //  font-weight: bold;
             transform: translateY(10px);
         }
         p{

@@ -1,4 +1,4 @@
-.bodyCarrito{
+.bodyFactura{
     .nav{
         display: flex;
         justify-content: center;
@@ -19,10 +19,10 @@
             }   
         }
         .nameRestaurant{
-            position: absolute;
+       /*      position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            max-width: 60%;
+            max-width: 60%; */
             h5{
                 font-size: 20px;
                 text-align: center;
@@ -75,6 +75,11 @@
             .inputGroup{
                 display: flex;
                 align-items: center;
+                justify-content: center;
+                .number{
+                    font-size: 16px;
+                    color: #494947;
+                }
                 ion-button{
                     --padding-start: 10px !important;
                     --padding-end: 10px !important;
@@ -141,7 +146,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 70%;
+            max-width: 80%;
             margin: auto;
             p{
                 margin: 2.5px 0;
@@ -206,13 +211,16 @@
             --color: #fff;
             --color-activated: #fff;
             --color-focused: #fff; 
-            float: right;
-            margin-top: 10px;
+           /*  margin-top: 10px; */
             letter-spacing: 0;
             --padding-start: 16px !important;
             --padding-end: 16px !important;
-            margin-right: 20px;
+            --padding-top: 8px !important;
+            --padding-bottom: 8px !important;
+            margin: 10px auto;
+            display: block;
             font-size: 16px;
+            max-width: 120px;
         }
     }
 }

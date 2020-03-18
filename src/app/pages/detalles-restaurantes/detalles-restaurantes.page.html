@@ -33,11 +33,18 @@
 		<div class="boxDirection">
 			<h5>{{ restaurant?.direction.street }}</h5>
 			<div class="horario">
-				<ion-icon src="assets/img/icon/reloj.svg"></ion-icon>
-				<span>	</span>
+				<ion-button (click)="showShedule = !showShedule">
+					<ion-icon src="assets/img/icon/reloj.svg"></ion-icon>
+					<span>Horarios</span>
+				</ion-button>
+				<ion-button><img src="assets/img/phone.png">Llamar</ion-button>
+				<ion-button>
+					<span>Ir</span>
+					<img src="assets/img/ir.png">
+				</ion-button>
 			</div>
 		</div>
-		<div class="sheddule">
+		<div class="sheddule" *ngIf="showShedule">
 			<div class="boxTime" *ngFor="let schedule of schedules">
 				<p>{{ schedule.name }}</p>
 				<p *ngFor="let s of schedule.schedules">

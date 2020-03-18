@@ -109,7 +109,17 @@ const routes: Routes = [
 	{
 		path: 'cart',
 		loadChildren: () => import('./pages/carrito/carrito.module').then( m => m.CarritoPageModule)
+	},
+	{ 	
+		path: 'factura',
+		loadChildren: './pages/factura/factura.module#FacturaPageModule' 
+	},
+  	{
+	   path: 'explorar', 
+	   loadChildren: './pages/modals/explorar/explorar.module#ExplorarPageModule' 
 	}
+
+
 ];
 
 @NgModule({

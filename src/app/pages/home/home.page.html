@@ -33,12 +33,15 @@
 				</div>  
 				<ion-card-content class="bodyCard" >
 					<ion-row>
-						<ion-col class="ion-no-padding ion-align-self-center " size="7">
+						<ion-col class="ion-no-padding ion-align-self-center " size="12">
 							<p class="hgPCarta my-0 customDarkText font12 title">
 								{{ promotion.name }}
 							</p> 
+							<p class="hgPCarta my-0 customDarkText font12 subtitle">
+								{{ promotion.description }}
+							</p> 
 						</ion-col>
-						<ion-col class="ion-no-padding" size="5">
+						<ion-col class="ion-no-padding" size="12">
 							<div  style="position: relative;" >
 							<p class="my-0 hgPCarta ion-text-center customDarkText price">
 								<span class="font12 a">{{ promotion.price1 }}</span>
@@ -47,13 +50,11 @@
 							</div>
 						</ion-col>
 					</ion-row>
-					<ion-row>
+				<!-- 	<ion-row>
 						<ion-col class="ion-no-padding ion-align-self-center ">
-							<p class="hgPCarta my-0 customDarkText font12 subtitle">
-								{{ promotion.description }}
-							</p> 
+							
 						</ion-col>
-					</ion-row>
+					</ion-row> -->
 				</ion-card-content>
 			</ion-card>
 		</ion-slide>
@@ -71,8 +72,8 @@
 		</ion-button>
 	</div>
 	<ion-grid *ngIf="restaurantes">
-		<ion-row *ngFor="let producto of products" > 
-			<ion-col size="6"  >
+		<ion-row > 
+			<ion-col size="6"  *ngFor="let producto of products">
 				<ion-card class="customCard m-0" (click)="goToProduct(producto._id,producto.id_restaurant)">
 					<div class="boxBanner">
 						<ion-slides>
@@ -83,12 +84,15 @@
 					</div>  
 					<ion-card-content class="bodyCard">
 						<ion-row>
-							<ion-col class="ion-no-padding ion-align-self-center " size="7">
+							<ion-col class="ion-no-padding ion-align-self-center " size="12">
 								<p class="hgPCarta my-0 customDarkText font12 title">
 									{{producto.name}}
 								</p> 
+								<p class="hgPCarta my-0 customDarkText font12 subtitle">
+									{{producto.description}}
+								</p> 
 							</ion-col>
-							<ion-col class="ion-no-padding" size="5">
+							<ion-col class="ion-no-padding" size="12">
 								<div  style="position: relative;" >
 								<p class="my-0 hgPCarta ion-text-center customDarkText price">
 									<span class="font12 a">{{producto.price_with_iva}}</span>
@@ -97,13 +101,11 @@
 								</div>
 							</ion-col>
 						</ion-row>
-						<ion-row>
+				<!-- 		<ion-row>
 							<ion-col class="ion-no-padding ion-align-self-center ">
-								<p class="hgPCarta my-0 customDarkText font12 subtitle">
-									{{producto.description}}
-								</p> 
+							
 							</ion-col>
-						</ion-row>
+						</ion-row> -->
 					</ion-card-content>
 				</ion-card>
 			</ion-col>
