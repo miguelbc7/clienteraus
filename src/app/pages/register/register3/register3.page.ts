@@ -32,18 +32,16 @@ export class Register3Page implements OnInit {
 			{ type: 'pattern', message: 'Debe ingresar un correo.' }
 		],
 		'phone': [
-			{ type: 'required', message: 'Telefono requerido' },
-			{ type: 'minlength', message: 'Debe ser mayor de 5 caracteres' },
-			{ type: 'maxlength', message: 'Debe ser menor de 30 caracteres.' }
+			{ type: 'required', message: 'Telefono requerido' }
       	],
       	'password': [
-            { type: 'required', message: 'Contraseña Rederida' },
+            { type: 'required', message: 'Contraseña Requerida' },
             { type: 'minlength', message: 'Debe ser mayor de 8 caracteres' },
             { type: 'maxlength', message: 'Debe ser menor de 15 caracteres.' },
             { type: 'pattern', message: 'Su contraseña debe contener al menos una mayúscula, una minúscula y un número.' }
 		],
 		'cpassword': [
-            { type: 'required', message: 'Contraseña Rederida' },
+            { type: 'required', message: 'Contraseña Requerida' },
             { type: 'minlength', message: 'Debe ser mayor de 8 caracteres' },
             { type: 'maxlength', message: 'Debe ser menor de 15 caracteres.' },
             { type: 'pattern', message: 'Su contraseña debe contener al menos una mayúscula, una minúscula y un número.' }
@@ -74,8 +72,6 @@ export class Register3Page implements OnInit {
       		])],
       		phone: ['', Validators.compose([
 				Validators.required,
-				Validators.minLength(8),
-            	Validators.maxLength(10)
 			])],
 			password: ['', Validators.compose([
 				Validators.required,
