@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ToastController } from '@ionic/angular';
+import { PoliticasPage } from '../modals/politicas/politicas.page';
+import { TerminosPage } from '../modals/terminos/terminos.page';
 
 @Component({
   selector: 'app-login',
@@ -117,6 +119,28 @@ export class LoginPage implements OnInit {
 		  duration: 2000
 		});
 		toast.present();
+	}
+
+	async acceptPoliticas() {
+		const modal = await this.modalCtrl.create({
+			component: PoliticasPage,
+			cssClass: 'calculate'
+		});
+
+		return await modal.present();
+	}
+
+	async acceptTerminos () {
+		const modal = await this.modalCtrl.create({
+			component: TerminosPage,
+			cssClass: 'calculate'
+		});
+
+		return await modal.present();
+	}
+
+	async goToRecovery() {
+		this.router.navigate(['recovery']);
 	}
 
 }

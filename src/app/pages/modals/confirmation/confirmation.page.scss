@@ -1,0 +1,39 @@
+
+.boxInputs{
+    width: 100%;
+    margin: 10px auto;
+    padding: 20px;
+    p{
+        text-align:center;
+        margin: 5px auto;
+        color: #657b97;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    .dFlex{
+        width: 80%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        ion-input{
+            max-width: 40px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #657b97;
+            margin: auto 2.5px;
+            font-size: 28px;
+            color: #666;
+        }
+    }
+    ion-button{
+        display: block;
+        margin: 30px auto 0;
+        max-width: 135px;
+        font-size: 20px;
+        /* padding: 4px; */
+        letter-spacing: 0;
+        --padding-top: 12.5px !important;
+        --padding-bottom: 12.5px !important;
+    }
+}

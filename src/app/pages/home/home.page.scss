@@ -2,8 +2,8 @@
     background-color: #fff;
 }
 .bg-head{
-    background: #657b9f;
-    color: white;
+    background: #f9f9f9;
+    color: #000;
 }
 .imgAvatar {
     border: 1px solid #bfdcf5;
@@ -11,23 +11,41 @@
     min-height: 100%;
 }
 
-.alignPrice{
+.saldo{
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 15px;
-    max-width: 100%;
-    margin-top: 10px;    
-    height: 40px;
-    z-index: 500;
-    .font60{
-        font-size: 42px !important;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
+    .text{
+        font-size: 16px;
+        color: #475c6d;
+
     }
-    .decimal{
-        margin-top: 5px;
-    }
+    .alignPrice{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 5px;
+        max-width: 100%;
+        margin-top: 0px;    
+        z-index: 500;
+        .text{
+            color: #475c6d;
+            font-size: 16px !important;
+        }
+        .count{
+            font-size: 16px !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            color: #9d8755;
+            max-width: 40px;
+        }
+        .decimal{
+            font-size: 16px;
+            color: #9d8755;
+
+        }
+    }   
 }
 
 .avatar{
@@ -62,6 +80,20 @@ ion-slide.changeStyle img {
 
 .hgLine {
     line-height: 0.8;
+    display: flex;
+    align-items: center;
+    ion-icon{
+        font-size: 25px;
+    }
+    .name{
+        margin-left: 5px;
+        text-overflow: ellipsis;
+        /* overflow: hidden; */
+        white-space: nowrap;
+        max-width: calc(100% - 30px);
+        font-size: 16px;
+        color: #475c6d;
+    }
 }
 
 .logoNav {
@@ -71,8 +103,19 @@ ion-slide.changeStyle img {
     padding:3px;
 }
 
-.iconPlay {
-    font-size: 2.5rem;
+.bgBlue {
+    background-color: #657b9f;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .iconPlay{
+        font-size: 2rem;
+        color: #fff;
+    }
+    span{
+        font-size: 14px;
+    }
 }
 
 .bodyHome{
@@ -87,6 +130,18 @@ ion-slide.changeStyle img {
     .customCard{
         .bodyCard{
             padding: 10px;
+            .spaceItems{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .title{
+                    width: 60%;
+                }
+                .price{
+                    width: 40%;
+                    margin-top: 10px;
+                }
+            }
             .title{
                 text-align: left;
                 white-space: nowrap;
@@ -109,11 +164,17 @@ ion-slide.changeStyle img {
                 margin-top: 5px;
                 .a{
                     font-size: 26px !important;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 60px;
                     @media (max-width: 320px){
                         font-size: 16px !important;
                     }
                 }
-                
+                .b{
+                    margin-top: 3px;
+                }
             }
         }
     }
@@ -259,5 +320,25 @@ ion-slide > img {
     }  
 }
 .m-0{
+    margin: 0;
+}
+
+.logoNav {
+    width: 90px;
+    height: auto;
+    margin-left: 10px;
+    padding:3px;
+}
+
+.IconNav {
+    font-size: 23pt;
+    font-weight: bold;
+}
+
+.NavbarCarrito{
+    transform: scale(1.25);
+}
+
+.actionIcon{
     margin: 0;
 }

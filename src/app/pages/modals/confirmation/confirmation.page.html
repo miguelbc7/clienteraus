@@ -1,0 +1,16 @@
+<ion-content>
+  <div class="boxInputs">
+		<form [formGroup]="confirm" (ngSubmit)="verifySMS(confirm.value)" class="ion-margin-horizontal">
+      <p>Por favor introduce el código que te hemos enviado via e-mail</p>
+      <div class="dFlex">
+        <ion-input maxlength="1" type="number" placeholder="*" formControlName="number1" [(ngModel)]="number1" name="number1" #n1 (ionInput)="gotoNextField(1, n2, n0, $event)"></ion-input>
+        <ion-input maxlength="1" type="number" placeholder="*" formControlName="number2" [(ngModel)]="number2" name="number2" #n2 (ionInput)="gotoNextField(2, n3, n1, $event)"></ion-input>
+        <ion-input maxlength="1" type="number" placeholder="*" formControlName="number3" [(ngModel)]="number3" name="number3" #n3 (ionInput)="gotoNextField(3, n4, n2, $event)"></ion-input>
+        <ion-input maxlength="1" type="number" placeholder="*" formControlName="number4" [(ngModel)]="number4" name="number4" #n4 (ionInput)="gotoNextField(4, n5, n3, $event)"></ion-input>
+      </div>
+      <ion-button color="bluedark" type="submit" [disabled]="!confirm.valid">
+          Ir a Raus!
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

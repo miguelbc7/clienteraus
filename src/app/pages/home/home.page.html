@@ -1,19 +1,50 @@
-<app-navbar></app-navbar>
+<ion-header no-border>
+    <ion-toolbar color="">
+        <ion-grid  class="ion-no-padding">
+            <ion-row class="ion-no-padding bgWhite" style="height: 64px;">
+                <ion-col size="4" class="ion-no-padding ion-align-self-center">
+                    <img class="logoNav" src="assets/img/logo-raus.png" alt="logo">
+                </ion-col>
+                <ion-col size="8" class="ion-no-padding ion-text-right ion-align-self-center">
+                    <ion-button color="white" class="actionIcon" (click)="notificaciones()">
+                        <ion-icon class="IconNav" src="assets/img/icon/campa3.svg"></ion-icon>
+                    </ion-button>
+                    <ion-button color="white" class="actionIcon ion-align-self-center">
+                        <ion-icon class="IconNav" src="assets/img/icon/inbox3.svg"></ion-icon>
+                    </ion-button>
+                    <ion-button color="white" class="actionIcon ion-align-self-center">
+                        <ion-icon class="IconNav" src="assets/img/icon/ra2.svg"></ion-icon>
+                    </ion-button>
+                    <ion-button color="white" class="actionIcon ion-align-self-center" (click)="cart()">
+                        <ion-icon  class="IconNav NavbarCarrito" src="assets/img/icon/icono-carrito.svg"></ion-icon>
+                    </ion-button>
+                    <ion-button color="white" class="actionIcon ion-align-self-center" (click)="explorar()">
+                        <ion-icon class="IconNav" src="assets/img/icon/ojo2.svg"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-header>
 <ion-content class="bodyHome">
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event, 1)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
 	<ion-grid class="ion-no-padding bg-head">
 		<ion-row >
-			<ion-col class="" size="3" class="hgLine">
-				<ion-avatar class="avatar">
+			<ion-col class="" size="5" class="hgLine">
+				<!-- <ion-avatar class="avatar">
 					<img class="imgAvatar" src="assets/img/avatar.png" alt="avatar perfil">
-				</ion-avatar>
-				<ion-icon class="font16" name="menu" routerLink="/options"></ion-icon>
+				</ion-avatar> -->
+				<ion-icon class="" name="menu" routerLink="/options"></ion-icon>
+				<p class="name">{{ name }}</p>
 			</ion-col>
-			<ion-col size="6" class="hgLine ion-text-center px-0">
-				<p class="font16 my-0 ">Balance</p>
-				<p class="my-0  alignPrice"> <span class="font60">{{ count }}</span> <span class="font18 decimal">,{{ count2 }}€</span></p>
+			<ion-col size="4" class="saldo px-0">
+				<p class="text my-0 ">Saldo:</p>
+				<p class="my-0  alignPrice"> <span class="count">{{ count }}</span> <span class="decimal">,{{ count2 }}€</span></p>
 			</ion-col>
-			<ion-col class="ion-justify-content-center ion-align-self-center ion-text-center" size="3" (click)="calculate()">
-				<ion-icon class="iconPlay" name="play"></ion-icon> <br>
+			<ion-col class="ion-justify-content-center ion-align-self-center ion-text-center bgBlue" size="3" (click)="calculate()">
+				<ion-icon class="iconPlay" name="play"></ion-icon> 
 				<span>Enviar</span>
 			</ion-col>
 		</ion-row>
@@ -34,22 +65,30 @@
 				<ion-card-content class="bodyCard" >
 					<ion-row>
 						<ion-col class="ion-no-padding ion-align-self-center " size="12">
-							<p class="hgPCarta my-0 customDarkText font12 title">
-								{{ promotion.name }}
-							</p> 
+							<div class="spaceItems">
+								<p class="hgPCarta my-0 customDarkText font12 title">
+									{{ promotion.name }}
+								</p> 
+								<p class="my-0 hgPCarta ion-text-center customDarkText price">
+									<span class="font12 a">{{ promotion.price1 }}</span>
+									<span class="font8 b">,{{ promotion.price2 }}€</span>
+								</p>
+							</div>
 							<p class="hgPCarta my-0 customDarkText font12 subtitle">
 								{{ promotion.description }}
 							</p> 
 						</ion-col>
 						<ion-col class="ion-no-padding" size="12">
 							<div  style="position: relative;" >
-							<p class="my-0 hgPCarta ion-text-center customDarkText price">
-								<span class="font12 a">{{ promotion.price1 }}</span>
-								<span class="font8 b">,{{ promotion.price2 }}€</span>
-							</p>
+								
 							</div>
 						</ion-col>
 					</ion-row>
+				<!-- 	<ion-row>
+						<ion-col class="ion-no-padding ion-align-self-center ">
+							
+						</ion-col>
+					</ion-row> -->
 				</ion-card-content>
 			</ion-card>
 		</ion-slide>
@@ -60,7 +99,7 @@
 			<span class="box"></span>
 			Productos
 		</ion-button>
-		<ion-icon class="font24" color="bluelight" name="pin"></ion-icon>
+		<ion-icon class="font24" color="bluelight" name="pin" (click)="doRefresh($event, 2)"></ion-icon>
 		<ion-button (click)="showContain(1)" [ngClass]="{'active': productos==true, ' ':productos==false }"  mode="md" class="btn b">
 			<span class="box"></span>
 			Restaurantes
@@ -80,25 +119,31 @@
 					<ion-card-content class="bodyCard">
 						<ion-row>
 							<ion-col class="ion-no-padding ion-align-self-center " size="12">
-								<p class="hgPCarta my-0 customDarkText font12 title">
-									{{producto.name}}
-								</p> 
-								<p class="hgPCarta my-0 customDarkText font12 subtitle">
-									{{producto.description}}
-								</p> 
-							</ion-col>
-							<ion-col class="ion-no-padding" size="12">
-								<div  style="position: relative;" >
-								<p class="my-0 hgPCarta ion-text-center customDarkText price">
-									<span class="font12 a">{{producto.price_with_iva}}</span>
-									<span class="font8 b">,00€</span>
-								</p>
+								<div class="spaceItems">
+									<p class="hgPCarta my-0 customDarkText font12 title">
+										{{producto?.name}}
+									</p> 
+									<p class="my-0 hgPCarta ion-text-center customDarkText price">
+										<span class="font12 a">{{producto?.price_with_iva}}</span>
+										<span class="font8 b">,00€</span>
+									</p>
 								</div>
+								<p class="hgPCarta my-0 customDarkText font12 subtitle">
+									{{producto?.description}}
+								</p> 
 							</ion-col>
 						</ion-row>
+				<!-- 		<ion-row>
+							<ion-col class="ion-no-padding ion-align-self-center ">
+							
+							</ion-col>
+						</ion-row> -->
 					</ion-card-content>
 				</ion-card>
 			</ion-col>
+			
+			
+			
 		</ion-row>
 	</ion-grid>
 	<ion-grid *ngIf="productos" class="px-0">
@@ -110,13 +155,16 @@
 				</ion-col>
 				<ion-col class="px-0" size="7">
 					<ion-row class="pt-2">
-						<ion-col size="7">
+						<ion-col size="5">
 							<p class="my-0 font10 titleCard">
 								{{ restaurant.name }}
 							</p>
 						</ion-col>
-						<ion-col class="ion-align-self-center ion-justify-content-center text-align-center" size="5" (click)="goToRestaurant(restaurant.key)">
+						<ion-col class="ion-align-self-center ion-justify-content-center text-align-center" size="3" (click)="goToRestaurant(restaurant.key)">
 							Ir <ion-icon class="" name="play"></ion-icon>
+						</ion-col>
+						<ion-col class="ion-align-self-center ion-justify-content-center text-align-center" style="font-size: 10px" size="4">
+							Distancia {{ restaurant.dist }}
 						</ion-col>
 					</ion-row>
 					<ion-row class="boxStatus">

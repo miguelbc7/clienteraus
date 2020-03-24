@@ -9,70 +9,83 @@ const routes: Routes = [
 	},
   	{	
 		path: 'login',
-		loadChildren: './pages/login/login.module#LoginPageModule'
+		loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
 	},
   	{
 		path: 'welcome',
-		loadChildren: './pages/welcome/welcome.module#WelcomePageModule'
+		loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule)
 	},
   	{
 		path: 'register1',
-		loadChildren: './pages/register/register1/register1.module#Register1PageModule'
+		loadChildren: () => import('./pages/register/register1/register1.module').then( m => m.Register1PageModule)
 	},
   	{ 
 		path: 'register2',
-		loadChildren: './pages/register/register2/register2.module#Register2PageModule'
+		loadChildren: () => import('./pages/register/register2/register2.module').then( m => m.Register2PageModule)
+	},
+	{
+		path: 'register3',
+		loadChildren: () => import('./pages/register/register3/register3.module').then( m => m.Register3PageModule)
 	},
   	{
-		path: 'register3',
-		loadChildren: './pages/register/register3/register3.module#Register3PageModule' },
-  	{
 		path: 'home',
-		loadChildren: './pages/home/home.module#HomePageModule'
+		loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
 	},
   	{ 
 		path: 'calculate',
-		loadChildren: './pages/modals/calculate/calculate.module#CalculatePageModule'
+		loadChildren: () => import('./pages/modals/calculate/calculate.module').then( m => m.CalculatePageModule)
 	},
   	{ 
 		path: 'tipopago',
-		loadChildren: './pages/modals/tipo-pago/tipo-pago.module#TipoPagoPageModule'
+		loadChildren: () => import('./pages/modals/tipo-pago/tipo-pago.module').then( m => m.TipoPagoPageModule)
 	},
   	{ 
 		path: 'success',
-		loadChildren: './pages/modals/success/success.module#SuccessPageModule'
+		loadChildren: () => import('./pages/modals/success/success.module').then( m => m.SuccessPageModule)
+	},
+	{ 
+		path: 'confirmation',
+		loadChildren: () => import('./pages/modals/confirmation/confirmation.module').then( m => m.ConfirmationPageModule)
+	},
+	{ 
+		path: 'politicas',
+		loadChildren: () => import('./pages/modals/politicas/politicas.module').then( m => m.PoliticasPageModule)
+	},
+	{ 
+		path: 'terminos',
+		loadChildren: () => import('./pages/modals/terminos/terminos.module').then( m => m.TerminosPageModule)
 	},
   	{ 
 		path: 'options',
-		loadChildren: './pages/options/options.module#OptionsPageModule'
+		loadChildren: () => import('./pages/options/options.module').then( m => m.OptionsPageModule)
 	},
   	{ 
 		path: 'beneficios',
-		loadChildren: './modals/beneficios/beneficios.module#BeneficiosPageModule'
+		loadChildren: () => import('./modals/beneficios/beneficios.module').then( m => m.BeneficiosPageModule)
 	},
   	{ 
 		path: 'agregarsaldo',
-		loadChildren: './modals/beneficios/beneficios.module#BeneficiosPageModule'
+		loadChildren: () => import('./modals/agregar-saldo/agregar-saldo.module').then( m => m.AgregarSaldoPageModule)
 	},
   	{ 
 		path: 'agregartarjeta',
-		loadChildren: './modals/agregar-tarjeta/agregar-tarjeta.module#AgregarTarjetaPageModule'
+		loadChildren: () => import('./modals/agregar-tarjeta/agregar-tarjeta.module').then( m => m.AgregarTarjetaPageModule)
 	},
   	{ 
 		path: 'eliminar',
-		loadChildren: './modals/eliminar/eliminar.module#EliminarPageModule'
+		loadChildren: () => import('./modals/eliminar/eliminar.module').then( m => m.EliminarPageModule)
 	},
   	{ 
 		path: 'recargar',
-		loadChildren: './modals/recargar/recargar.module#RecargarPageModule'
+		loadChildren: () => import('./modals/recargar/recargar.module').then( m => m.RecargarPageModule)
 	},
 	{ 
 		path: 'map',
-		loadChildren: './pages/modals/map/map.module#MapPageModule'
+		loadChildren: () => import('./pages/modals/map/map.module').then( m => m.MapPageModule)
 	},
 	{ 
 		path: 'map/:data',
-		loadChildren: './pages/modals/map/map.module#MapPageModule'
+		loadChildren: () => import('./pages/modals/map/map.module').then( m => m.MapPageModule)
 	},
 	{
 		path: 'notifications',
@@ -92,7 +105,7 @@ const routes: Routes = [
 	},
 	{
 		path: 'agregarentrega',
-		loadChildren: './modals/agregar-entrega/agregar-entrega.module#AgregarEntregaPageModule'
+		loadChildren: () => import('./modals/agregar-entrega/agregar-entrega.module').then( m => m.AgregarEntregaPageModule)
 	},
 	{
 		path: 'agregarfamilia',
@@ -112,14 +125,16 @@ const routes: Routes = [
 	},
 	{ 	
 		path: 'factura',
-		loadChildren: './pages/factura/factura.module#FacturaPageModule' 
+		loadChildren: () => import('./pages/factura/factura.module').then( m => m.FacturaPageModule)
 	},
   	{
 	   path: 'explorar', 
-	   loadChildren: './pages/modals/explorar/explorar.module#ExplorarPageModule' 
+		loadChildren: () => import('./pages/modals/explorar/explorar.module').then( m => m.ExplorarPageModule)
+	},
+	{
+		path: 'recovery', 
+		loadChildren: () => import('./pages/recovery/recovery.module').then( m => m.RecoveryPageModule)
 	}
-
-
 ];
 
 @NgModule({

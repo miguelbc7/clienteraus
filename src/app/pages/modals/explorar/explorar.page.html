@@ -1,23 +1,23 @@
 <ion-content class="bodyExplorar">
-  <div class="titleModal">
-    <ion-button routerLink="/home">
-      <img src="assets/img/icon/back.svg" alt="">
-    </ion-button>
-    <h5>
-      <ion-icon class="IconNav" src="assets/img/icon/ojo2.svg"></ion-icon>
-      Explorar
-    </h5>
-  </div>
-  <div class="boxButtons">
-    <ion-button (click)="status1 = !status1" [ngClass]="status1 ? 'active' : ''">Comer</ion-button>
-    <ion-button (click)="status2 = !status2" [ngClass]="status2 ? 'active' : ''">Salud</ion-button>
-    <ion-button (click)="status3 = !status3" [ngClass]="status3 ? 'active' : ''">Cuidado Personal</ion-button>
-    <ion-button (click)="status4 = !status4" [ngClass]="status4 ? 'active' : ''">Fuel</ion-button>
-    <ion-button (click)="status5 = !status5" [ngClass]="status5 ? 'active' : ''">Entretenimiento</ion-button>
-    <ion-button (click)="status6 = !status6" [ngClass]="status6 ? 'active' : ''">Jids</ion-button>
-    <ion-button (click)="status7 = !status7" [ngClass]="status7 ? 'active' : ''">Deporte</ion-button>
-    <ion-button (click)="status8 = !status8" [ngClass]="status8 ? 'active' : ''">Viajes Hoteles</ion-button>
-    <ion-button (click)="status9 = !status9" [ngClass]="status9 ? 'active' : ''">Alimentos</ion-button>
-    <ion-button (click)="status10 = !status10" [ngClass]="status10 ? 'active' : ''">Transporte</ion-button>
-  </div>
+	<div class="titleModal">
+		<ion-button (click)="close()">
+			<img src="assets/img/icon/back.svg" alt="">
+		</ion-button>
+		<h5>
+			<ion-icon class="IconNav" src="assets/img/icon/ojo2.svg"></ion-icon>
+			Explorar
+		</h5>
+	</div>
+	<div class="boxButtons">
+		<ion-button (click)="status.comer = !status.comer" [ngClass]="status.comer ? 'active' : ''">Comer</ion-button>
+		<ion-button (click)="status.salud = !status.salud" [ngClass]="status.salud ? 'active' : ''">Salud</ion-button>
+		<ion-button (click)="status.cuidado = !status.cuidado" [ngClass]="status.cuidado ? 'active' : ''">Cuidado Personal</ion-button>
+		<ion-button (click)="status.fuel = !status.fuel" [ngClass]="status.fuel ? 'active' : ''">Fuel</ion-button>
+		<ion-button (click)="status.entretenimiento = !status.entretenimiento" [ngClass]="status.entretenimiento ? 'active' : ''">Entretenimiento</ion-button>
+		<ion-button (click)="status.kids = !status.kids" [ngClass]="status.kids ? 'active' : ''">Kids</ion-button>
+		<ion-button (click)="status.deporte = !status.deporte" [ngClass]="status.deporte ? 'active' : ''">Deporte</ion-button>
+		<ion-button (click)="status.viajes = !status.viajes" [ngClass]="status.viajes ? 'active' : ''">Viajes Hoteles</ion-button>
+		<ion-button (click)="status.alimentos = !status.alimentos" [ngClass]="status.alimentos ? 'active' : ''">Alimentos</ion-button>
+		<ion-button (click)="status.transporte = !status.transporte" [ngClass]="status.transporte ? 'active' : ''">Transporte</ion-button>
+	</div>
 </ion-content>

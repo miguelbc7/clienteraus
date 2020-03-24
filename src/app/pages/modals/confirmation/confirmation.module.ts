@@ -1,19 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FacturaPage } from './factura.page';
-
-import { SharedModule } from '../sharedmodals/shared.module';
-
+import { ConfirmationPage } from './confirmation.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FacturaPage
+    component: ConfirmationPage
   }
 ];
 
@@ -21,10 +18,10 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
-    SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [FacturaPage]
+  declarations: [ConfirmationPage]
 })
-export class FacturaPageModule {}
+export class ConfirmationPageModule {}

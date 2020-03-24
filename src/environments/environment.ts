@@ -8,6 +8,7 @@ export const environment = {
 	/* url: 'https://rausdev.tk:8282/api/', */
    
   	url: 'https://myraus.com:8282/api/',
+  	url2: 'https://myraus.com:9283/api/',
  
 	/* firebase: {
 		apiKey: "AIzaSyCg_0bvL3l8ngTWtHq7XKMYWGcVDN0-Br0",

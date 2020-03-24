@@ -10,7 +10,6 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { HomeserviceService } from "../../../services/homeservice.service";
 import { Location } from '@angular/common'
-
 declare let google: any;
 
 @Component({

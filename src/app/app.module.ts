@@ -25,12 +25,15 @@ import { BeneficiosPageModule } from './modals/beneficios/beneficios.module';
 import { RecargarPageModule } from './modals/recargar/recargar.module';
 import { AgregarSaldoPageModule } from './modals/agregar-saldo/agregar-saldo.module';
 import { AgregarTarjetaPageModule } from './modals/agregar-tarjeta/agregar-tarjeta.module';
+import { ConfirmationPageModule } from './pages/modals/confirmation/confirmation.module';
+import { TerminosPageModule } from './pages/modals/terminos/terminos.module';
+import { PoliticasPageModule } from './pages/modals/politicas/politicas.module';
 import { EliminarPageModule } from './modals/eliminar/eliminar.module';
 import { AgregarFamiliaPageModule } from './pages/modals/agregar-familia/agregar-familia.module';
 import { BaseSuccessPageModule } from './pages/modals/base-success/base-success.module';
 import { AgregarEntregaPageModule } from './modals/agregar-entrega/agregar-entrega.module';
 import { ExplorarPageModule } from './pages/modals/explorar/explorar.module';
-
+import { FacturaPageModule } from './pages/factura/factura.module';
 
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
@@ -64,7 +67,11 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     AgregarFamiliaPageModule,
     BaseSuccessPageModule,
     AgregarEntregaPageModule,
-    ExplorarPageModule
+    ExplorarPageModule,
+    ConfirmationPageModule,
+    TerminosPageModule,
+    PoliticasPageModule,
+    FacturaPageModule
   ],
   providers: [
     StatusBar,

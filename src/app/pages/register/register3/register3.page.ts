@@ -3,10 +3,14 @@ import { ModalController } from '@ionic/angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ToastController } from '@ionic/angular';
-import { Location } from '@angular/common'
+import { Location } from '@angular/common';
+import { PoliticasPage } from '../../modals/politicas/politicas.page';
+import { TerminosPage } from '../../modals/terminos/terminos.page';
+import { ConfirmationPage } from '../../modals/confirmation/confirmation.page';
+import { CountriesService } from '../../../services/countries.service';
+
 @Component({
 	selector: 'app-register3',
   	templateUrl: './register3.page.html',
@@ -24,6 +28,7 @@ export class Register3Page implements OnInit {
 	politval2 = false;
 	termsval = false;
 	termsval2 = false;
+	country;
 	validation_messages = {
     	'email': [
 			{ type: 'required', message: 'Correo requerido' },
@@ -56,12 +61,13 @@ export class Register3Page implements OnInit {
 
   	constructor(
 		private _location: Location,
-    	private modalCtrl: ModalController,
+    	private modalController: ModalController,
     	public formBuilder: FormBuilder,
     	private router: Router,
 		private firebaseAuth: AngularFireAuth,
 		private db: AngularFireDatabase,
-		public toastController: ToastController
+		public toastController: ToastController,
+		public countries: CountriesService
 	) {
     	this.register3 = formBuilder.group({
       		email: ['', Validators.compose([
@@ -94,7 +100,9 @@ export class Register3Page implements OnInit {
     	});
   	}
 
-  	ngOnInit() {}
+  	ngOnInit() {
+		this.getCountries();
+	  }
 
   	public togglePassword() {
     	if(this.passwordShown) {
@@ -104,10 +112,12 @@ export class Register3Page implements OnInit {
       		this.passwordShown = true;
       		this.passwordType = "text";
     	}
-  	}
-	  back() {
+	}
+	  
+	back() {
 		this. _location.back()
-	  }
+	}
+
   	public revelarConfirmacion() {
     	if(this.passwordShown2) {
       		this.passwordShown2 = false;
@@ -117,11 +127,26 @@ export class Register3Page implements OnInit {
       		this.passwordType2 = "text";
     	}
 	}
+
+	public getCountries() {
+		this.countries.getCountries().then( (data: any) => {
+			var cc = localStorage.getItem('country');
+			var d = data.data;
+
+			var c = d.filter(obj => {
+				return obj.pais_name === cc.trim()
+			});
+
+			this.country = c[0];
+		}).catch( error => {
+			console.log('error', error);
+		})
+	}
 	  
 	async onSubmit(values) {
 		var email = this.register3.value.email;
 		var password = this.register3.value.password;
-		var phone = this.register3.value.phone;
+		var phone = '+' + this.country.phone_code + '' + this.register3.value.phone;
 		var name = localStorage.getItem('name');
 		var lastname = localStorage.getItem('lastname');
 		var dni = localStorage.getItem('dni');
@@ -139,7 +164,25 @@ export class Register3Page implements OnInit {
 		this.politval2 = false;
 		this.termsval2 = false;
 
-		this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(value => {
+
+		var dat = {
+			email: email,
+			password: password,
+			phone: phone,
+			name: name,
+			lastname: lastname,
+			dni: dni,
+			birthdate: birthdate,
+			country: country,
+			city: city,
+			address: address,
+			zipcode: zipcode,
+			date: date
+		}
+
+		this.confirmation(dat);
+
+		/* this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(value => {
 			var uid = value.user.uid;
 
 			var b = {
@@ -191,13 +234,48 @@ export class Register3Page implements OnInit {
 			const itemRef = this.db.object('clientes/' + uid);
 			itemRef.set(a).then( success => {
 				localStorage.setItem('uid', uid);
-				//this.register3.reset();
 				this.router.navigate(["/home"]);
 			}).catch( error => {
 				console.log('error');
 			});
 		}).catch(err => {
 			console.log('Something went wrong:',err.message);
+		}); */
+	}
+
+	async acceptPoliticas() {
+		const modal = await this.modalController.create({
+			component: PoliticasPage,
+			cssClass: 'calculate'
 		});
+
+		return await modal.present();
+	}
+
+	async acceptTerminos () {
+		const modal = await this.modalController.create({
+			component: TerminosPage,
+			cssClass: 'calculate'
+		});
+
+		return await modal.present();
+	}
+
+	async confirmation (dat) {
+		const modal = await this.modalController.create({
+			component: ConfirmationPage,
+			componentProps: {
+				data: dat
+			},
+			cssClass: 'calculate'
+		});
+
+		/* modal.onDidDismiss().then( success => {
+			this.router.navigate(["/home"]);
+		}).catch( error => {
+			this.router.navigate(["/home"]);
+		}) */
+
+		return await modal.present();
 	}
 }

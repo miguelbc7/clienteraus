@@ -1,0 +1,29 @@
+ion-header{
+    border: none;
+    &::after{
+        background-image: none;
+    }
+    ion-button{
+        --background: transparent;
+        ion-icon{
+            font-size: 38px;
+        }
+    }
+
+    ion-title{
+        color: #5b7da0;
+    }
+}
+ion-content{
+    padding: 15px;
+    color: #343434;
+    --padding-start: 15px;
+    --padding-end: 15px;
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+
+    p{
+        margin-top: 0;
+    }
+    
+}

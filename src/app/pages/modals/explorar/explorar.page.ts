@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-explorar',
@@ -6,21 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./explorar.page.scss'],
 })
 export class ExplorarPage implements OnInit {
-  status1: boolean = false;
-  status2: boolean = false;
-  status3: boolean = false;
-  status4: boolean = false;
-  status5: boolean = false;
-  status6: boolean = false;
-  status7: boolean = false;
-  status8: boolean = false;
-  status9: boolean = false;
-  status10: boolean = false;
+	@Input() status: any;
 
-  constructor() { }
+  	constructor(
+		public modalController: ModalController
+	) {}
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+		console.log('status', this.status);
+	}
 
+	close() {
+		var data = this.status;
+		this.modalController.dismiss(data);
+	}
  
 }

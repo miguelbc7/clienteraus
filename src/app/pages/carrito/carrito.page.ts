@@ -6,6 +6,8 @@ import { ModalController } from '@ionic/angular';
 import { AgregarEntregaPage } from '../../modals/agregar-entrega/agregar-entrega.page';
 import { BaseSuccessPage } from '../modals/base-success/base-success.page';
 import { SuccessPage } from '../modals/success/success.page';
+import { FacturaPage } from '../factura/factura.page';
+
 @Component({
 	selector: 'app-carrito',
 	templateUrl: './carrito.page.html',
@@ -41,6 +43,9 @@ export class CarritoPage implements OnInit {
 
 	async ngOnInit() {
 		this.uid = localStorage.getItem('uid');
+	}
+
+	async ionViewWillEnter() {
 		await this.getName();
 		await this.getProducts();
 		await this.getAddress();
@@ -111,9 +116,7 @@ export class CarritoPage implements OnInit {
 	}
 
 	async getName() {
-		console.log('uid',  this.uid);
 		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data => {
-			console.log('data', data);
 			this.name = data['name'] + ' ' + data['lastname'];
 			this.dni = data['dni'];
 			r.unsubscribe();
@@ -155,11 +158,7 @@ export class CarritoPage implements OnInit {
 	}
 
 	async getRestaurant() {
-		console.log({"victor":this.restaurantid});
-		
 		var r = this.db.object('restaurantes/' + this.restaurantid).valueChanges().subscribe( data => {
-			console.log({"victor":data});
-			
 			this.restaurant = data['name'];
 			r.unsubscribe();
 		});
@@ -172,8 +171,6 @@ export class CarritoPage implements OnInit {
 				r.unsubscribe();
 			} else {
 				var r2 = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
-					console.log('data2', data2);
-
 					var addresses = {
 						city: '',
 						country: '',
@@ -261,11 +258,7 @@ export class CarritoPage implements OnInit {
 	}
 
 	async send() {
-		
-		
-	/*	if(!this.showadd) {
-			this.presentToast('Debe registrar una dirección para continuar');
-		}*/
+
 
 		if(Object.keys(this.products).length < 1) {
 			this.presentToast('Debe agregar productos al carrito');
@@ -367,9 +360,18 @@ export class CarritoPage implements OnInit {
 
 		return await modal.present();
 	}
-	async newTransaction(price,idRestaurante) {
-	
 
+	async factura() {
+		const modal = await this.modalController.create({
+			component: FacturaPage,
+			cssClass: 'facturacionModal',
+			componentProps: { products: this.products }
+		});
+
+		return await modal.present();
+	}
+
+	async newTransaction(price,idRestaurante) {
 		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
 			var d;
 			var dat = new Date()  ;
@@ -407,6 +409,7 @@ export class CarritoPage implements OnInit {
 				} else {
 					r.unsubscribe();
 					this.successModal();
+					this.factura();
 				}
 			}).catch( error => {
 				console.log('error', error);
@@ -447,6 +450,7 @@ export class CarritoPage implements OnInit {
 
 		this.db.list('notifications/' + empresa).push(d).then( success => {
 			this.successModal();
+			this.factura();
 		}).catch( error => {
 			console.log('error', error);
 			this.successModal();

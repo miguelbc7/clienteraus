@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ExplorarPage } from '../modals/explorar/explorar.page';
 
 @Component({
 	selector: 'app-home',
@@ -24,8 +25,9 @@ export class HomePage implements OnInit {
 	products: any;
 	restaurantes: boolean = false;
 	productos: boolean = true;
-	id:any;
-	restaurantid:any;
+	id: any;
+	uid: any;
+	restaurantid: any;
 	latLng;
 	slideOpts = {
 		initialSlide: 1,
@@ -38,6 +40,19 @@ export class HomePage implements OnInit {
 	token;
 	count: any;
 	count2: any;
+	name;
+	status: any = {
+		comer: false,
+		salud: false,
+		cuidado: false,
+		fuel: false,
+		entretenimiento: false,
+		kids: false,
+		deporte: false,
+		viajes: false,
+		alimentos: false,
+		transporte: false
+	}
 
 	constructor(
 		private route: ActivatedRoute,
@@ -53,18 +68,61 @@ export class HomePage implements OnInit {
 		private geolocation: Geolocation
 	) {}
 
-	async ngOnInit() {
-		await this.checkGPSPermission();
-		await this.getBalance();
-		await this.getPromotions();
-		await this.getRestaurants();
-		await this.getProducts('');
-		this.id = this.route.snapshot.params.id;
-		this.restaurantid = this.route.snapshot.params.restaurant;
+	async ngOnInit() {}
+
+	async notificaciones() {
+		this.router.navigate(['/notifications']);
 	}
 
-	async ionViewWillEnter() {
+	async cart() {
+		this.router.navigate(['/cart']);
+	}
+
+	async explorar() {
+		console.log('status', this.status);
+		const modal = await this.modalController.create({
+			component: ExplorarPage,
+			componentProps: {
+				status: this.status
+			},
+			cssClass: 'modalExplorar',
+		});
+
+		modal.onDidDismiss().then((data: any) => {
+			console.log('data', data.data);
+			this.status = data.data;
+			this.getRestaurants();
+		});
+
+		return await modal.present();
+	}
+
+	ionViewWillEnter() {
+		this.id = this.route.snapshot.params.id;
+		this.restaurantid = this.route.snapshot.params.restaurant;
+		this.uid = localStorage.getItem('uid');
+
+		this.callFunctions();		
+	}
+
+	callFunctions() {
 		this.checkGPSPermission();
+		this.getName();
+		this.checkGPSPermission();
+		this.getBalance();
+		this.getPromotions();
+		this.getRestaurants();
+		this.getProducts('');
+	}
+
+	getName() {
+		this.db.object('clientes/' + this.uid).valueChanges().subscribe( (success: any) => {
+			var name = success['name'];
+			var lastname = success['lastname'];
+			this.name = name + ' ' + lastname;
+		}, error => {
+			console.log('error', error);
+		});
 	}
 
 	checkGPSPermission() {
@@ -142,10 +200,41 @@ export class HomePage implements OnInit {
 				console.log('data', data);
 				var res = [];
 
+				var st = [];
+				var sta: any = this.status;
+
+				console.log('sta', sta);
+
+				if(sta.comer) {
+					st.push('#Comer');
+				} else if(sta.salud) {
+					st.push('#Salud');
+				} else if(sta.cuidado) {
+					st.push('#Cuidado');
+				} else if(sta.fuel) {
+					st.push('#Fuel');
+				} else if(sta.entretenimiento) {
+					st.push('#Entretenimiento');
+				} else if(sta.kids) {
+					st.push('#kids');
+				} else if(sta.deporte) {
+					st.push('#Deporte');
+				} else if(sta.viajes) {
+					st.push('#Viajes');
+				} else if(sta.alimentos) {
+					st.push('#Alimentos');
+				} else if(sta.transporte) {
+					st.push('#Transporte');
+				}
+
 				for await (let i of Object.keys(data)) {
 					var slider;
 
-					var dist = this.distance(this.latLng.lat, this.latLng.lng, data[i].lat, data[i].lng)
+					if(this.latLng) {
+						var dist = this.distance(this.latLng.lat, this.latLng.lng, data[i].lat, data[i].lng)
+					} else {
+						var dist = 0;
+					}
 
 					if (data[i].slider) {
 						slider = data[i].slider[0].photo;
@@ -153,8 +242,27 @@ export class HomePage implements OnInit {
 						slider = "";
 					}
 
-					var a = { name: data[i].name, slider: slider, key: i, dist: dist, lat: data[i].lat, lng: data[i].lng };
-					res.push(a);
+					var cate = data[i].categories;
+					var cat = [];
+
+					if(st.length > 0) {
+						console.log('a');
+						for(var c of Object.keys(cate)) {
+							if(st.indexOf(cate[c].name) > -1) {
+								cat.push(cate[c].name);
+								var a = { name: data[i].name, slider: slider, key: i, dist: dist, lat: data[i].lat, lng: data[i].lng, categories: cat };
+								res.push(a);
+							}
+						}
+					} else {
+						console.log('b');
+						for(var c of Object.keys(cate)) {
+							cat.push(cate[c].name);
+						}
+	
+						var a = { name: data[i].name, slider: slider, key: i, dist: dist, lat: data[i].lat, lng: data[i].lng, categories: cat };
+						res.push(a);
+					}
 				}
 
 				if(this.latLng) {
@@ -165,9 +273,12 @@ export class HomePage implements OnInit {
 						return this.distance(origLat, origLong, a.lat, a.lng) - this.distance(origLat, origLong, b.lat, b.lng);
 					});
 	
-					console.log('res', res);
+					this.restaurants = res;
+				} else {
 					this.restaurants = res;
 				}
+
+				console.log('res', res);
 			});
 		});
 	}
@@ -175,17 +286,19 @@ export class HomePage implements OnInit {
 	async getProducts(id) {
 		this.restaurantService.getProducts(id).then(response => {
 			response.subscribe( async data => {
-				console.log('data', data);
 				
 				let producto = data.products;
 				var res = [];
 
 				for await (let i of Object.keys(producto)) {
-					var a = producto;
+					var a = producto[i];
 					res.push(a);
 				}
 
+				console.log('res', res);
+
 				if(this.latLng) {
+					console.log('a');
 					res.sort((a, b) => {
 						var origLat = this.latLng.lat,
 						origLong = this.latLng.lng;
@@ -193,14 +306,16 @@ export class HomePage implements OnInit {
 						return this.distance(origLat, origLong, a.lat, a.lng) - this.distance(origLat, origLong, b.lat, b.lng);
 					});
 	
-					console.log('res', res);
+					this.products = res;
+				} else {
+					console.log('b');
 					this.products = res;
 				}
 			});
 		});
 	}
 
-	async getBalance() {
+	getBalance() {
 		var uid = localStorage.getItem('uid');
 
 		this.db.list('clientes/' + uid + '/accounts').valueChanges().subscribe(success => {
@@ -210,6 +325,8 @@ export class HomePage implements OnInit {
 			});
 
 			c = c.toFixed(2);
+
+			console.log('c2', c);
 
 			if ((c.toString()).indexOf('.') > -1) {
 				this.count = (c.toString()).split('.')[0];
@@ -254,19 +371,6 @@ export class HomePage implements OnInit {
 	}
 
 	distance(lat1: any, lon1: any, lat2: any, lon2: any) {
-		/* var R = 6371;
-		var dLat = (lat2 - lat1) * Math.PI / 180;
-		var dLon = (lon2 - lon1) * Math.PI / 180;
-		var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-			Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
-			Math.sin(dLon/2) * Math.sin(dLon/2);
-		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-		var d = R * c;
-		if (d>1) return Math.round(d)+"km";
-		else if (d<=1) return Math.round(d*1000)+"m";
-		return d;
- */
-
 		var radlat1 = Math.PI * lat1 / 180;
 		var radlat2 = Math.PI * lat2 / 180;
 		var theta = lon1 - lon2;
@@ -279,5 +383,18 @@ export class HomePage implements OnInit {
 
 		return dist;
 	}
+
+	doRefresh(event, type) {
+		console.log('Begin async operation');
+	
+		setTimeout(() => {
+		  	console.log('Async operation has ended');
+			this.callFunctions();
+
+			if(type == 1) {
+				event.target.complete();
+			}
+		}, 2000);
+	  }
 
 }

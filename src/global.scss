@@ -1056,3 +1056,48 @@ ion-textarea.textareaCustom{
         object-fit: contain;
     }
 }
+
+.ModalConfirmation{
+    .modal-wrapper{
+        height: auto;
+        max-height:245px;
+        width: 90%;
+        top: 0%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        position: absolute; 
+        display: block;  
+        overflow: hidden;
+        --background: #fff;
+    }
+}
+
+.ModalRecuperar{
+    .modal-wrapper{
+        height: auto;
+        max-height:280px;
+        width: 90%;
+        top: 0%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        position: absolute; 
+        display: block;  
+        overflow: hidden;
+        --background: #fff;
+    }
+}
+
+.facturacionModal {
+    .modal-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}
