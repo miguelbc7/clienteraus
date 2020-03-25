@@ -134,6 +134,10 @@ const routes: Routes = [
 	{
 		path: 'recovery', 
 		loadChildren: () => import('./pages/recovery/recovery.module').then( m => m.RecoveryPageModule)
+	},
+	{
+		path: 'history', 
+		loadChildren: () => import('./pages/historial/historial.module').then( m => m.HistorialPageModule)
 	}
 ];
 

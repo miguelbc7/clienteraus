@@ -35,7 +35,7 @@
         .count{
             font-size: 16px !important;
             text-overflow: ellipsis;
-            overflow: hidden;
+            /* overflow: hidden; */
             white-space: nowrap;
             color: #9d8755;
             max-width: 40px;
@@ -88,7 +88,7 @@ ion-slide.changeStyle img {
     .name{
         margin-left: 5px;
         text-overflow: ellipsis;
-        /* overflow: hidden; */
+        overflow: hidden;
         white-space: nowrap;
         max-width: calc(100% - 30px);
         font-size: 16px;
@@ -165,7 +165,7 @@ ion-slide.changeStyle img {
                 .a{
                     font-size: 26px !important;
                     white-space: nowrap;
-                    overflow: hidden;
+                    /* overflow: hidden; */
                     text-overflow: ellipsis;
                     max-width: 60px;
                     @media (max-width: 320px){

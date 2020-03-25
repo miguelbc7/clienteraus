@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Location } from '@angular/common';
 import { ModalController } from '@ionic/angular';
@@ -11,15 +11,15 @@ import { ModalController } from '@ionic/angular';
 
 export class FacturaPage implements OnInit {
 
+	@Input() restaurantid: any;
+	@Input() products: any;
+	@Input() subtotal: any;
+	@Input() iva: any;
+	@Input() total: any;
 	name;
 	dni;
-	restaurantid;
 	del;
-	total;
-	iva;
-	subtotal;
 	uid;
-	products: any;
 	restaurant;
 	addresses;
 
@@ -29,57 +29,26 @@ export class FacturaPage implements OnInit {
 		private modalController: ModalController
 	) {}
 
-	ngOnInit() {
+	async ngOnInit() {
 		this.uid = localStorage.getItem('uid');
-		this.getName();
-		this.getProducts();
-		this.getAddress();
+		await this.getName();
+		await this.getAddress();
+		console.log('restaurantid', this.restaurantid);
+		console.log('products', this.products);
 	}
 
 	async getName() {
-		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data => {
+		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( (data: any) => {
+			console.log('data', data);
 			this.name = data['name'] + ' ' + data['lastname'];
 			this.dni = data['dni'];
 			r.unsubscribe();
 		})
 	}
 
-	async getProducts() {
-		this.db.object('cart/' + this.uid).valueChanges().subscribe( (data: any) => {
-			var arr = [];
-			var t: number = 0;
-
-			for (let d in data) {
-				var a = { key: d, price: data[d].price, product: data[d].product, productData: data[d].productData, quantity: data[d].quantity, restaurant: data[d].restaurant, total: data[d].total };
-				t = t + parseFloat(data[d].total);
-
-				this.restaurantid = data[d].restaurant;
-
-				arr.push(a);
-			}
-
-			if(arr.length >= 1) {
-				this.del = true;
-			} else {
-				this.del = false;
-			}
-			
-			var tt = t + 5;
-			var st = tt * 0.21;
-			var iv = tt - st;
-			this.total = tt
-			this.iva = st;
-			this.subtotal = iv;
-
-			this.products = arr;
-		 	this.getRestaurant();
-		}, error => {
-			console.log('error', error);
-		});
-	}
-
 	async getRestaurant() {
-		var r = this.db.object('restaurantes/' + this.restaurantid).valueChanges().subscribe( data => {
+		var r = this.db.object('restaurantes/' + this.restaurantid).valueChanges().subscribe( (data: any) => {
+			console.log('data', data);
 			this.restaurant = data['name'];
 			r.unsubscribe();
 		});

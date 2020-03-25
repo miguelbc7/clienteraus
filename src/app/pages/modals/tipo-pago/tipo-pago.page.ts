@@ -29,7 +29,6 @@ export class TipoPagoPage implements OnInit {
 	) {}
 
 	ngOnInit() {
-		
 		this.uid = localStorage.getItem('uid');
 		var tt = this.total;
 
@@ -59,6 +58,8 @@ export class TipoPagoPage implements OnInit {
 		if(t.indexOf(',') > -1) {
 			this.total = t.split(',').join('.');
 		}
+
+		console.log('total', this.total);
 
 		var r1 = ref2.valueChanges().subscribe( (success2: any) => {
 			var dat;
@@ -106,10 +107,11 @@ export class TipoPagoPage implements OnInit {
 						var r2 = ref.valueChanges().subscribe( (success: any) => {
 						
 							var price = parseFloat(success[0]) + parseFloat(this.total);
+							var valor = parseFloat(this.total);
 			
 							this.db.list('restaurantes').update(this.dataid, { balance: price }).then( success2 => {
 								r2.unsubscribe();
-								this.newTransaction(p);
+								this.newTransaction(valor);
 							});
 						});
 					});
@@ -236,13 +238,13 @@ export class TipoPagoPage implements OnInit {
 						var r2 = ref.valueChanges().subscribe( (success: any) => {
 							
 							var price = parseFloat(success[0]) + parseFloat(this.total);
-				var valor = parseFloat(this.total);
+							var valor = parseFloat(this.total);
 				
 							this.db.list('restaurantes').update(this.dataid, { balance: price }).then( success2 => {
 								r2.unsubscribe();
 
 								if(t > 0) {
-									this.newTransaction2( valor);
+									this.newTransaction2(valor);
 								} else {
 									this.newTransaction(valor);
 								}
@@ -290,6 +292,8 @@ export class TipoPagoPage implements OnInit {
 	}
 
 	async newTransaction(price) {
+		console.log('price', price);
+
 		if(this.activation == 1) {
 			var tipo = 'eats';
 		} else if(this.activation == 2) {
@@ -306,7 +310,10 @@ export class TipoPagoPage implements OnInit {
 			var year = dat.getFullYear();
 			var month = dat.getMonth()+1;
 			var day = dat.getDate();
-			var date = year + '-' + month + '-' + day;
+			var hours = dat.getHours();
+			var minutes = dat.getMinutes();
+			var seconds = dat.getSeconds();
+			var date = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
 			if(data2['id_empresa']) {
 				d = {
@@ -341,7 +348,7 @@ export class TipoPagoPage implements OnInit {
 			}).catch( error => {
 				console.log('error', error);
 			});
-		})
+		});
 	}
 
 	async newTransaction2(price) {
@@ -360,17 +367,33 @@ export class TipoPagoPage implements OnInit {
 			var year = dat.getFullYear();
 			var month = dat.getMonth();
 			var day = dat.getDate();
-			var date = year + '-' + month + '-' + day;
-			
-			var d = {
-				"date": date,
-				"id_empresa": data2['id_empresa'],
-				"id_restaurante": this.dataid,
-				"name": data2['name'] + ' ' + data2['lastname'],
-				"price": price,
-				"tipo": tipo,
-				"uid": this.uid,
-				"typeTransaccion":"envio",
+			var hours = dat.getHours();
+			var minutes = dat.getMinutes();
+			var seconds = dat.getSeconds();
+			var date = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+			var d;
+
+			if(data2['id_empresa']) {
+				d = {
+					"date": date,
+					"id_empresa": data2['id_empresa'],
+					"id_restaurante": this.dataid,
+					"name": data2['name'] + ' ' + data2['lastname'],
+					"price": price,
+					"tipo": tipo,
+					"uid": this.uid,
+					"typeTransaccion":"envio",
+				}
+			} else {
+				d = {
+					"date": date,
+					"id_restaurante": this.dataid,
+					"name": data2['name'] + ' ' + data2['lastname'],
+					"price": price,
+					"tipo": tipo,
+					"uid": this.uid,
+					"typeTransaccion":"envio",
+				}
 			}
 
 			var d2 = {

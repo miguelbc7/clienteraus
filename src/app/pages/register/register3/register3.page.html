@@ -1,5 +1,5 @@
 <ion-content class="bodyRegister">
-	<ion-button   (click)="back()" class="backBTn" mode="md">
+	<ion-button (click)="back()" class="backBTn" mode="md">
 		<ion-icon src="assets/img/icon/back.svg"></ion-icon>
 	</ion-button>
     <div class="ion-text-center boxLogo">
@@ -82,6 +82,9 @@
 					{{ validation.message }}
 				</div>
 			</ng-container>
+			<div class="error-message" *ngIf="phoneError">
+				El numero de telefono ya esta registrado en Raus
+			</div>
 		</div>
 		<div class="ion-text-center">
 			<ion-button type="submit" [disabled]="!register3.valid" class="font15" color="bluedark">

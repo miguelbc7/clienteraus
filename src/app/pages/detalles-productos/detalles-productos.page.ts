@@ -106,27 +106,21 @@ export class DetallesProductosPage implements OnInit {
 					this.presentToast('El producto ha sido agregado al carrito con éxito');
 				}).catch( error => {
 					console.log('error', error);
-				})
+				});
 			});
 		}
 	}
 
 	async getRestaurant() {
-		
-		 
-	await this.db.object('restaurantes/' + this.restaurantid).valueChanges().subscribe( data => {
-			console.log(data);
-			console.log(this.restaurantid);
-			
+		await this.db.object('restaurantes/' + this.restaurantid).valueChanges().subscribe( data => {
 			this.restaurant = data['name'];
-		//	r.unsubscribe();
 		});
 	}
 	
 	async lookingCart() {
 		return new Promise( (resolve, reject) => {
 			this.db.object('cart/' + this.uid + '/' + this.id).valueChanges().subscribe( data => {
-
+			
 			});
 		});
 	}

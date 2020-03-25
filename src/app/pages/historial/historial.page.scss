@@ -1,0 +1,89 @@
+
+.margin-header{
+    margin-left: -8pt;
+    padding-top: 0;
+}
+.arrow-icon{
+    position: absolute;
+    font-size: 18pt;
+}
+.color-font{
+    color:black;
+}
+
+.card-expandable{
+    padding: 0 15px;
+    .header{
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid #657b97;
+        padding: 10px 0;    
+        .btnHeader{
+            width: 33.3%;
+            --background: transparent;
+            color: #657b97;
+            font-size: 16px;
+            --padding-end: 0 !important;
+            --padding-start: 0 !important;
+            margin: 0 auto;
+        }
+    }
+
+    .body{
+        border-bottom: 1px solid #657b97;
+        padding: 12px 0;
+        .items{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            h5{
+                margin: 0;
+                max-width: 90%;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: #657b97;
+                overflow: hidden;
+            }
+            ion-icon{
+                color: #657b97;
+            }
+            ion-icon.rotate{
+                transform: rotate(90deg);
+            }
+        }
+        .bodyItems{
+            ul{
+                padding: 0;
+                list-style: none;
+                margin: 5px 0 0px;
+                li{
+                    line-height: 1.2;
+                    font-size: 14px;
+                    color: #657b97;
+                }
+            }
+        }
+
+    }
+    .buttons{
+        display: flex;
+        justify-content: center;
+        ion-button{
+            --background: transparent;
+            margin: auto 0px;
+            &:nth-child(1){
+                img{
+                    width: 80px;
+                }
+            }
+            img{
+                width: 60px;
+                height: 60px;
+                object-fit: contain;
+            }
+        }
+    }
+}
+// .content-expandable{
+//     height: 78px;
+// }

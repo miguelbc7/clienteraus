@@ -18,6 +18,7 @@ export class CarritoPage implements OnInit {
 	@Input() dataid: any;
 	cant: number = 0;
 	products;
+	products2;
 	address;
 	billing;
 	uid;
@@ -32,6 +33,7 @@ export class CarritoPage implements OnInit {
 	restaurantid;
 	restaurant;
 	del;
+	fact: boolean = false;
 	
 	constructor(
 		private modalCtrl:ModalController,
@@ -48,6 +50,7 @@ export class CarritoPage implements OnInit {
 	async ionViewWillEnter() {
 		await this.getName();
 		await this.getProducts();
+		await this.getProducts2();
 		await this.getAddress();
 	}
 
@@ -157,6 +160,40 @@ export class CarritoPage implements OnInit {
 		});
 	}
 
+	async getProducts2() {
+		var r = this.db.object('cart/' + this.uid).valueChanges().subscribe( (data: any) => {
+			var arr = [];
+			var t: number = 0;
+
+			for (let d in data) {
+				var a = { key: d, price: data[d].price, product: data[d].product, productData: data[d].productData, quantity: data[d].quantity, restaurant: data[d].restaurant, total: data[d].total };
+				t = t + parseFloat(data[d].total);
+
+				this.restaurantid = data[d].restaurant;
+
+				arr.push(a);
+			}
+
+			if(arr.length >= 1) {
+				this.del = true;
+			} else {
+				this.del = false;
+			}
+			
+			var tt = t + 5;
+			var st = tt * 0.21;
+			var iv = tt - st;
+			this.total = tt
+			this.iva = st;
+			this.subtotal = iv;
+
+			this.products2 = arr;
+			r.unsubscribe();
+		}, error => {
+			console.log('error', error);
+		});
+	}
+
 	async getRestaurant() {
 		var r = this.db.object('restaurantes/' + this.restaurantid).valueChanges().subscribe( data => {
 			this.restaurant = data['name'];
@@ -201,14 +238,13 @@ export class CarritoPage implements OnInit {
 					}
 
 					this.addresses = addresses;
-				})
+					r2.unsubscribe();
+				});
 			}
 		})
 	}
 
 	async addAddress() {
-	
-		
 		if(this.showadd) {
 			var a = 1;
 		} else {
@@ -258,8 +294,6 @@ export class CarritoPage implements OnInit {
 	}
 
 	async send() {
-
-
 		if(Object.keys(this.products).length < 1) {
 			this.presentToast('Debe agregar productos al carrito');
 		}
@@ -282,6 +316,7 @@ export class CarritoPage implements OnInit {
 						status = 1;
 					}
 					p2 = 0;
+					this.fact = true;
 				} else {
 					if(parseFloat(this.total) > parseFloat(success2[0]['eats'].value)) {
 						p2 = parseFloat(this.total) - parseFloat(success2[0]['eats'].value);
@@ -336,8 +371,7 @@ export class CarritoPage implements OnInit {
 							this.db.list('restaurantes').update(this.restaurantid, { balance: price }).then( success2 => {
 								r2.unsubscribe();
 								this.cleanCart();
-								//this.success('El pago se ha realizado con éxito')
-								this.newTransaction(valor,this.restaurantid)
+								this.newTransaction(valor, this.restaurantid);
 							});
 						}, error => {
 							console.log('error', error);
@@ -365,20 +399,29 @@ export class CarritoPage implements OnInit {
 		const modal = await this.modalController.create({
 			component: FacturaPage,
 			cssClass: 'facturacionModal',
-			componentProps: { products: this.products }
+			componentProps: { 
+				products: this.products2,
+				restaurantid: this.restaurantid,
+				total: this.total,
+				subtotal: this.subtotal,
+				iva: this.iva
+			}
 		});
 
 		return await modal.present();
 	}
 
-	async newTransaction(price,idRestaurante) {
+	async newTransaction(price, idRestaurante) {
 		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
 			var d;
 			var dat = new Date()  ;
 			var year = dat.getFullYear();
 			var month = dat.getMonth()+1;
 			var day = dat.getDate();
-			var date = year + '-' + month + '-' + day;
+			var hour = dat.getHours();
+			var minute = dat.getMinutes();
+			var second = dat.getSeconds();
+			var date = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
 		
 			if(data2['id_empresa']) {
 				d = {
@@ -387,7 +430,6 @@ export class CarritoPage implements OnInit {
 					"id_restaurante": idRestaurante,
 					"name": data2['name'] + ' ' + data2['lastname'],
 					"price": price,
-				//	"tipo": tipo,
 					"uid": this.uid,
 					"typeTransaccion":"carrito",
 				}
@@ -397,7 +439,6 @@ export class CarritoPage implements OnInit {
 					"id_restaurante": idRestaurante,
 					"name": data2['name'] + ' ' + data2['lastname'],
 					"price": price,
-				//	"tipo": tipo,
 					"uid": this.uid,
 					"typeTransaccion":"carrito",
 				}
@@ -417,8 +458,6 @@ export class CarritoPage implements OnInit {
 		})
 	}
 	async successModal() {
-		this.closeModal();
-
 		const modal = await this.modalCtrl.create({
 			component: SuccessPage,
 			cssClass: 'successModal',
@@ -456,6 +495,7 @@ export class CarritoPage implements OnInit {
 			this.successModal();
 		});
 	}
+	
 	closeModal() {
 		this.modalCtrl.dismiss();
 	}

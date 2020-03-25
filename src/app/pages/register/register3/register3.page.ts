@@ -27,6 +27,7 @@ export class Register3Page implements OnInit {
 	politval = false;
 	politval2 = false;
 	termsval = false;
+	phoneError: boolean = false;
 	termsval2 = false;
 	country;
 	validation_messages = {
@@ -160,10 +161,9 @@ export class Register3Page implements OnInit {
 		var month = d.getMonth() + 1;
 		var day = d.getDate();
 		var date = year + '-' + month + '-' + day;
-
 		this.politval2 = false;
 		this.termsval2 = false;
-
+		var d = new Date();
 
 		var dat = {
 			email: email,
@@ -180,67 +180,17 @@ export class Register3Page implements OnInit {
 			date: date
 		}
 
-		this.confirmation(dat);
-
-		/* this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(value => {
-			var uid = value.user.uid;
-
-			var b = {
-				eats: {
-					type: 1,
-					value: 0
-				},
-				books: {
-					type: 2,
-					value: 0
-				},
-				gyms: {
-					type: 2,
-					value: 0
-				},
-				fuel: {
-					type: 1,
-					value: 0
-				},
-				kids: {
-					type: 1,
-					value: 0
-				},
-				propia: {
-					type: 3,
-					value: 0
-				},
-				trips: {
-					type: 2,
-					value: 0
-				}
+		var r = this.db.list('/clientes', ref => ref.orderByChild('phone').equalTo(phone)).valueChanges().subscribe( data => {
+			r.unsubscribe();
+			console.log('data', data.length);
+			if(data.length > 0) {
+				this.phoneError = true;
+			} else {
+				this.confirmation(dat);
 			}
-
-			var a = { 
-				accounts: b,
-				name: name,
-				email: email,
-				lastname: lastname,
-				phone: phone,
-				dni: dni,
-				birthdate: birthdate,
-				country: country,
-				city: city,
-				address: address,
-				zipcode: zipcode,
-				createt_ad: date
-			}
-
-			const itemRef = this.db.object('clientes/' + uid);
-			itemRef.set(a).then( success => {
-				localStorage.setItem('uid', uid);
-				this.router.navigate(["/home"]);
-			}).catch( error => {
-				console.log('error');
-			});
-		}).catch(err => {
-			console.log('Something went wrong:',err.message);
-		}); */
+		}, error => {
+			console.log('error', error);
+		});
 	}
 
 	async acceptPoliticas() {
@@ -270,12 +220,10 @@ export class Register3Page implements OnInit {
 			cssClass: 'calculate'
 		});
 
-		/* modal.onDidDismiss().then( success => {
-			this.router.navigate(["/home"]);
-		}).catch( error => {
-			this.router.navigate(["/home"]);
-		}) */
-
 		return await modal.present();
+	}
+
+	async getPhone(phone) {
+		
 	}
 }

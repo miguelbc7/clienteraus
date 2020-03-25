@@ -1,7 +1,9 @@
 export const environment = {
   production: true,
 
-  url: 'https://rausdev.tk:8282/api/',
+  url: 'https://myraus.com:8282/api/',
+  url2: 'https://myraus.com:9283/api/',
+  url3: 'https://myraus.com:8286/api/',
   
   /* url: 'https://myraus.com:8282/api/', */
 

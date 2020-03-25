@@ -124,8 +124,8 @@
 										{{producto?.name}}
 									</p> 
 									<p class="my-0 hgPCarta ion-text-center customDarkText price">
-										<span class="font12 a">{{producto?.price_with_iva}}</span>
-										<span class="font8 b">,00€</span>
+										<span class="font12 a">{{ producto?.price_with_iva | mask }} €</span>
+										<!-- <span class="font8 b">,00€</span> -->
 									</p>
 								</div>
 								<p class="hgPCarta my-0 customDarkText font12 subtitle">

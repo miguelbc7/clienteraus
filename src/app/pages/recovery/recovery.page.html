@@ -1,23 +1,28 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-button slot="start" routerLink="/login"> 	
-      <ion-icon class="iconBack" src="assets/img/icon/back.svg" ></ion-icon>
-    </ion-button>
-    <ion-title>Recuperar contraseña</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-button slot="start" routerLink="/login"> 	
+			<ion-icon class="iconBack" src="assets/img/icon/back.svg" ></ion-icon>
+		</ion-button>
+		<ion-title>Recuperar contraseña</ion-title>
+	</ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label position="floating">Ingrese correo electrónico</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Ingrese número de teleono</ion-label>
-      <ion-input type="number"></ion-input>
-    </ion-item>
-    <ion-button color="bluedark">Enviar</ion-button>
-  </ion-list>
+	<form [formGroup]="recover" (ngSubmit)="onSubmit(recover.value)"  class="ion-margin-horizontal">
+		<ion-list>
+			<ion-item>
+				<ion-label position="floating">Ingrese correo electrónico</ion-label>
+				<ion-input formControlName="email" clearInput="true" type="text"></ion-input>
+			</ion-item>
+			<div class="validation-errors">
+				<ng-container *ngFor="let validation of validation_messages.email">
+					<div class="error-message" *ngIf="recover.get('email').hasError(validation.type) && (recover.get('email').dirty || recover.get('email').touched)">
+						{{ validation.message }}
+					</div>
+				</ng-container>
+			</div>
+			<ion-button type="submit" [disabled]="!recover.valid" color="bluedark">Enviar</ion-button>
+		</ion-list>
+	</form>
 </ion-content>
 
 

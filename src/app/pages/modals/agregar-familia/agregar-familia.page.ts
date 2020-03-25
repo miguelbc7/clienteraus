@@ -33,6 +33,7 @@ export class AgregarFamiliaPage implements OnInit {
 	passwordShown2: boolean = false;
 	public register: FormGroup;
 	disab = true;
+	exist: boolean = false;
 	validation_messages = {
 		'name': [
         	{ type: 'required', message: 'Debe ingresar un nombre.' },
@@ -111,16 +112,22 @@ export class AgregarFamiliaPage implements OnInit {
 	}
 
 	async onSubmit(values) {
-		if(this.status == 2) {
-			this.db.list('clientes').update(this.uidselect, { id_familiar: this.uid }).then( success => {
-				this.modalController.dismiss();
-				this.register.reset();
-				this.success('El familiar ha sido registrado con exito');
-			}).catch( error => {
-				this.presentToast('error al registrar el usuario');
-			});
+		if(this.exist) {
+			console.log('a');
+			if(this.status == 2) {
+				this.db.list('clientes').update(this.uidselect, { id_familiar: this.uid }).then( success => {
+					this.modalController.dismiss();
+					this.register.reset();
+					this.success('El familiar ha sido registrado con exito');
+				}).catch( error => {
+					this.presentToast('error al registrar el usuario');
+				});
+			} else {
+				this.presentToast('Este usuario ya es familiar de otra persona');
+			}
 		} else {
-			this.presentToast('Este usuario ya es familiar de otra persona');
+			console.log('b');
+			this.presentToast('No puedes registrar un usuario que no existe');
 		}
 	}
 
@@ -155,24 +162,32 @@ export class AgregarFamiliaPage implements OnInit {
 			this.db.list('/clientes', ref => ref.orderByChild('email').equalTo(email)).valueChanges().subscribe( data => {
 				if(data) {
 					console.log('data', data[0]);
-					if(data[0]['key'] == this.uid) {
-						this.disab = true
-						this.presentToast('No puede agregarse usted mismo como familiar');
-					} else {
-						this.uidselect = data[0]['key'];
-						this.name = data[0]['name'];
-						this.lastname = data[0]['lastname'];
-						this.phone = data[0]['phone'];
-		
-						if(data[0]['id_familiar']) {
-							this.status = 1;
+					if(data.length > 0) {
+						if(data[0]['key'] == this.uid) {
+							this.disab = true
+							this.presentToast('No puede agregarse usted mismo como familiar');
 						} else {
-							this.status = 2;
+							this.uidselect = data[0]['key'];
+							this.name = data[0]['name'];
+							this.lastname = data[0]['lastname'];
+							this.phone = data[0]['phone'].split('+')[1];
+			
+							/* if(data[0]['id_familiar']) {
+								this.status = 1;
+							} else { */
+								this.status = 2;
+							/* } */
 						}
+						this.exist = true;
+					} else {
+						this.exist = false;
+						this.presentToast('Este usuario no existe');
 					}
 				} else if(!data[0]) {
 					this.presentToast('Este usuario no existe');
+					this.exist = false;
 				} else {
+					this.exist = false;
 					this.presentToast('Este usuario no existe');
 				}
 				

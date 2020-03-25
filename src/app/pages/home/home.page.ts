@@ -161,11 +161,16 @@ export class HomePage implements OnInit {
 
 	myLocation() {
 		this.geolocation.getCurrentPosition().then( resp => {
-			console.log('resp', resp);
 			this.latLng = {
 				lat: resp.coords.latitude,
 				lng: resp.coords.longitude
 			}
+
+			this.getName();
+			this.getBalance();
+			this.getPromotions();
+			this.getRestaurants();
+			this.getProducts('');
 		}).catch((error) => {
 			console.log('Error getting location', error);
 		});

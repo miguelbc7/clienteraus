@@ -13,7 +13,6 @@ import { ToastController } from '@ionic/angular';
 	styleUrls: ['./confirmation.page.scss'],
 })
 
-
 export class ConfirmationPage implements OnInit {
 	@Input() data;
 	public confirm: FormGroup;
@@ -21,8 +20,6 @@ export class ConfirmationPage implements OnInit {
 	number2;
 	number3;
 	number4;
-	number5;
-	number6;
 	validation_messages = {
     	'number1': [
 			{ type: 'required', message: 'Correo requerido' },
@@ -37,14 +34,6 @@ export class ConfirmationPage implements OnInit {
 			{ type: 'maxlength', message: 'Debe ser menor de 2 caracteres.' },
 		],
 		'number4': [
-			{ type: 'required', message: 'Correo requerido' },
-			{ type: 'maxlength', message: 'Debe ser menor de 2 caracteres.' },
-		],
-		'number5': [
-			{ type: 'required', message: 'Correo requerido' },
-			{ type: 'maxlength', message: 'Debe ser menor de 2 caracteres.' },
-		],
-		'number6': [
 			{ type: 'required', message: 'Correo requerido' },
 			{ type: 'maxlength', message: 'Debe ser menor de 2 caracteres.' },
 		]
@@ -75,14 +64,6 @@ export class ConfirmationPage implements OnInit {
 			number4: ['', Validators.compose([
 				Validators.required,
 				Validators.maxLength(1),
-			])],
-			number5: ['', Validators.compose([
-				Validators.required,
-				Validators.maxLength(1),
-			])],
-			number6: ['', Validators.compose([
-				Validators.required,
-				Validators.maxLength(1),
 			])]
 	  	});
 	}
@@ -100,7 +81,7 @@ export class ConfirmationPage implements OnInit {
 	}
 
 	verifySMS(values) {
-		var code = (values.number1 + values.number2 + values.number3 + values.number4 + values.number5 + values.number6).toUpperCase();
+		var code = ('' + values.number1 + '' + values.number2 + '' + values.number3 + '' + values.number4);
 
 		this.sms.verifySms(code).then( success => {
 			this.presentToast('Su codigo es correcto');
@@ -159,7 +140,8 @@ export class ConfirmationPage implements OnInit {
 				city: data.city,
 				address: data.address,
 				zipcode: data.zipcode,
-				createt_ad: data.date
+				createt_ad: data.date,
+				key: uid
 			}
 
 			const itemRef = this.db.object('clientes/' + uid);
@@ -172,6 +154,7 @@ export class ConfirmationPage implements OnInit {
 				console.log('error');
 			});
 		}).catch(err => {
+			this.presentToast('Something went wrong:' + err.message);
 			console.log('Something went wrong:',err.message);
 		});
 	}

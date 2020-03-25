@@ -8,6 +8,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { ToastController } from '@ionic/angular';
 import { PoliticasPage } from '../modals/politicas/politicas.page';
 import { TerminosPage } from '../modals/terminos/terminos.page';
+import { CountriesService } from '../../services/countries.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,9 @@ export class LoginPage implements OnInit {
   	public login_form: FormGroup;
   	var_u: string = "username";
   	passwordType: string = "password";
-  	passwordShown: boolean = false;
+	passwordShown: boolean = false;
+	phoneCode;
+	resultado;
   	validation_messages = {
     	'username': [
 			{ type: 'required', message: 'Correo ó Teléfono requerido' },
@@ -42,7 +45,8 @@ export class LoginPage implements OnInit {
 		private router: Router,
 		private firebaseAuth: AngularFireAuth,
 		private db: AngularFireDatabase,
-		public toastController: ToastController
+		public toastController: ToastController,
+		public countries: CountriesService,
 	) {
         this.login_form = formBuilder.group({
           	username: ['', Validators.compose([
@@ -54,7 +58,6 @@ export class LoginPage implements OnInit {
             	Validators.required,
             	Validators.minLength(8),
             	Validators.maxLength(15),
-            	/* Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') */
           	])],
 		  });
 		  localStorage.setItem('country','');
@@ -65,8 +68,6 @@ export class LoginPage implements OnInit {
 		  localStorage.setItem('lastname', '');
 		  localStorage.setItem('dni', '');
 		  localStorage.setItem('birthdate', '');
-
-		  
 	}
 	   
 	ngOnInit() {}
@@ -93,7 +94,24 @@ export class LoginPage implements OnInit {
 	async onSubmit(values) {
 		var email = this.login_form.value.username;
 		var password = this.login_form.value.password;
+		var pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
+		var e = pattern.test(email);
 
+		if(e) {
+			this.login(email, password);
+		} else {
+			var r = this.db.list('/clientes', ref => ref.orderByChild('phone').equalTo(email)).valueChanges().subscribe( (data: any) => {
+				console.log('data', data);
+				r.unsubscribe();
+				email = data[0].email;
+				this.login(email, password);
+			}, error => {
+				console.log('error', error);
+			});
+		}
+	}
+
+	async login(email, password) {
 		this.firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(value => {
 			console.log('Nice, it worked!');
 			var uid = value.user.uid;
@@ -112,7 +130,7 @@ export class LoginPage implements OnInit {
 			this.presentToast(err.message);
 		});
 	}
-
+ 
 	async presentToast(message) {
 		const toast = await this.toastController.create({
 		  message: message,

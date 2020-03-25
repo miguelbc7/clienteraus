@@ -1,0 +1,91 @@
+
+<app-navbar></app-navbar>
+<ion-content>
+	<ion-icon class="backHeader ion-text-center" src="assets/img/icon/back.svg" routerLink="/options"></ion-icon>
+	<ion-row>
+		<ion-col class="ion-text-center" size="12">
+			<p class="my-0">
+				<ion-icon class="iconHeader" src="assets/img/icon/reloj.svg"></ion-icon>
+			</p>
+			<p class="titleHeader my-0">Historial Ingresos</p>
+		</ion-col>
+	</ion-row>
+	<div class="card-expandable" >
+		<div class="header">
+			<ion-button class="btnHeader">
+				Esta semana
+			</ion-button>
+			<ion-button class="btnHeader">
+				Este mes
+			</ion-button>
+			<ion-input class="btnHeader" type="date"></ion-input>
+		</div>
+		<div *ngIf="rlength > 0">
+			<div class="body" *ngFor="let enviado of recibidos; let i = index">
+				<div class="body" *ngFor="let enviado of enviados">
+					<div class="items" (click)="expand(i)">
+						<h5>{{ enviado.typeTransaccion }} de {{ enviado.tipo }}</h5>
+						<ion-icon name="play" [ngClass]="showItem3? 'rotate': ''"></ion-icon>
+					</div>
+					<div class="bodyItems">
+						<ul>
+							<!-- <li>Id de operación: 2334</li> -->
+							<li>Monto: {{ enviado.price }}€</li>
+							<li>Fecha: {{ enviado.date }} <!-- Hora: 13:02 --></li>
+							<!-- <li>Origen: Mediaset</li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="rlength < 1">
+			<div>
+				No tiene ingresos en este momento
+			</div>
+		</div>
+		<div class="buttons">
+			<ion-button><img src="assets/img/icon/icono_descarga.svg" alt=""></ion-button>
+			<ion-button><img src="assets/img/icon/compartir.svg" alt=""></ion-button>
+		</div>
+	</div>
+	<ion-row>
+		<ion-col class="ion-text-center" size="12">
+			<p class="my-0">
+				<ion-icon class="iconHeader" src="assets/img/icon/reloj.svg"></ion-icon>
+			</p>
+			<p class="titleHeader my-0">Historial Egresos</p>
+		</ion-col>
+	</ion-row>
+	<div class="card-expandable" >
+		<div class="header">
+			<ion-button class="btnHeader">
+				Esta semana
+			</ion-button>
+			<ion-button class="btnHeader">
+				Este mes
+			</ion-button>
+			<ion-input class="btnHeader" type="date"></ion-input>
+		</div>
+		<div *ngIf="elength > 0">
+			<div class="body" *ngFor="let enviado of enviados; let i = index">
+				<div class="items" (click)="expand(i)">
+					<h5>{{ enviado.typeTransaccion }} de {{ enviado.tipo }}</h5>
+					<ion-icon name="play" [ngClass]="showItem3? 'rotate': ''"></ion-icon>
+				</div>
+				<div class="bodyItems">
+					<ul>
+						<!-- <li>Id de operación: 2334</li> -->
+						<li>Monto: {{ enviado.price }}€</li>
+						<li>Fecha: {{ enviado.date }} <!-- Hora: 13:02 --></li>
+						<!-- <li>Origen: Mediaset</li> -->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="elength < 1">
+			<div class="body">
+				No tiene egresos en este momento
+			</div>
+		</div>
+	</div>
+</ion-content>
