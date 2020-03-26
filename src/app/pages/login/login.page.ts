@@ -3,11 +3,12 @@ import { ModalController } from '@ionic/angular';
 import { NewPasswordPage } from '../modals/new-password/new-password.page';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ToastController } from '@ionic/angular';
 import { PoliticasPage } from '../modals/politicas/politicas.page';
 import { TerminosPage } from '../modals/terminos/terminos.page';
+import { ConfirmationPage } from '../modals/confirmation/confirmation.page';
 import { CountriesService } from '../../services/countries.service';
 
 @Component({
@@ -92,8 +93,8 @@ export class LoginPage implements OnInit {
   	}
 
 	async onSubmit(values) {
-		var email = this.login_form.value.username;
-		var password = this.login_form.value.password;
+		var email = this.login_form.value.username.trim();
+		var password = this.login_form.value.password.trim();
 		var pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
 		var e = pattern.test(email);
 

@@ -33,9 +33,6 @@
 	<ion-grid class="ion-no-padding bg-head">
 		<ion-row >
 			<ion-col class="" size="5" class="hgLine">
-				<!-- <ion-avatar class="avatar">
-					<img class="imgAvatar" src="assets/img/avatar.png" alt="avatar perfil">
-				</ion-avatar> -->
 				<ion-icon class="" name="menu" routerLink="/options"></ion-icon>
 				<p class="name">{{ name }}</p>
 			</ion-col>
@@ -84,11 +81,6 @@
 							</div>
 						</ion-col>
 					</ion-row>
-				<!-- 	<ion-row>
-						<ion-col class="ion-no-padding ion-align-self-center ">
-							
-						</ion-col>
-					</ion-row> -->
 				</ion-card-content>
 			</ion-card>
 		</ion-slide>
@@ -124,8 +116,8 @@
 										{{producto?.name}}
 									</p> 
 									<p class="my-0 hgPCarta ion-text-center customDarkText price">
-										<span class="font12 a">{{ producto?.price_with_iva | mask }} €</span>
-										<!-- <span class="font8 b">,00€</span> -->
+										<span class="font12 a">{{ producto?.price1 }}.</span>
+										<span class="font8 b">{{ producto?.price2 }}€</span>
 									</p>
 								</div>
 								<p class="hgPCarta my-0 customDarkText font12 subtitle">
@@ -133,17 +125,9 @@
 								</p> 
 							</ion-col>
 						</ion-row>
-				<!-- 		<ion-row>
-							<ion-col class="ion-no-padding ion-align-self-center ">
-							
-							</ion-col>
-						</ion-row> -->
 					</ion-card-content>
 				</ion-card>
 			</ion-col>
-			
-			
-			
 		</ion-row>
 	</ion-grid>
 	<ion-grid *ngIf="productos" class="px-0">

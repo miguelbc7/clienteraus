@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { BaseSuccessPage } from '../modals/base-success/base-success.page';
 import { AgregarFamiliaPage } from '../modals/agregar-familia/agregar-familia.page';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ToastController } from '@ionic/angular';
 
@@ -21,6 +21,7 @@ export class SaldoFamiliaPage implements OnInit {
 	uid;
 	family;
 	select;
+	dis;
 
 	constructor(
 		public modalController: ModalController,
@@ -433,6 +434,37 @@ export class SaldoFamiliaPage implements OnInit {
 				});
 			}
 		});
+	}
+
+	amountChange(value, e) {
+		var value3 = (value.toString()).length % 4;
+
+		if(e.detail.value == '.') {
+			this.dis = true;
+
+			if((value.toString()).indexOf('.') > -1) {
+				var value1 = (value.toString()).split('.').join(',');
+				var value2 = this.numberWithCommas(value1);
+				this.amount = value2;
+			} else {
+				var value2 = this.numberWithCommas(value);
+				this.amount = value2;
+			}
+		} else {
+			if(this.dis) {
+				this.dis = false
+				var value2 = this.numberWithCommas(value);
+				this.amount = value2;
+			} else {
+				this.dis = true;
+				var value2 = this.numberWithCommas(value);
+				this.amount = value2;
+			}
+		}
+	}
+
+	numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 	}
 
 }

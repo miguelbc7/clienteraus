@@ -1031,16 +1031,15 @@ ion-textarea.textareaCustom{
 
 .modalExplorar{
     .modal-wrapper {
-        height: auto;
-        max-height:470px;
-        width: 90%;
-        top: 0%;
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
         bottom: 0;
         left: 0;
         right: 0;
         margin: auto;
-        position: absolute; 
-        display: block;  
         overflow: hidden;
         --background: #fff;
     }
@@ -1060,7 +1059,7 @@ ion-textarea.textareaCustom{
 .ModalConfirmation{
     .modal-wrapper{
         height: auto;
-        max-height:245px;
+        max-height:250px;
         width: 90%;
         top: 0%;
         bottom: 0;

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, NgZone } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { RestaurantService } from '../../services/restaurant.service';
 import { Router } from '@angular/router';

@@ -76,13 +76,18 @@ export class AgregarTarjetaPage implements OnInit {
 		const item = { id, nombre, numero, cvc, fechaExp, yearExp };
 		var items = this.afs.collection('clientes/' + uid + '/creditcard');
 
-		items.doc(id).set(item).then( success => {
-			this.addcard.reset();
-			this.closeModal();
-		}).catch( error => {
+		/* var r = items.valueChanges().subscribe( data => {
+			console.log('data', data);
+			r.unsubscribe(); */
+			items.doc(id).set(item).then( success => {
+				this.addcard.reset();
+				this.closeModal();
+			}).catch( error => {
+				console.log('error', error);
+			});
+		/* }, error => {
 			console.log('error', error);
-		});
-
+		}); */
 	}
 
   	closeModal(){

@@ -51,14 +51,14 @@ export class CalculatePage implements OnInit {
 	}
 
 	async getRestaunrants() {
-		this.db.object('restaurantes').valueChanges().subscribe( (success: any) => {
+		this.db.object('restaurantes').valueChanges().subscribe( success => {
 			console.log('success', success);
 			var arr = [];
 			var c = 0;
 
-			var length = Object.keys(success).length;
+			var length: any = Object.keys(success).length;
 
-			for(let s in success) {
+			for(let s in length) {
 				var a = { name: success[s].name, key: s }
 				arr.push(a);
 				c++;

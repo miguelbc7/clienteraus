@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
@@ -134,9 +134,13 @@ export class Register3Page implements OnInit {
 			var cc = localStorage.getItem('country');
 			var d = data.data;
 
+			console.log('cc', cc);
+
 			var c = d.filter(obj => {
 				return obj.pais_name === cc.trim()
 			});
+
+			console.log('c', c);
 
 			this.country = c[0];
 		}).catch( error => {
@@ -217,7 +221,7 @@ export class Register3Page implements OnInit {
 			componentProps: {
 				data: dat
 			},
-			cssClass: 'calculate'
+			cssClass: 'ModalConfirmation'
 		});
 
 		return await modal.present();

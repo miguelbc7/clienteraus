@@ -5,7 +5,7 @@ import { AgregarSaldoPage } from '../agregar-saldo/agregar-saldo.page';
 import { EliminarPage } from '../eliminar/eliminar.page';
 import { AgregarTarjetaPage } from '../agregar-tarjeta/agregar-tarjeta.page';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Component({
@@ -81,21 +81,18 @@ export class RecargarPage implements OnInit {
 	}
 	
 	async getCards() {
-		/* this.firebaseAuth.auth.onAuthStateChanged(user => {
-			if (user) {
-				var uid = user.uid; */
-				var uid = localStorage.getItem('uid');
+		var uid = localStorage.getItem('uid');
 
-				var items = this.afs.collection('clientes/' + uid + '/creditcard');
-				items.valueChanges().subscribe( success => {
-					this.cards = success;
-					this.cardslength = this.cards.length
-					console.log('cards', this.cards);
-				});
-			/* } else {
-
+		var items = this.afs.collection('clientes/' + uid + '/creditcard');
+		
+		var r = items.valueChanges().subscribe( success => {
+			r.unsubscribe();
+			if(success.length > 0) {
+				this.cards = success;
+				this.cardslength = this.cards.length
+				console.log('cards', this.cards);
 			}
-		}); */
+		});
 	}
 
 	async closeModal() {

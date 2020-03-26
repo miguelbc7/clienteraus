@@ -66,7 +66,7 @@ export class HomeserviceService {
 				email: email
 			}
 
-			return this.http.post(this.base_path2 + 'recovery', data, {
+			return this.http.post(this.base_path2 + 'recovery/cliente', data, {
 				headers: new HttpHeaders({
 					'Content-Type': 'application/json',
 				})

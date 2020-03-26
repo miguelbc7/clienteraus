@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { BaseSuccessPage } from '../../pages/modals/base-success/base-success.page';
 
@@ -15,6 +15,7 @@ import { BaseSuccessPage } from '../../pages/modals/base-success/base-success.pa
 export class AgregarSaldoPage implements OnInit {
 
 	@Input() saldo;
+	uid;
 
   	constructor(
 		private modalCtrl: ModalController,
@@ -24,7 +25,9 @@ export class AgregarSaldoPage implements OnInit {
     	public toastController: ToastController
 	) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.uid = localStorage.getItem('uid');
+	}
 	  
 	agregarSaldo() {
 		var uid = localStorage.getItem('uid');
@@ -75,7 +78,7 @@ export class AgregarSaldoPage implements OnInit {
 			this.db.list('clientes').update(uid, { accounts: dat }).then( success => {
 				this.closeModal();
 				r.unsubscribe();
-				this.success('Se ha recargado el sado con éxito');
+				this.newTransaction(p);
 			}).catch( error => {
 				this.presentToast('Ocurrio un error al recargar su saldo');
 			});
@@ -104,5 +107,54 @@ export class AgregarSaldoPage implements OnInit {
 		});
 
 		return await modal.present();
+	}
+
+	async newTransaction(price) {
+		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
+			r.unsubscribe();
+			
+			var d;
+			var dat = new Date()  ;
+			var year = dat.getFullYear();
+			var month = dat.getMonth()+1;
+			var day = dat.getDate();
+			var hour = dat.getHours();
+			var minute = dat.getMinutes();
+			var second = dat.getSeconds();
+			var date = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+		
+			if(data2['id_empresa']) {
+				d = {
+					"date": date,
+					"id_empresa": data2['id_empresa'],
+					"name": data2['name'] + ' ' + data2['lastname'],
+					"price": price,
+					"uid": this.uid,
+					"typeTransaccion":"carrito",
+					"mode": "ingreso"
+				}
+			} else {
+				d = {
+					"date": date,
+					"name": data2['name'] + ' ' + data2['lastname'],
+					"price": price,
+					"uid": this.uid,
+					"typeTransaccion":"carrito",
+					"mode": "ingreso"
+				}
+			}
+
+			this.db.list('transactions/' + this.uid).push(d).then( success => {
+				console.log('success', success);
+
+				this.db.list('transactions/' + this.uid).update(success.key, { key: success.key }).then( success2 => {
+					this.success('Se ha recargado el saldo con éxito');
+				}).catch( error => {
+					console.log('error', error);
+				});
+			}).catch( error => {
+				console.log('error', error);
+			});
+		})
 	}
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HomeserviceService } from '../../services/homeservice.service';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { CalculatePage } from '../modals/calculate/calculate.page';
 import { Router } from '@angular/router';
@@ -296,14 +296,21 @@ export class HomePage implements OnInit {
 				var res = [];
 
 				for await (let i of Object.keys(producto)) {
-					var a = producto[i];
+					var price1, price2;
+
+					if((producto[i].price_with_iva).toString().indexOf('.') > -1) {
+						price1 = (producto[i].price_with_iva.toString()).split('.')[0];
+						price2 = (producto[i].price_with_iva.toString()).split('.')[1];
+					} else {
+						price1 = producto[i].price_with_iva;
+						price2 = '00';
+					}
+
+					var a = { images: producto[i].images, name: producto[i].name, price1: price1, price2: price2, description: producto[i].description };
 					res.push(a);
 				}
 
-				console.log('res', res);
-
 				if(this.latLng) {
-					console.log('a');
 					res.sort((a, b) => {
 						var origLat = this.latLng.lat,
 						origLong = this.latLng.lng;

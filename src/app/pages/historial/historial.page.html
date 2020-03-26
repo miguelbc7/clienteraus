@@ -12,27 +12,27 @@
 	</ion-row>
 	<div class="card-expandable" >
 		<div class="header">
-			<ion-button class="btnHeader">
+			<ion-button class="btnHeader" (click)="filter('week', 2)">
 				Esta semana
 			</ion-button>
-			<ion-button class="btnHeader">
+			<ion-button class="btnHeader" (click)="filter('month', 2)">
 				Este mes
 			</ion-button>
-			<ion-input class="btnHeader" type="date"></ion-input>
+			<ion-input class="btnHeader" type="date" [(ngModel)]="date" (ionChange)="filter('date', 2)"></ion-input>
 		</div>
 		<div *ngIf="rlength > 0">
 			<div class="body" *ngFor="let enviado of recibidos; let i = index">
 				<div class="body" *ngFor="let enviado of enviados">
-					<div class="items" (click)="expand(i)">
+					<div class="items" (click)="expand(i, 2)">
 						<h5>{{ enviado.typeTransaccion }} de {{ enviado.tipo }}</h5>
-						<ion-icon name="play" [ngClass]="showItem3? 'rotate': ''"></ion-icon>
+						<ion-icon name="play" [ngClass]="enviado.arrow? 'rotate': ''"></ion-icon>
 					</div>
-					<div class="bodyItems">
+					<div class="bodyItems" *ngIf="enviado.arrow">
 						<ul>
-							<!-- <li>Id de operación: 2334</li> -->
+							<li>Id de operación: {{ enviado.key }}</li>
 							<li>Monto: {{ enviado.price }}€</li>
 							<li>Fecha: {{ enviado.date }} <!-- Hora: 13:02 --></li>
-							<!-- <li>Origen: Mediaset</li> -->
+							<li>Origen: Mediaset</li>
 						</ul>
 					</div>
 				</div>
@@ -58,26 +58,26 @@
 	</ion-row>
 	<div class="card-expandable" >
 		<div class="header">
-			<ion-button class="btnHeader">
+			<ion-button class="btnHeader" (click)="filter('week', 1)">
 				Esta semana
 			</ion-button>
-			<ion-button class="btnHeader">
+			<ion-button class="btnHeader" (click)="filter('month', 1)">
 				Este mes
 			</ion-button>
-			<ion-input class="btnHeader" type="date"></ion-input>
+			<ion-input class="btnHeader" type="date" [(ngModel)]="date2" (ionChange)="filter('date', 1)"></ion-input>
 		</div>
 		<div *ngIf="elength > 0">
 			<div class="body" *ngFor="let enviado of enviados; let i = index">
-				<div class="items" (click)="expand(i)">
+				<div class="items" (click)="expand(i, 1)">
 					<h5>{{ enviado.typeTransaccion }} de {{ enviado.tipo }}</h5>
-					<ion-icon name="play" [ngClass]="showItem3? 'rotate': ''"></ion-icon>
+					<ion-icon name="play" [ngClass]="enviado.arrow? 'rotate': ''"></ion-icon>
 				</div>
-				<div class="bodyItems">
+				<div class="bodyItems" *ngIf="enviado.arrow">
 					<ul>
-						<!-- <li>Id de operación: 2334</li> -->
+						<li>Id de operación: {{ enviado.key }}</li>
 						<li>Monto: {{ enviado.price }}€</li>
 						<li>Fecha: {{ enviado.date }} <!-- Hora: 13:02 --></li>
-						<!-- <li>Origen: Mediaset</li> -->
+						<li>Origen: Mediaset</li>
 					</ul>
 				</div>
 			</div>

@@ -413,6 +413,8 @@ export class CarritoPage implements OnInit {
 
 	async newTransaction(price, idRestaurante) {
 		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
+			r.unsubscribe();
+			
 			var d;
 			var dat = new Date()  ;
 			var year = dat.getFullYear();
@@ -432,6 +434,7 @@ export class CarritoPage implements OnInit {
 					"price": price,
 					"uid": this.uid,
 					"typeTransaccion":"carrito",
+					"mode": "egreso"
 				}
 			} else {
 				d = {
@@ -441,33 +444,74 @@ export class CarritoPage implements OnInit {
 					"price": price,
 					"uid": this.uid,
 					"typeTransaccion":"carrito",
+					"mode": "egreso"
 				}
 			}
-			this.db.list('transactions').push(d).then( success => {
-				if(data2['id_empresa']) {
-					r.unsubscribe();
-					this.newNotification(price, data2['id_empresa'], data2['name'], data2['lastname'], success.key);
+
+			this.db.list('transactions/' + this.uid).push(d).then( success => {
+				console.log('success', success);
+
+				this.db.list('transactions/' + this.uid).update(success.key, { key: success.key }).then( success2 => {
+					if(data2['id_empresa']) {
+						this.newOrder(data2, this.products2, idRestaurante, price);
+					} else {
+						this.newOrder(data2, this.products2, idRestaurante, price);
+					}
+				}).catch( error => {
+					console.log('error', error);
+				});
+			}).catch( error => {
+				console.log('error', error);
+			});
+		})
+	}
+
+	async newOrder(cliente, productos, restaurantid, price) {
+		var dat = new Date();
+		var year = dat.getFullYear();
+		var month = dat.getMonth();
+		var day = dat.getDate();
+		var hour = dat.getHours();
+		var minute = dat.getMinutes();
+		var second = dat.getSeconds();
+		var date = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+		var d;
+
+		if(cliente['id_empresa']) {
+			d = {
+				"date": date,
+				"id_empresa": cliente['id_empresa'],
+				"id_restaurante": restaurantid,
+				"name": cliente['name'] + ' ' + cliente['lastname'],
+				"price": price,
+				"products": productos,
+				"uid": this.uid,
+			}
+		} else {
+			d = {
+				"date": date,
+				"id_restaurante": restaurantid,
+				"name": cliente['name'] + ' ' + cliente['lastname'],
+				"price": price,
+				"products": productos,
+				"uid": this.uid,
+			}
+		}
+
+		this.db.list('orders/' + this.uid).push(d).then( success => {
+			this.db.list('orders/' + this.uid).update(success.key, { key: success.key }).then( success2 => {
+				if(cliente['id_empresa']) {
+					this.newNotification(price, cliente['id_empresa'], cliente['name'], cliente['lastname'], success.key);
 				} else {
-					r.unsubscribe();
 					this.successModal();
 					this.factura();
 				}
 			}).catch( error => {
 				console.log('error', error);
 			});
-		})
-	}
-	async successModal() {
-		const modal = await this.modalCtrl.create({
-			component: SuccessPage,
-			cssClass: 'successModal',
-			componentProps: { 
-				name: this.restaurant
-			}
 		});
-
-		return await modal.present();
 	}
+
 	async newNotification(price, empresa, name, lastname, key) {
 		var dat = new Date();
 		var year = dat.getFullYear();
@@ -494,6 +538,18 @@ export class CarritoPage implements OnInit {
 			console.log('error', error);
 			this.successModal();
 		});
+	}
+
+	async successModal() {
+		const modal = await this.modalCtrl.create({
+			component: SuccessPage,
+			cssClass: 'successModal',
+			componentProps: { 
+				name: this.restaurant
+			}
+		});
+
+		return await modal.present();
 	}
 	
 	closeModal() {

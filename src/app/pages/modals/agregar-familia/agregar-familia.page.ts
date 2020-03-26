@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { BaseSuccessPage } from '../../modals/base-success/base-success.page';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
@@ -171,13 +171,9 @@ export class AgregarFamiliaPage implements OnInit {
 							this.name = data[0]['name'];
 							this.lastname = data[0]['lastname'];
 							this.phone = data[0]['phone'].split('+')[1];
-			
-							/* if(data[0]['id_familiar']) {
-								this.status = 1;
-							} else { */
-								this.status = 2;
-							/* } */
+							this.status = 2;
 						}
+						
 						this.exist = true;
 					} else {
 						this.exist = false;

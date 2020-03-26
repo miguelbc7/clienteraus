@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
@@ -305,6 +305,7 @@ export class TipoPagoPage implements OnInit {
 		}
 
 		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
+			r.unsubscribe();
 			var d;
 			var dat = new Date()  ;
 			var year = dat.getFullYear();
@@ -325,6 +326,7 @@ export class TipoPagoPage implements OnInit {
 					"tipo": tipo,
 					"uid": this.uid,
 					"typeTransaccion":"envio",
+					"mode": "egreso"
 				}
 			} else {
 				d = {
@@ -335,16 +337,19 @@ export class TipoPagoPage implements OnInit {
 					"tipo": tipo,
 					"uid": this.uid,
 					"typeTransaccion":"envio",
+					"mode": "egreso"
 				}
 			}
-			this.db.list('transactions').push(d).then( success => {
-				if(data2['id_empresa']) {
-					r.unsubscribe();
-					this.newNotification(price, data2['id_empresa'], data2['name'], data2['lastname'], success.key);
-				} else {
-					r.unsubscribe();
-					this.successModal();
-				}
+			this.db.list('transactions/' + this.uid).push(d).then( success => {
+				console.log('success', success);
+
+				this.db.list('transactions/' + this.uid).update(success.key, { key: success.key }).then( success2 => {
+					if(data2['id_empresa']) {
+						this.newNotification(price, data2['id_empresa'], data2['name'], data2['lastname'], success.key);
+					} else {
+						this.successModal();
+					}
+				});
 			}).catch( error => {
 				console.log('error', error);
 			});
@@ -363,6 +368,7 @@ export class TipoPagoPage implements OnInit {
 		}
 
 		var r = this.db.object('clientes/' + this.uid).valueChanges().subscribe( data2 => {
+			r.unsubscribe();
 			var dat = new Date();
 			var year = dat.getFullYear();
 			var month = dat.getMonth();
@@ -404,15 +410,22 @@ export class TipoPagoPage implements OnInit {
 				"tipo": tipo,
 				"uid": this.uid,
 				"typeTransaccion":"envio",
+				"mode": "ingreso"
 			}
 
-			this.db.list('transactions').push(d).then( success => {
-				r.unsubscribe();
-				this.db.list('transactions').push(d2).then( success => {
-					this.newNotification(price, data2['id_empresa'], data2['name'], data2['lastname'], success.key);
-					/* this.newNotification2(price2, data2['name'], data2['lastname'], success.key); */
-				}).catch( error2 => {
-					console.log('error', error2);
+			this.db.list('transactions/' + this.uid).push(d).then( success4 => {
+				console.log('success', success4);
+
+				this.db.list('transactions/' + this.uid).update(success4.key, { key: success4.key }).then( success2 => {
+					this.db.list('transactions/' + this.dataid).push(d2).then( success => {
+						console.log('success', success);
+
+						this.db.list('transactions/' + this.dataid).update(success.key, { key: success.key }).then( success3 => {
+							this.newNotification(price, data2['id_empresa'], data2['name'], data2['lastname'], success.key);
+						});
+					}).catch( error2 => {
+						console.log('error', error2);
+					});
 				});
 			}).catch( error => {
 				console.log('error', error);

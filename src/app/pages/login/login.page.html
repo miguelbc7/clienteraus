@@ -4,8 +4,8 @@
 			<img class="logoImg" src="assets/img/logo-raus.png" alt="logotipo">
 			<p class="blue-dark">..The way you like</p>
 		</div>
-		<form  class="bodyLogin" [formGroup]="login_form"  (ngSubmit)="onSubmit(login_form.value)">
-			<div class="ion-margin-horizontal boxForm">
+		<form  class="bodyLogin" [formGroup]="login_form" (ngSubmit)="onSubmit(login_form.value)">
+			<div class="ion-margin-horizontal boxForm" >
 				<ion-item class="ion-no-padding">
 					<ion-label class="bodyLogin__label" position="floating">Correo / Teléfono</ion-label>
 					<ion-input class="bodyLogin__input" formControlName="username" clearInput="true" type="text" [(ngModel)]="username2"></ion-input>

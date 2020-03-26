@@ -8,12 +8,22 @@
 .IconNav {
     font-size: 23pt;
     font-weight: bold;
+    width: 30px;
+    img{
+        object-fit: contain;
+    }
+    
 }
 
 .NavbarCarrito{
     transform: scale(1.25);
 }
 
+.IconNav.search{
+    transform: scale(1.1);
+}
+
 .actionIcon{
     margin: 0;
+    margin-top: -10px;
 }
