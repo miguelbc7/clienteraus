@@ -4,6 +4,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { TipoPagoPage } from '../tipo-pago/tipo-pago.page';
 import { ToastController } from '@ionic/angular';
+import { HomeserviceService } from 'src/app/services/homeservice.service';
 
 @Component({
 	selector: 'app-calculate',
@@ -22,13 +23,17 @@ export class CalculatePage implements OnInit {
 	constructor(
 		private db: AngularFireDatabase,
 		private modalController: ModalController,
-		public toastController: ToastController
+		public toastController: ToastController,
+		public home: HomeserviceService
 	) {}
 
 	ngOnInit() {
 		this.isItemAvailable = false;
-		this.getRestaunrants();
+		this.getRestaurants();
+		console.log('calculate');
 	}
+
+	ionViewWillEnter() {}
    
 	async getItems(ev: any) {
 		const val = ev.target.value;
@@ -37,7 +42,7 @@ export class CalculatePage implements OnInit {
 			this.isItemAvailable = true;
 
 			if(this.items.length < 1) {
-				this.getRestaunrants();
+				this.getRestaurants();
 
 				this.items = this.items.filter((item) => {
 					return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
@@ -50,8 +55,33 @@ export class CalculatePage implements OnInit {
 		}
 	}
 
-	async getRestaunrants() {
-		this.db.object('restaurantes').valueChanges().subscribe( success => {
+	async getRestaurants() {
+		console.log('a');
+		this.home.getRestaurants().then( (success: any) => {
+			var arr = [];
+			var c = 0;
+
+			var arr = [];
+			var c = 0;
+
+			var length: any = Object.keys(success).length;
+
+			
+			for(let s in length) {
+				var a = { name: success[s].name, key: s }
+				arr.push(a);
+				c++;
+
+				if(c == length) {
+					console.log('success', arr);
+					this.items = arr;
+				}
+			}
+		}).catch( error => {
+			console.log('error', error);
+		});
+
+		/* this.db.object('restaurantes').valueChanges().subscribe( success => {
 			console.log('success', success);
 			var arr = [];
 			var c = 0;
@@ -70,7 +100,7 @@ export class CalculatePage implements OnInit {
 			}
 		}, error => {
 			console.log('error', error);
-		});
+		}); */
 	}
 
 	async setData(value, value2) {
