@@ -44,6 +44,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     FacturaPageModule
   ],
   providers: [
+   
     StatusBar,
+ 
     SplashScreen,
     AndroidPermissions,
     LocationAccuracy,

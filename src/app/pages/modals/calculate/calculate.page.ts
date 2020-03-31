@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
@@ -12,20 +12,23 @@ import { HomeserviceService } from 'src/app/services/homeservice.service';
 	styleUrls: ['./calculate.page.scss'],
 })
 export class CalculatePage implements OnInit {
-
+	@Input() restaurants: any;
 	total;
 	data;
 	dataid;
 	items;
 	isItemAvailable;
-	restaurants;
+	//restaurants;
 
 	constructor(
+		
 		private db: AngularFireDatabase,
 		private modalController: ModalController,
 		public toastController: ToastController,
 		public home: HomeserviceService
-	) {}
+	) {
+		
+	}
 
 	ngOnInit() {
 		this.isItemAvailable = false;
@@ -40,9 +43,11 @@ export class CalculatePage implements OnInit {
 	
 		if (val && val.trim() != '') {
 			this.isItemAvailable = true;
-
+			await	this.getRestaurants();
+		console.log(this.items);
+		
 			if(this.items.length < 1) {
-				this.getRestaurants();
+			
 
 				this.items = this.items.filter((item) => {
 					return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
@@ -57,29 +62,9 @@ export class CalculatePage implements OnInit {
 
 	async getRestaurants() {
 		console.log('a');
-		this.home.getRestaurants().then( (success: any) => {
-			var arr = [];
-			var c = 0;
+	//	console.log( this.restaurants);
+	this.items =this.restaurants;
 
-			var arr = [];
-			var c = 0;
-
-			var length: any = Object.keys(success).length;
-
-			
-			for(let s in length) {
-				var a = { name: success[s].name, key: s }
-				arr.push(a);
-				c++;
-
-				if(c == length) {
-					console.log('success', arr);
-					this.items = arr;
-				}
-			}
-		}).catch( error => {
-			console.log('error', error);
-		});
 
 		/* this.db.object('restaurantes').valueChanges().subscribe( success => {
 			console.log('success', success);

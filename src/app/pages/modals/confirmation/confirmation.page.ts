@@ -84,6 +84,9 @@ export class ConfirmationPage implements OnInit {
 		var code = ('' + values.number1 + '' + values.number2 + '' + values.number3 + '' + values.number4);
 
 		this.sms.verifySms(code).then( (success: any) => {
+
+			console.log(success.result);
+			
 			if(success.result) {
 				this.presentToast('Su codigo es correcto');
 				this.submit();

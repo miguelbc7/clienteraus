@@ -80,7 +80,7 @@ export class SmsService {
 				map(res => res)
 			).subscribe( data => {
 				if(data) {
-					resolve('success');
+					resolve(data);
 				}
 			}, error => {
 				if(error) {

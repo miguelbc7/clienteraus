@@ -166,7 +166,7 @@ export class CarritoPage implements OnInit {
 			var t: number = 0;
 
 			for (let d in data) {
-				var a = { key: d, price: data[d].price, product: data[d].product, productData: data[d].productData, quantity: data[d].quantity, restaurant: data[d].restaurant, total: data[d].total };
+				var a = { key: d, price: data[d].price, product: data[d].product, productData: data[d].productData, quantity: data[d].quantity, restaurant: data[d].restaurant, total: data[d].total,nota:'esto es una nota' };
 				t = t + parseFloat(data[d].total);
 
 				this.restaurantid = data[d].restaurant;
@@ -364,8 +364,11 @@ export class CarritoPage implements OnInit {
 				} else {
 					r1.unsubscribe();
 					this.db.list('clientes').update(this.uid, { accounts: dat }).then( success => {
-						var r2 = ref2.valueChanges().subscribe( (success: any) => {
-							var price = parseFloat(success[0]) + parseFloat(this.total);
+						var r2 = ref2.valueChanges().subscribe( (success2: any) => {
+
+							console.log('ww',success2[0]);
+							
+							var price =  parseFloat(success2[0])+ parseFloat(this.total);
 							let valor=parseFloat(this.total);
 							
 							this.db.list('restaurantes').update(this.restaurantid, { balance: price }).then( success2 => {
@@ -450,13 +453,14 @@ export class CarritoPage implements OnInit {
 
 			this.db.list('transactions/' + this.uid).push(d).then( success => {
 				console.log('success', success);
-
+			
 				this.db.list('transactions/' + this.uid).update(success.key, { key: success.key }).then( success2 => {
 					if(data2['id_empresa']) {
 						this.newOrder(data2, this.products2, idRestaurante, price);
 					} else {
 						this.newOrder(data2, this.products2, idRestaurante, price);
 					}
+					
 				}).catch( error => {
 					console.log('error', error);
 				});
@@ -486,6 +490,7 @@ export class CarritoPage implements OnInit {
 				"price": price,
 				"products": productos,
 				"uid": this.uid,
+				"status":1
 			}
 		} else {
 			d = {
@@ -495,11 +500,12 @@ export class CarritoPage implements OnInit {
 				"price": price,
 				"products": productos,
 				"uid": this.uid,
+				"status":1
 			}
 		}
 
-		this.db.list('orders/' + this.uid).push(d).then( success => {
-			this.db.list('orders/' + this.uid).update(success.key, { key: success.key }).then( success2 => {
+	await	this.db.list('orders/' + this.restaurantid).push(d).then( success => {
+			this.db.list('orders/' + this.restaurantid).update(success.key, { key: success.key }).then( success2 => {
 				if(cliente['id_empresa']) {
 					this.newNotification(price, cliente['id_empresa'], cliente['name'], cliente['lastname'], success.key);
 				} else {
